@@ -1,0 +1,135 @@
+{
+  "bundle_id": "bundle-03-sam-patel-workplace-peep",
+  "bundle_name": "Bundle 3: Workplace PEEP — Employee with Sensory Impairments",
+  "bundle_version": "1.0.0",
+  "created_at": "2025-07-15T12:00:00Z",
+  "scenario": "Workplace PEEP for employee with profound hearing loss and low vision; reasonable adjustments implemented (visual alarms, tactile wayfinding, buddy system); 6-month review amended PEEP due to role change.",
+  "documents": [
+    {
+      "document_type": "person_profile",
+      "document_id": "person-sam-patel-uuid-003",
+      "file": "bundle_03_person_profile.json",
+      "description": "Person Profile for Sam Patel (fictitious employee)"
+    },
+    {
+      "document_type": "address",
+      "document_id": "building-innovation-centre-canary-wharf-001",
+      "file": "bundle_03_address.json",
+      "description": "Address for Innovation Centre, Canary Wharf, London (workplace)"
+    },
+    {
+      "document_type": "consent",
+      "document_id": "consent-sam-patel-uuid-003",
+      "file": "bundle_03_consent_given.json",
+      "description": "Consent record (given for workplace PCFRA and PEEP)"
+    },
+    {
+      "document_type": "pcfra_person",
+      "document_id": "pcfra-person-sam-patel-uuid-003",
+      "file": "bundle_03_pcfra_person.json",
+      "description": "Personal PCFRA (sensory impairments; functional capability assessment)"
+    },
+    {
+      "document_type": "peep",
+      "document_id": "peep-sam-patel-uuid-003",
+      "file": "bundle_03_peep.json",
+      "description": "PEEP (workplace evacuation plan with buddy system and communication adjustments)"
+    },
+    {
+      "document_type": "review",
+      "document_id": "review-sam-patel-2026-01-15",
+      "file": "bundle_03_review.json",
+      "description": "6-month review (amended due to role change; new PEEP created for Floor 5)"
+    }
+  ],
+  "cross_references": {
+    "consent_to_person": {
+      "from": "consent-sam-patel-uuid-003",
+      "to": "person-sam-patel-uuid-003",
+      "field": "personRef"
+    },
+    "pcfra_person_to_person": {
+      "from": "pcfra-person-sam-patel-uuid-003",
+      "to": "person-sam-patel-uuid-003",
+      "field": "personRef"
+    },
+    "pcfra_person_to_consent": {
+      "from": "pcfra-person-sam-patel-uuid-003",
+      "to": "consent-sam-patel-uuid-003",
+      "field": "consentRef"
+    },
+    "peep_to_person": {
+      "from": "peep-sam-patel-uuid-003",
+      "to": "person-sam-patel-uuid-003",
+      "field": "personProfile.personRef"
+    },
+    "peep_to_pcfra_person": {
+      "from": "peep-sam-patel-uuid-003",
+      "to": "pcfra-person-sam-patel-uuid-003",
+      "field": "references.pcfraId"
+    },
+    "peep_to_consent": {
+      "from": "peep-sam-patel-uuid-003",
+      "to": "consent-sam-patel-uuid-003",
+      "field": "consent (embedded)"
+    },
+    "review_to_peep": {
+      "from": "review-sam-patel-2026-01-15",
+      "to": "peep-sam-patel-v2-uuid-004",
+      "field": "new_document_ref.document_id"
+    }
+  },
+  "workflow_sequence": [
+    {
+      "step": 1,
+      "phase": "Onboarding",
+      "documents": [
+        "bundle_03_consent_given.json"
+      ],
+      "description": "Employee onboarding (2025-07-10); HR offers consent for workplace PEEP; employee consents."
+    },
+    {
+      "step": 2,
+      "phase": "Assessment",
+      "documents": [
+        "bundle_03_pcfra_person.json"
+      ],
+      "description": "Fire safety advisor conducts PCFRA (in-person, with BSL interpreter) on 2025-07-10; functional capability assessed; Access to Work report reviewed."
+    },
+    {
+      "step": 3,
+      "phase": "Reasonable Adjustments",
+      "documents": [],
+      "description": "Employer installs visual alarm beacons at workstation and high-contrast tactile wayfinding along evacuation routes (completed 2025-07-18)."
+    },
+    {
+      "step": 4,
+      "phase": "Planning",
+      "documents": [
+        "bundle_03_peep.json"
+      ],
+      "description": "PEEP created on 2025-07-15; buddy system assigned (Alex Chen as primary buddy); approved and effective from 2025-07-20."
+    },
+    {
+      "step": 5,
+      "phase": "Review",
+      "documents": [
+        "bundle_03_review.json"
+      ],
+      "description": "6-month review conducted on 2026-01-15; employee moved to Floor 5 (role change); PEEP amended; new PEEP (v2.0) created; previous PEEP superseded."
+    }
+  ],
+  "compliance_mapping": {
+    "fso_2005": {
+      "art_8_identify_persons": "PCFRA conducted to identify employee's evacuation needs",
+      "art_9_fire_safety_arrangements": "PEEP created with buddy system and communication adjustments",
+      "art_15_information": "PEEP provided to employee in accessible format (high-contrast, written)",
+      "art_21_training": "Buddy training completed; employee briefed on evacuation procedure"
+    },
+    "equality_act_2010": {
+      "sec_20_reasonable_adjustments": "Visual alarm beacons installed; high-contrast tactile wayfinding installed; buddy system assigned; BSL interpreter provided for training/drills"
+    }
+  },
+  "notes": "This bundle demonstrates a workplace PEEP for an employee with sensory impairments (profound hearing loss and low vision). The employer has implemented reasonable adjustments under the Equality Act 2010: visual alarm beacons, high-contrast tactile wayfinding, and a buddy system. The PEEP was reviewed at 6 months (rather than annually) due to a role change. The review resulted in an amended PEEP for the new floor location with a new buddy assignment. This demonstrates responsive review cycles triggered by change of circumstance."
+}
+

@@ -1,0 +1,106 @@
+{
+  "$id": "https://open-peep.org/schemas/common/person_profile.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Person Profile",
+  "description": "Minimal identifying information for a person associated with a PCFRA, PEEP, RPEEP, or Emergency Evacuation Statement. Identity anchor only: no impairments, no evacuation needs, no medical/function data.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "personRef": {
+      "type": "string",
+      "description": "Unique reference identifier for this person within the system.",
+      "$comment": "Regulatory relevance: Building Safety Act 2022 (golden thread) – consistent linkage across safety records."
+    },
+    "name": {
+      "type": "string",
+      "description": "Legal or chosen name of the person, if provided.",
+      "$comment": "Regulatory relevance: Equality Act 2010 – respect for chosen identity."
+    },
+    "alias": {
+      "type": "string",
+      "description": "Optional alias or nickname; may be used in place of name for short-term or sensitive contexts (e.g. hotel guests)."
+    },
+    "dob": {
+      "type": "string",
+      "format": "date",
+      "description": "Date of birth (ISO 8601). Use only if strictly required; may be substituted by age_band.",
+      "$comment": "Data minimisation (UK GDPR)."
+    },
+    "ageBand": {
+      "type": "string",
+      "enum": ["child", "adult", "older_adult"],
+      "description": "Approximate age group if DOB not provided.",
+      "$comment": "NFCC Person-Centred Fire Risk Framework – high-level risk awareness by age group without storing exact DOB."
+    },
+    "preferredLanguage": {
+      "type": "string",
+      "description": "Preferred language for communication (ISO 639-1 two-letter codes).",
+      "$comment": "Equality Act 2010 – reasonable adjustments for communication."
+    },
+    "contact": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "phone": { "type": "string" },
+        "email": { "type": "string", "format": "email" }
+      },
+      "description": "Optional contact details for communication.",
+      "$comment": "FSO 2005 – duty to consult and inform relevant persons."
+    },
+    "communicationPreferences": {
+      "type": "object",
+      "description": "Optional preferences for contact channels and accessible formats. Records how to communicate, not why. No health/impairment data.",
+      "$comment": "Equality Act 2010 (reasonable adjustments); FSO 2005 (consult/inform); Building Safety Act 2022 (golden thread metadata).",
+      "additionalProperties": false,
+      "properties": {
+        "channels": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "email",
+              "sms",
+              "phone_call",
+              "voice_message",
+              "postal",
+              "in_app",
+              "relay_service"
+            ]
+          },
+          "uniqueItems": true,
+          "description": "Preferred contact channels. Preference only; no reason recorded."
+        },
+        "formatPreferences": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "plain_language",
+              "large_print",
+              "high_contrast",
+              "alt_text_required",
+              "captioned_media",
+              "audio_format",
+              "written_only",
+              "no_voice_calls",
+              "bsl_interpreter_preferred"
+            ]
+          },
+          "uniqueItems": true,
+          "description": "Accessible content preferences expressed as formats, not conditions."
+        },
+        "notes": {
+          "type": "string",
+          "maxLength": 500,
+          "description": "Optional brief clarification of preferences (avoid health/impairment details)."
+        },
+        "consentRef": {
+          "type": "string",
+          "description": "Optional link to a Consent record governing communications.",
+          "$comment": "Capture lawful basis, refusal, or withdrawal in the separate Consent schema."
+        }
+      }
+    }
+  },
+  "required": ["personRef"]
+}

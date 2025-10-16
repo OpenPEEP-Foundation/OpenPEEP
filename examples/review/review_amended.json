@@ -1,0 +1,30 @@
+{
+  "reviewed_at": "2026-01-15T10:00:00Z",
+  "reviewed_by": {
+    "name": "Emily Watson",
+    "role": "Fire Safety Advisor",
+    "organisation": "TechCorp UK Ltd",
+    "contact": {
+      "email": "emily.watson@techcorp.example.com",
+      "phone": "+442071234567"
+    },
+    "reviewer_id": "fire-safety-emily-watson-001"
+  },
+  "outcome": "amended",
+  "summary": "6-month review conducted. Employee has moved to Floor 5 (new role: Senior Engineer). Workstation changed; primary buddy changed from Alex Chen to Priya Sharma. PEEP amended to reflect new floor location and new buddy assignment. Previous PEEP updated with new routes.",
+  "next_due": "2026-07-15",
+  "new_document_ref": {
+    "document_type": "peep",
+    "document_id": "peep-employee-v1.1-uuid-004",
+    "version": "1.1",
+    "uri": "https://techcorp.example.com/peeps/peep-employee-v1.1-uuid-004"
+  },
+  "attachments": [
+    {
+      "label": "Amended PEEP (v1.1)",
+      "uri": "https://techcorp.example.com/peeps/peep-employee-v1.1-uuid-004.pdf",
+      "sha256": "c5d2e66498fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852e654"
+    }
+  ]
+}
+

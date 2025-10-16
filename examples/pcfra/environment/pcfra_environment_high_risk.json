@@ -1,0 +1,57 @@
+{
+  "pcfraId": "pcfra-environment-high-risk-uuid-002",
+  "version": "1.0.0",
+  "buildingRef": "building-riverside-apartments-001",
+  "unitRef": "unit-riverside-3b-001",
+  "assessedAt": "2025-10-10T15:00:00Z",
+  "assessorRole": "fire_safety_advisor",
+  "assessmentMethod": "in_person",
+  "confidenceLevel": "high",
+  "consentRef": "consent-high-risk-uuid-002",
+  "environment": {
+    "cooking_risk": "Clutter near hob observed; chip pan present (fire risk). Resident advised on safe cooking practices.",
+    "electrical_risk": "Multiple overloaded extension sockets observed; damaged cable on portable heater. Circuit isolated immediately (immediate action). Portable heater removed.",
+    "smoking_risk": "Heavy indoor smoking; careless disposal of cigarette butts in bedroom bin (combustible materials present). Resident advised on safe disposal.",
+    "hoarding_risk": "Pathways narrowed by accumulated items (newspapers, cardboard boxes). Combustible load high. Exit partially blocked. Resident advised to clear pathways; offered support from housing officer.",
+    "accessEgress": "Exit partially blocked by items in hallway. Key management issue: spare key not accessible (kept in locked box in bedroom). Resident advised on key accessibility.",
+    "ignition_sources": [
+      "candles_unattended",
+      "multiple_space_heaters",
+      "chip_pan"
+    ],
+    "pets_risk": "None."
+  },
+  "safeguarding": {
+    "asbViolenceRisk": "None reported.",
+    "agencyInvolved": [],
+    "immediateDanger": true,
+    "immediateActionTaken": "Isolated electrical circuit feeding damaged portable heater; removed portable heater from flat. Advised resident on safe electrical use. Will arrange follow-up visit in 7 days to check compliance with advice.",
+    "referralsMade": []
+  },
+  "outcome": {
+    "relevantResident": true,
+    "peepRequired": true,
+    "rationale": "High environmental fire risk: multiple ignition sources, hoarding, electrical hazards, egress partially blocked. Immediate action taken to isolate damaged circuit and remove portable heater. PEEP required urgently. Follow-up visit scheduled to re-assess environmental risks and monitor compliance with advice. Resident may require support to reduce clutter and improve fire safety."
+  },
+  "provenance": [
+    {
+      "path": "/environment/electrical_risk",
+      "source": "assessor_observed",
+      "evidence": "visual_inspection",
+      "confidenceLevel": "high",
+      "recordedByRole": "fire_safety_advisor",
+      "notes": "Overloaded sockets and damaged cable on portable heater observed. Immediate action taken: circuit isolated, heater removed. Photographs taken as evidence."
+    },
+    {
+      "path": "/environment/hoarding_risk",
+      "source": "assessor_observed",
+      "evidence": "visual_inspection",
+      "confidenceLevel": "high",
+      "recordedByRole": "fire_safety_advisor",
+      "notes": "Significant clutter observed in hallway and living room. Pathways narrowed; egress partially blocked. Resident offered support; declined at this time."
+    }
+  ],
+  "environment_other_notes": "High environmental risk. Immediate mitigation action taken. Follow-up required within 7 days. Resident may require additional support (housing officer, adult social care). Consider referral if compliance does not improve.",
+  "notes": "High-risk environmental assessment. Immediate danger identified and mitigated (electrical hazard). Resident cooperative but appears overwhelmed. Follow-up visit scheduled for 2025-10-17. If no improvement, escalate to housing manager and consider adult social care referral."
+}
+

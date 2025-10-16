@@ -1,0 +1,189 @@
+{
+  "bundle_id": "bundle-01-alex-thompson-residential-rpeep",
+  "bundle_name": "Bundle 1: Residential RPEEP — Wheelchair User (Consent Given)",
+  "bundle_version": "1.0.0",
+  "created_at": "2025-09-15T15:30:00Z",
+  "scenario": "Residential RPEEP for manual wheelchair user in high-rise building; consent given; full lifecycle including PCFRA, PEEP, EES, and annual review.",
+  "documents": [
+    {
+      "document_type": "person_profile",
+      "document_id": "person-alex-thompson-uuid-001",
+      "file": "bundle_01_person_profile.json",
+      "description": "Person Profile for Alex Thompson (fictitious resident)"
+    },
+    {
+      "document_type": "address",
+      "document_id": "unit-churchill-12a-001",
+      "file": "bundle_01_address.json",
+      "description": "Address for Flat 12A, Churchill House, Manchester"
+    },
+    {
+      "document_type": "consent",
+      "document_id": "consent-alex-thompson-uuid-001",
+      "file": "bundle_01_consent_given.json",
+      "description": "Consent record (given for PCFRA, PEEP, EES, and FRS sharing)"
+    },
+    {
+      "document_type": "pcfra_person",
+      "document_id": "pcfra-person-alex-thompson-uuid-001",
+      "file": "bundle_01_pcfra_person.json",
+      "description": "Personal PCFRA (functional capability assessment)"
+    },
+    {
+      "document_type": "pcfra_environment",
+      "document_id": "pcfra-environment-churchill-12a-uuid-001",
+      "file": "bundle_01_pcfra_environment.json",
+      "description": "Environmental PCFRA (dwelling/setting risk assessment)"
+    },
+    {
+      "document_type": "peep",
+      "document_id": "peep-alex-thompson-uuid-001",
+      "file": "bundle_01_peep.json",
+      "description": "PEEP (Personal Emergency Evacuation Plan with evacuation lift route)"
+    },
+    {
+      "document_type": "ees_personal",
+      "document_id": "ees-personal-alex-thompson-uuid-001",
+      "file": "bundle_01_ees_personal.json",
+      "description": "EES Personal (plain-language resident-facing evacuation instructions)"
+    },
+    {
+      "document_type": "review",
+      "document_id": "review-alex-thompson-2026-09-15",
+      "file": "bundle_01_review.json",
+      "description": "Annual review (confirmed, no change; next review due 2027-09-15)"
+    }
+  ],
+  "cross_references": {
+    "person_profile_to_consent": {
+      "from": "person-alex-thompson-uuid-001",
+      "to": "consent-alex-thompson-uuid-001",
+      "field": "personProfile.communicationPreferences.consentRef"
+    },
+    "consent_to_person": {
+      "from": "consent-alex-thompson-uuid-001",
+      "to": "person-alex-thompson-uuid-001",
+      "field": "personRef"
+    },
+    "pcfra_person_to_person": {
+      "from": "pcfra-person-alex-thompson-uuid-001",
+      "to": "person-alex-thompson-uuid-001",
+      "field": "personRef"
+    },
+    "pcfra_person_to_consent": {
+      "from": "pcfra-person-alex-thompson-uuid-001",
+      "to": "consent-alex-thompson-uuid-001",
+      "field": "consentRef"
+    },
+    "pcfra_environment_to_building": {
+      "from": "pcfra-environment-churchill-12a-uuid-001",
+      "to": "building-churchill-house-001",
+      "field": "buildingRef"
+    },
+    "pcfra_environment_to_unit": {
+      "from": "pcfra-environment-churchill-12a-uuid-001",
+      "to": "unit-churchill-12a-001",
+      "field": "unitRef"
+    },
+    "pcfra_environment_to_consent": {
+      "from": "pcfra-environment-churchill-12a-uuid-001",
+      "to": "consent-alex-thompson-uuid-001",
+      "field": "consentRef"
+    },
+    "peep_to_person": {
+      "from": "peep-alex-thompson-uuid-001",
+      "to": "person-alex-thompson-uuid-001",
+      "field": "personProfile.personRef"
+    },
+    "peep_to_pcfra_person": {
+      "from": "peep-alex-thompson-uuid-001",
+      "to": "pcfra-person-alex-thompson-uuid-001",
+      "field": "references.pcfraId"
+    },
+    "peep_to_consent": {
+      "from": "peep-alex-thompson-uuid-001",
+      "to": "consent-alex-thompson-uuid-001",
+      "field": "consent (embedded)"
+    },
+    "peep_to_ees_building": {
+      "from": "peep-alex-thompson-uuid-001",
+      "to": "ees-building-churchill-house-uuid-001",
+      "field": "references.buildingStatementEesId"
+    },
+    "ees_personal_to_person": {
+      "from": "ees-personal-alex-thompson-uuid-001",
+      "to": "person-alex-thompson-uuid-001",
+      "field": "person_profile_ref"
+    },
+    "ees_personal_to_peep": {
+      "from": "ees-personal-alex-thompson-uuid-001",
+      "to": "peep-alex-thompson-uuid-001",
+      "field": "peep_document_id"
+    },
+    "ees_personal_to_ees_building": {
+      "from": "ees-personal-alex-thompson-uuid-001",
+      "to": "ees-building-churchill-house-uuid-001",
+      "field": "building_ees_document_id"
+    }
+  },
+  "workflow_sequence": [
+    {
+      "step": 1,
+      "phase": "Assessment",
+      "documents": [
+        "bundle_01_pcfra_person.json",
+        "bundle_01_pcfra_environment.json"
+      ],
+      "description": "Housing officer conducts in-person PCFRA (personal and environmental) on 2025-09-15."
+    },
+    {
+      "step": 2,
+      "phase": "Consent",
+      "documents": [
+        "bundle_01_consent_given.json"
+      ],
+      "description": "Resident offers consent for PCFRA, PEEP, EES, and FRS sharing; consent given via written method on 2025-09-15."
+    },
+    {
+      "step": 3,
+      "phase": "Planning",
+      "documents": [
+        "bundle_01_peep.json"
+      ],
+      "description": "PEEP created referencing PCFRAs and consent; approved on 2025-09-15; effective from 2025-09-20."
+    },
+    {
+      "step": 4,
+      "phase": "Delivery",
+      "documents": [
+        "bundle_01_ees_personal.json"
+      ],
+      "description": "EES Personal created in plain language; delivered to resident via door drop on 2025-09-20; acknowledgement recorded."
+    },
+    {
+      "step": 5,
+      "phase": "Review",
+      "documents": [
+        "bundle_01_review.json"
+      ],
+      "description": "Annual review conducted on 2026-09-15; outcome: confirmed, no change; next review due 2027-09-15."
+    }
+  ],
+  "compliance_mapping": {
+    "uk_residential_regs_2025": {
+      "reg_3_duty_to_prepare": "PEEP created for relevant resident (pcfra_person.outcome.relevantResident = true)",
+      "reg_4_consent": "Consent offered and given; recorded in consent document",
+      "reg_5_review": "Annual review conducted; next review due date recorded",
+      "reg_10_information_to_residents": "EES Personal delivered to resident; delivery recorded",
+      "reg_12_share_with_frs": "Consent scope includes 'share_with_frs'; PEEP available for FRS access"
+    },
+    "building_safety_act_2022": {
+      "golden_thread": "All documents linked via stable UUIDs; golden thread URN recorded in PEEP metadata"
+    },
+    "equality_act_2010": {
+      "reasonable_adjustments": "Evacuation lift route provided; assistance specified; communications adjustments recorded"
+    }
+  },
+  "notes": "This bundle demonstrates the full residential RPEEP lifecycle from assessment through to annual review. All documents are linked via UUIDs. Consent is given, allowing full PEEP creation and FRS sharing. The PEEP specifies evacuation lift as primary route (BS EN 81-76 compliant) with evacuation chair as secondary option. EES Personal delivered in plain language. Annual review confirms no changes; PEEP remains valid."
+}
+

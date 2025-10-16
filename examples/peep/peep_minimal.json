@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "1.0.0",
+  "peepId": "peep-minimal-uuid-002",
+  "personProfile": {
+    "personRef": "person-minimal-uuid-002"
+  },
+  "address": {
+    "countryCode": "GB"
+  },
+  "evacuationStrategy": "Simultaneous Evacuation",
+  "planSummary": "Evacuate via primary route to assembly point.",
+  "metadata": {
+    "createdAt": "2025-10-05T10:00:00Z",
+    "createdBy": "system@example.org",
+    "status": "draft"
+  },
+  "routes": [
+    {
+      "name": "Primary",
+      "pathDescription": "Exit premises via nearest stairwell to ground floor assembly point."
+    }
+  ],
+  "evacuationProcedure": [
+    {
+      "order": 1,
+      "instruction": "Evacuate immediately on alarm activation."
+    }
+  ]
+}
+

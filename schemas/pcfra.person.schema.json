@@ -1,0 +1,390 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://open-peep.org/schemas/pcfra/pcfra.person.schema.json",
+  "title": "Person-Centred Fire Risk Assessment — Personal",
+  "description": "PCFRA (personal vulnerabilities only). Standalone schema capturing functional capability for evacuation; no diagnoses.",
+  "$comment": "Regulatory alignment: Fire Safety (Residential Evacuation Plans) (England) Regulations 2025 (from Apr 2026); Regulatory Reform (Fire Safety) Order 2005; Building Safety Act 2022 (golden thread); Equality Act 2010 (reasonable adjustments); Approved Document B (Fire Safety); NFCC Person-Centred Fire Risk Framework.",
+  "type": "object",
+  "properties": {
+    "pcfraId": {
+      "type": "string",
+      "description": "Stable identifier for this PCFRA record (e.g. UUID)."
+    },
+    "version": {
+      "type": "string",
+      "description": "Schema/document version tag for auditability."
+    },
+    "personRef": {
+      "type": "string",
+      "description": "Identifier linking to the Person Profile in the host system."
+    },
+    "assessedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of the assessment."
+    },
+    "assessorRole": {
+      "type": "string",
+      "description": "Role/capacity of the person recording the assessment (e.g. housing_officer, fire_safety_advisor, self)."
+    },
+    "assessmentMethod": {
+      "type": "string",
+      "enum": [
+        "phone",
+        "digital_self",
+        "in_person"
+      ],
+      "description": "How the assessment was performed."
+    },
+    "confidenceLevel": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "description": "Overall confidence in the information captured, considering method and context."
+    },
+    "consentRef": {
+      "type": "string",
+      "description": "Link to a Consent record (given/refused/withdrawn) in common/consent."
+    },
+    "capability": {
+      "type": "object",
+      "description": "Functional evacuation capabilities and supports required. Use functional phrases; avoid diagnoses.",
+      "properties": {
+        "walkingEndurance": {
+          "type": "string",
+          "enum": [
+            "normal_pace",
+            "needs_frequent_breaks",
+            "limited_distance",
+            "cannot_walk"
+          ],
+          "description": "Functional ability to sustain walking to an exit."
+        },
+        "respiratoryTolerance": {
+          "type": "string",
+          "enum": [
+            "normal",
+            "mild_breathlessness_on_exertion",
+            "frequent_breaks_required",
+            "oxygen_support_needed"
+          ],
+          "description": "Breathing-related tolerance during evacuation."
+        },
+        "mobilityTransfer": {
+          "type": "string",
+          "enum": [
+            "independent_transfer",
+            "stand_pivot_with_support",
+            "hoist_or_full_lift_required",
+            "unable_to_transfer"
+          ],
+          "description": "Ability to stand, pivot, or transfer."
+        },
+        "stairTolerance": {
+          "type": "string",
+          "enum": [
+            "stairs_independent",
+            "stairs_with_assist",
+            "cannot_use_stairs"
+          ],
+          "description": "Functional tolerance for stairs."
+        },
+        "mobilityAid": {
+          "type": "string",
+          "enum": [
+            "none",
+            "stick",
+            "frame",
+            "assisted_walking",
+            "wheelchair_manual",
+            "wheelchair_powered"
+          ],
+          "description": "Primary mobility aid used."
+        },
+        "hearingSupport": {
+          "type": "string",
+          "enum": [
+            "none",
+            "hearing_aid",
+            "visual_alerts_required",
+            "vibrating_pager"
+          ],
+          "description": "Support required for alerts/communication."
+        },
+        "sensoryHearing": {
+          "type": "string",
+          "enum": [
+            "typical",
+            "reduced",
+            "profound"
+          ],
+          "description": "Baseline hearing ability relevant to evacuation (not a diagnosis)."
+        },
+        "visionSupport": {
+          "type": "string",
+          "enum": [
+            "none",
+            "high_contrast_signage",
+            "tactile_guidance",
+            "additional_lighting"
+          ],
+          "description": "Support required for wayfinding/alerts."
+        },
+        "sensoryVision": {
+          "type": "string",
+          "enum": [
+            "typical",
+            "low_vision",
+            "blind"
+          ],
+          "description": "Baseline vision ability relevant to evacuation (not a diagnosis)."
+        },
+        "cognitionSupport": {
+          "type": "string",
+          "enum": [
+            "none",
+            "step_by_step_prompts",
+            "carer_guidance_required"
+          ],
+          "description": "Support with understanding/decision-making."
+        },
+        "cognitionAbility": {
+          "type": "string",
+          "enum": [
+            "typical",
+            "mild_support_needed",
+            "significant_support_needed"
+          ],
+          "description": "Ability to understand and follow emergency instructions."
+        },
+        "communicationSupport": {
+          "type": "string",
+          "enum": [
+            "none",
+            "plain_language",
+            "BSL",
+            "AAC_device",
+            "text_only"
+          ],
+          "description": "Preferred/required communication methods."
+        },
+        "communicationAbility": {
+          "type": "string",
+          "enum": [
+            "typical",
+            "mild_difficulty",
+            "severe_difficulty",
+            "non_verbal"
+          ],
+          "description": "Ability to communicate or understand emergency instructions when needed."
+        },
+        "nightResponse": {
+          "type": "string",
+          "enum": [
+            "wakes_to_alarm",
+            "requires_vibrating_pillow",
+            "deep_sleeper_support"
+          ],
+          "description": "Likely responsiveness when asleep."
+        },
+        "alertnessSupport": {
+          "type": "string",
+          "enum": [
+            "none",
+            "prompts_needed_when_distressed",
+            "simplified_instructions_required"
+          ],
+          "description": "If reactions when awake require prompts/adjustments."
+        },
+        "alertnessEffects": {
+          "type": "string",
+          "enum": [
+            "typical",
+            "mildly_affected",
+            "significantly_affected"
+          ],
+          "description": "Whether medication/substances are likely to affect responsiveness to alarms or instructions."
+        },
+        "equipmentDependency": {
+          "type": "string",
+          "enum": [
+            "none",
+            "oxygen_therapy",
+            "ventilation_device",
+            "powered_bed",
+            "other_equipment"
+          ],
+          "description": "Critical equipment affecting evacuation."
+        },
+        "behaviouralRisks": {
+          "type": "array",
+          "description": "Observed behaviours increasing risk (observable, non-diagnostic).",
+          "items": {
+            "type": "string",
+            "enum": [
+              "smoking_in_bed",
+              "hoarding_observed",
+              "aggressive_towards_staff",
+              "non_cooperation_with_safety_guidance",
+              "confusion_in_emergency",
+              "substances_present",
+              "fire_setting_behaviour",
+              "other_observed"
+            ]
+          }
+        },
+        "assistRequired": {
+          "type": "string",
+          "enum": [
+            "none",
+            "needs_assist_1",
+            "needs_assist_2"
+          ],
+          "description": "Summary of human assistance required."
+        },
+        "assistLevel": {
+          "type": "string",
+          "enum": [
+            "none",
+            "occasional_support",
+            "constant_support"
+          ],
+          "description": "Level of human assistance needed to evacuate (derived from assessment question)."
+        },
+        "equipmentNeeded": {
+          "type": "array",
+          "description": "Evacuation equipment likely required (e.g. evac_chair_required, transfer_board, evacuation_sheet).",
+          "items": {
+            "type": "string",
+            "enum": [
+              "evac_chair_required",
+              "transfer_board",
+              "evacuation_sheet",
+              "stair_climber",
+              "rescue_sledge"
+            ]
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "outcome": {
+      "type": "object",
+      "description": "Decision outputs used to trigger planning actions.",
+      "properties": {
+        "relevantResident": {
+          "type": "boolean",
+          "description": "True if the person is in scope for Residential Evacuation Plans under the 2025 Regulations."
+        },
+        "peepRequired": {
+          "type": "boolean",
+          "description": "True if a PEEP/RPEEP is required based on capabilities and risk."
+        },
+        "rationale": {
+          "type": "string",
+          "description": "Short justification for the decision, avoiding medical detail."
+        }
+      },
+      "required": [
+        "relevantResident",
+        "peepRequired",
+        "rationale"
+      ],
+      "additionalProperties": false
+    },
+    "provenance": {
+      "type": "array",
+      "description": "Source/verification details for specific fields (self-report vs observed, etc.).",
+      "items": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "JSON Pointer to the field (e.g. /capability/mobility_aid)."
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "self_report",
+              "assessor_observed",
+              "third_party_record",
+              "system_generated"
+            ],
+            "description": "Who/how the info originated."
+          },
+          "evidence": {
+            "type": "string",
+            "enum": [
+              "visual_inspection",
+              "verbal_account",
+              "document_seen",
+              "device_log",
+              "photo_evidence",
+              "other_evidence"
+            ],
+            "description": "What supports the value recorded."
+          },
+          "confidenceLevel": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high"
+            ],
+            "description": "Confidence in this specific item (if different from overall)."
+          },
+          "recordedByRole": {
+            "type": "string",
+            "description": "Role/capacity of the person recording (e.g. housing_officer, front_desk, self)."
+          },
+          "verifiedByRole": {
+            "type": "string",
+            "description": "If verified, who verified (role only, not name)."
+          },
+          "verifiedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the item was verified (if applicable)."
+          },
+          "notes": {
+            "type": "string",
+            "description": "Short, non-sensitive clarifier if needed."
+          }
+        },
+        "required": [
+          "path",
+          "source"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "reviews": {
+      "type": "array",
+      "description": "Lifecycle reviews of this PCFRA.",
+      "items": {
+        "$ref": "https://open-peep.org/schemas/common/review.schema.json"
+      }
+    },
+    "notes": {
+      "type": "string",
+      "description": "Optional free text for clarifications—kept minimal and non-sensitive."
+    },
+    "attachments": {
+      "type": "array",
+      "description": "Optional list of host-system attachment identifiers (no files embedded).",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "personRef",
+    "assessedAt",
+    "assessmentMethod",
+    "outcome"
+  ],
+  "additionalProperties": false
+}

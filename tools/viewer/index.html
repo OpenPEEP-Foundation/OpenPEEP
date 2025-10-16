@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenPEEP Schema Validator & Viewer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        .main-content {
+            padding: 30px;
+        }
+
+        .upload-area {
+            border: 3px dashed #ccc;
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            background: #fafafa;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .upload-area.dragover {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+
+        .upload-area h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .upload-area p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .file-input-label {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #667eea;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .file-input-label:hover {
+            background: #5568d3;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 300px;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            margin: 20px 0;
+            resize: vertical;
+        }
+
+        .schema-select {
+            margin: 20px 0;
+        }
+
+        .schema-select label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .schema-select select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: #5568d3;
+        }
+
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .validation-result {
+            margin: 30px 0;
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        .validation-result.success {
+            background: #d4edda;
+            border: 2px solid #28a745;
+        }
+
+        .validation-result.error {
+            background: #f8d7da;
+            border: 2px solid #dc3545;
+        }
+
+        .validation-result h3 {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .validation-result.success h3 {
+            color: #155724;
+        }
+
+        .validation-result.error h3 {
+            color: #721c24;
+        }
+
+        .error-list {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .error-item {
+            background: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-left: 4px solid #dc3545;
+            border-radius: 3px;
+        }
+
+        .error-item strong {
+            color: #dc3545;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .error-item code {
+            background: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 13px;
+        }
+
+        .formatted-output {
+            margin-top: 30px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section-header {
+            font-size: 18px;
+            font-weight: 700;
+            color: #667eea;
+            padding-bottom: 8px;
+            border-bottom: 3px solid #667eea;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .field-group {
+            margin-bottom: 20px;
+        }
+
+        .field {
+            display: flex;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .field-label {
+            font-weight: 600;
+            color: #555;
+            min-width: 200px;
+            flex-shrink: 0;
+        }
+
+        .field-value {
+            color: #333;
+            flex-grow: 1;
+        }
+
+        .field-value code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 13px;
+        }
+
+        .array-item {
+            background: #f9f9f9;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 3px solid #667eea;
+            border-radius: 3px;
+        }
+
+        .extensions-section {
+            background: #fff8e1;
+            border: 2px solid #ffc107;
+            border-radius: 5px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        .extensions-section .section-header {
+            color: #f57c00;
+            border-bottom-color: #ffc107;
+        }
+
+        .extension-namespace {
+            background: white;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            border-left: 4px solid #ff9800;
+        }
+
+        .extension-namespace h4 {
+            color: #f57c00;
+            margin-bottom: 10px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .badge.required {
+            background: #dc3545;
+            color: white;
+        }
+
+        .badge.optional {
+            background: #6c757d;
+            color: white;
+        }
+
+        .badge.valid {
+            background: #28a745;
+            color: white;
+        }
+
+        .badge.invalid {
+            background: #dc3545;
+            color: white;
+        }
+
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 3px;
+        }
+
+        .info-box strong {
+            color: #1976d2;
+        }
+
+        .route-card {
+            background: #f8f9fa;
+            border: 2px solid #dee2e6;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .route-card h4 {
+            color: #495057;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .procedure-step {
+            display: flex;
+            gap: 15px;
+            margin: 10px 0;
+            padding: 12px;
+            background: white;
+            border-radius: 5px;
+            border-left: 3px solid #667eea;
+        }
+
+        .step-number {
+            background: #667eea;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .step-instruction {
+            flex-grow: 1;
+            padding-top: 3px;
+        }
+
+        .actions {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 13px;
+            border-top: 1px solid #eee;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .upload-area, .schema-select, .actions, textarea {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔥 OpenPEEP Schema Validator & Viewer</h1>
+            <p>Validate and view OpenPEEP JSON documents in human-readable format</p>
+        </header>
+
+        <div class="main-content">
+            <div class="upload-area" id="uploadArea">
+                <h3>📁 Upload or Paste JSON</h3>
+                <p>Drag & drop a JSON file here, or use the button below</p>
+                <label for="fileInput" class="file-input-label">Choose File</label>
+                <input type="file" id="fileInput" accept=".json">
+            </div>
+
+            <textarea id="jsonInput" placeholder="Or paste your JSON here..."></textarea>
+
+            <div class="schema-select">
+                <label for="schemaType">Schema Type:</label>
+                <select id="schemaType">
+                    <option value="auto">Auto-detect</option>
+                    <option value="peep">PEEP (Personal Emergency Evacuation Plan)</option>
+                    <option value="pcfra_person">PCFRA (Person)</option>
+                    <option value="pcfra_environment">PCFRA (Environment)</option>
+                    <option value="consent">Consent</option>
+                    <option value="review">Review</option>
+                    <option value="person_profile">Person Profile</option>
+                    <option value="address">Address</option>
+                    <option value="ees_building">EES (Building)</option>
+                    <option value="ees_personal">EES (Personal)</option>
+                </select>
+            </div>
+
+            <div class="actions">
+                <button class="btn" id="validateBtn">Validate & View</button>
+                <button class="btn" id="clearBtn" style="background: #6c757d;">Clear</button>
+            </div>
+
+            <div id="validationResult"></div>
+            <div id="formattedOutput"></div>
+        </div>
+
+        <footer>
+            <p>OpenPEEP Standard | Version 1.0.0-beta | Client-side validation (privacy-preserving)</p>
+            <p><a href="../../README.md" target="_blank">Documentation</a> | <a href="https://github.com/OpenPEEP-Foundation/OpenPEEP" target="_blank">GitHub</a></p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/ajv@8.12.0/dist/2020.bundle.js"></script>
+    
+    <script>
+        // Initialize AJV with 2020-12 support
+        const ajv = new window.ajv2020.default({ allErrors: true, strict: false, validateFormats: true });
+        
+        // Add format validators
+        ajv.addFormat('uuid', /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i);
+        ajv.addFormat('date-time', /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[+-]\d{2}:\d{2})$/);
+        ajv.addFormat('date', /^\d{4}-\d{2}-\d{2}$/);
+        ajv.addFormat('email', /^[^\s@]+@[^\s@]+\.[^\s@]+$/);
+        ajv.addFormat('uri', /^https?:\/\/.+/);
+        
+        // Schema cache
+        const schemaCache = {};
+        let schemasLoaded = false;
+
+        // Schema paths (relative to this HTML file)
+        const schemaPaths = {
+            'peep': '../../schemas/peep.schema.json',
+            'consent': '../../schemas/common/consent.schema.json',
+            'review': '../../schemas/common/review.schema.json',
+            'person_profile': '../../schemas/common/person_profile.schema.json',
+            'address': '../../schemas/common/address.schema.json',
+            'pcfra_person': '../../schemas/pcfra.person.schema.json',
+            'pcfra_environment': '../../schemas/pcfra.environment.schema.json',
+            'ees_building': '../../schemas/ees_building.schema.json',
+            'ees_personal': '../../schemas/ees_personal.schema.json'
+        };
+
+        // Load a schema file
+        async function loadSchema(schemaType) {
+            if (schemaCache[schemaType]) {
+                return schemaCache[schemaType];
+            }
+            
+            const path = schemaPaths[schemaType];
+            if (!path) return null;
+            
+            try {
+                const response = await fetch(path);
+                if (!response.ok) throw new Error(`Schema not found: ${path}`);
+                const schema = await response.json();
+                schemaCache[schemaType] = schema;
+                
+                // Add schema to AJV
+                if (schema.$id) {
+                    ajv.addSchema(schema);
+                }
+                
+                return schema;
+            } catch (err) {
+                console.error(`Failed to load schema ${schemaType}:`, err);
+                return null;
+            }
+        }
+        
+        // DOM elements
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const jsonInput = document.getElementById('jsonInput');
+        const schemaType = document.getElementById('schemaType');
+        const validateBtn = document.getElementById('validateBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const validationResult = document.getElementById('validationResult');
+        const formattedOutput = document.getElementById('formattedOutput');
+
+        // Drag & drop handlers
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const file = e.dataTransfer.files[0];
+            if (file && file.type === 'application/json') {
+                loadFile(file);
+            }
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) loadFile(file);
+        });
+
+        function loadFile(file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                jsonInput.value = e.target.result;
+            };
+            reader.readAsText(file);
+        }
+
+        // Clear button
+        clearBtn.addEventListener('click', () => {
+            jsonInput.value = '';
+            validationResult.innerHTML = '';
+            formattedOutput.innerHTML = '';
+            fileInput.value = '';
+        });
+
+        // Validate button
+        validateBtn.addEventListener('click', validateAndView);
+
+        // Schema detection
+        function detectSchema(data) {
+            if (data.peepId && data.evacuationStrategy) return 'peep';
+            if (data.state && Array.isArray(data.scope)) return 'consent';
+            if (data.reviewed_at && data.reviewed_by) return 'review';
+            if (data.capability) return 'pcfra_person';
+            if (data.environment || data.safeguarding) return 'pcfra_environment';
+            if (data.evacuation_strategy && data.who_should_move_when) return 'ees_building';
+            if (data.person_profile_ref && data.peep_document_id) return 'ees_personal';
+            if (data.personRef && (data.name || data.alias)) return 'person_profile';
+            if (data.countryCode || data.postcode || data.buildingName) return 'address';
+            return 'unknown';
+        }
+
+        // Main validation function
+        async function validateAndView() {
+            const jsonText = jsonInput.value.trim();
+            if (!jsonText) {
+                showError('Please upload a file or paste JSON');
+                return;
+            }
+
+            let data;
+            try {
+                data = JSON.parse(jsonText);
+            } catch (err) {
+                showError(`Invalid JSON syntax: ${err.message}`);
+                return;
+            }
+
+            // Detect schema
+            const selectedSchema = schemaType.value;
+            const detectedSchema = selectedSchema === 'auto' ? detectSchema(data) : selectedSchema;
+
+            if (detectedSchema === 'unknown') {
+                showError('Could not auto-detect schema type. Please select manually.');
+                return;
+            }
+
+            // Load and validate against actual schema
+            try {
+                validationResult.innerHTML = '<div class="info-box">⏳ Loading schema and validating...</div>';
+                
+                const schema = await loadSchema(detectedSchema);
+                
+                if (!schema) {
+                    // Schema couldn't be loaded (might be file:// protocol issue)
+                    showValidationWarning(detectedSchema, 'Schema file not loaded. Showing formatted view only. For full validation, use: npm run test:all');
+                    renderDocument(data, detectedSchema);
+                    return;
+                }
+
+                // Validate using AJV
+                const validate = ajv.compile(schema);
+                const valid = validate(data);
+
+                if (valid) {
+                    showValidationSuccess(detectedSchema);
+                    renderDocument(data, detectedSchema);
+                } else {
+                    showValidationErrors(detectedSchema, validate.errors);
+                    // Still render the document so user can see what they have
+                    renderDocument(data, detectedSchema);
+                }
+            } catch (err) {
+                console.error('Validation error:', err);
+                showValidationWarning(detectedSchema, `Validation error: ${err.message}. Showing formatted view only.`);
+                renderDocument(data, detectedSchema);
+            }
+        }
+
+        function showError(message) {
+            validationResult.innerHTML = `
+                <div class="validation-result error">
+                    <h3>❌ Error</h3>
+                    <p>${message}</p>
+                </div>
+            `;
+            formattedOutput.innerHTML = '';
+        }
+
+        function showValidationSuccess(schemaName) {
+            const schemaNames = {
+                'peep': 'PEEP',
+                'pcfra_person': 'PCFRA (Person)',
+                'pcfra_environment': 'PCFRA (Environment)',
+                'consent': 'Consent',
+                'review': 'Review',
+                'person_profile': 'Person Profile',
+                'address': 'Address',
+                'ees_building': 'EES (Building)',
+                'ees_personal': 'EES (Personal)'
+            };
+
+            validationResult.innerHTML = `
+                <div class="validation-result success">
+                    <h3>✅ Validation Passed</h3>
+                    <p><strong>Schema:</strong> ${schemaNames[schemaName] || schemaName} v1.0.0</p>
+                    <p>✅ All required fields present</p>
+                    <p>✅ All field types correct</p>
+                    <p>✅ No validation errors</p>
+                </div>
+            `;
+        }
+
+        function showValidationWarning(schemaName, message) {
+            const schemaNames = {
+                'peep': 'PEEP',
+                'pcfra_person': 'PCFRA (Person)',
+                'pcfra_environment': 'PCFRA (Environment)',
+                'consent': 'Consent',
+                'review': 'Review',
+                'person_profile': 'Person Profile',
+                'address': 'Address',
+                'ees_building': 'EES (Building)',
+                'ees_personal': 'EES (Personal)'
+            };
+
+            validationResult.innerHTML = `
+                <div class="validation-result" style="background: #fff3cd; border-color: #ffc107;">
+                    <h3 style="color: #856404;">⚠️ Warning</h3>
+                    <p><strong>Schema:</strong> ${schemaNames[schemaName] || schemaName}</p>
+                    <p>${message}</p>
+                </div>
+            `;
+        }
+
+        function showValidationErrors(schemaName, errors) {
+            const schemaNames = {
+                'peep': 'PEEP',
+                'pcfra_person': 'PCFRA (Person)',
+                'pcfra_environment': 'PCFRA (Environment)',
+                'consent': 'Consent',
+                'review': 'Review',
+                'person_profile': 'Person Profile',
+                'address': 'Address',
+                'ees_building': 'EES (Building)',
+                'ees_personal': 'EES (Personal)'
+            };
+
+            let html = `
+                <div class="validation-result error">
+                    <h3>❌ Validation Failed</h3>
+                    <p><strong>Schema:</strong> ${schemaNames[schemaName] || schemaName} v1.0.0</p>
+                    <p><strong>${errors.length} error(s) found:</strong></p>
+                    <ul class="error-list">
+            `;
+
+            errors.forEach((error, index) => {
+                const fieldPath = error.instancePath || '/';
+                const message = error.message || 'Unknown error';
+                
+                let friendlyMessage = message;
+                let fixSuggestion = '';
+
+                // Provide friendly error messages and fix suggestions
+                if (error.keyword === 'required') {
+                    const missingField = error.params.missingProperty;
+                    friendlyMessage = `Missing required field: "${missingField}"`;
+                    fixSuggestion = getFixSuggestion(missingField, schemaName);
+                } else if (error.keyword === 'type') {
+                    friendlyMessage = `Field has wrong type: expected ${error.params.type}, got ${typeof error.data}`;
+                } else if (error.keyword === 'enum') {
+                    friendlyMessage = `Invalid value. Allowed values: ${error.params.allowedValues?.join(', ') || 'see schema'}`;
+                } else if (error.keyword === 'pattern') {
+                    friendlyMessage = `Value doesn't match required pattern: ${error.params.pattern}`;
+                } else if (error.keyword === 'format') {
+                    friendlyMessage = `Invalid format for ${error.params.format}`;
+                    if (error.params.format === 'uuid') fixSuggestion = 'Use UUID v4 format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx';
+                    if (error.params.format === 'date-time') fixSuggestion = 'Use ISO 8601: 2025-10-14T10:00:00Z';
+                    if (error.params.format === 'date') fixSuggestion = 'Use ISO 8601 date: 2025-10-14';
+                }
+
+                html += `
+                    <li class="error-item">
+                        <strong>Error ${index + 1}: ${friendlyMessage}</strong>
+                        <div><strong>Path:</strong> <code>${fieldPath}</code></div>
+                        ${error.params ? `<div><strong>Details:</strong> ${JSON.stringify(error.params)}</div>` : ''}
+                        ${fixSuggestion ? `<div style="color: #28a745; margin-top: 8px;"><strong>💡 Fix:</strong> ${fixSuggestion}</div>` : ''}
+                    </li>
+                `;
+            });
+
+            html += `
+                    </ul>
+                    <div style="margin-top: 15px; padding: 10px; background: #e7f3ff; border-radius: 3px;">
+                        <strong>💡 Tip:</strong> Fix these errors and validate again. The document is displayed below (with errors) so you can see what's present.
+                    </div>
+                </div>
+            `;
+
+            validationResult.innerHTML = html;
+        }
+
+        function getFixSuggestion(missingField, schemaName) {
+            const suggestions = {
+                'peep': {
+                    'peepId': 'Add a UUID v4: "peepId": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"',
+                    'routes': 'Add at least one route: "routes": [{"name": "Primary", "pathDescription": "..."}]',
+                    'evacuationProcedure': 'Add at least one step: "evacuationProcedure": [{"order": 1, "instruction": "..."}]',
+                    'planSummary': 'Add a summary: "planSummary": "Brief description of evacuation plan"',
+                    'metadata': 'Add metadata: "metadata": {"createdAt": "2025-10-14T10:00:00Z", "createdBy": "...", "status": "draft"}'
+                },
+                'consent': {
+                    'state': 'Add consent state: "state": "given" (or "refused" or "withdrawn")',
+                    'capturedAt': 'Add timestamp: "capturedAt": "2025-10-14T10:00:00Z"',
+                    'capturedBy': 'Add who captured it: "capturedBy": "housing.officer@example.org"',
+                    'scope': 'Add scope array: "scope": ["pcfra", "peep"]'
+                },
+                'person_profile': {
+                    'personRef': 'Add person reference: "personRef": "person-uuid-12345"'
+                },
+                'review': {
+                    'reviewed_at': 'Add review date: "reviewed_at": "2026-10-14T11:00:00Z"',
+                    'reviewed_by': 'Add reviewer: "reviewed_by": {"name": "Jordan Smith"}',
+                    'outcome': 'Add outcome: "outcome": "confirmed_no_change"'
+                }
+            };
+
+            return suggestions[schemaName]?.[missingField] || `Add the "${missingField}" field (see schema documentation)`;
+        }
+
+        // Utility functions
+        function formatDate(dateString) {
+            if (!dateString) return 'Not specified';
+            try {
+                return new Date(dateString).toLocaleString('en-GB', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    timeZoneName: 'short'
+                });
+            } catch {
+                return dateString;
+            }
+        }
+
+        function humanize(fieldName) {
+            return fieldName
+                .replace(/([A-Z])/g, ' $1')
+                .replace(/_/g, ' ')
+                .split(' ')
+                .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(' ')
+                .trim();
+        }
+
+        function formatValue(value) {
+            if (value === null || value === undefined) return '<em>Not specified</em>';
+            if (typeof value === 'boolean') return value ? '✅ Yes' : '❌ No';
+            if (typeof value === 'string' && value.match(/^\d{4}-\d{2}-\d{2}T/)) return formatDate(value);
+            if (typeof value === 'object') return '<em>[Complex object]</em>';
+            return value;
+        }
+
+        // Render functions for each schema type
+        function renderDocument(data, schemaType) {
+            let html = '';
+
+            switch (schemaType) {
+                case 'peep':
+                    html = renderPEEP(data);
+                    break;
+                case 'consent':
+                    html = renderConsent(data);
+                    break;
+                case 'person_profile':
+                    html = renderPersonProfile(data);
+                    break;
+                case 'address':
+                    html = renderAddress(data);
+                    break;
+                case 'review':
+                    html = renderReview(data);
+                    break;
+                case 'pcfra_person':
+                    html = renderPCFRAPerson(data);
+                    break;
+                case 'pcfra_environment':
+                    html = renderPCFRAEnvironment(data);
+                    break;
+                case 'ees_building':
+                    html = renderEESBuilding(data);
+                    break;
+                case 'ees_personal':
+                    html = renderEESPersonal(data);
+                    break;
+                default:
+                    html = '<p>Schema rendering not yet implemented</p>';
+            }
+
+            formattedOutput.innerHTML = html;
+        }
+
+        function renderPEEP(data) {
+            let html = '<div class="formatted-output">';
+            
+            // Document Information
+            html += '<div class="section">';
+            html += '<h2 class="section-header">Document Information</h2>';
+            html += `<div class="field"><span class="field-label">PEEP ID:</span><span class="field-value"><code>${data.peepId || 'Not specified'}</code></span></div>`;
+            html += `<div class="field"><span class="field-label">Schema Version:</span><span class="field-value">${data.schemaVersion || 'Not specified'}</span></div>`;
+            if (data.metadata) {
+                html += `<div class="field"><span class="field-label">Created:</span><span class="field-value">${formatDate(data.metadata.createdAt)}</span></div>`;
+                html += `<div class="field"><span class="field-label">Created By:</span><span class="field-value">${data.metadata.createdBy || 'Not specified'}</span></div>`;
+                html += `<div class="field"><span class="field-label">Status:</span><span class="field-value"><strong>${data.metadata.status || 'Not specified'}</strong></span></div>`;
+                if (data.metadata.method) html += `<div class="field"><span class="field-label">Method:</span><span class="field-value">${humanize(data.metadata.method)}</span></div>`;
+            }
+            if (data.validity) {
+                html += `<div class="field"><span class="field-label">Valid From:</span><span class="field-value">${data.validity.effectiveFrom || 'Not specified'}</span></div>`;
+                html += `<div class="field"><span class="field-label">Valid To:</span><span class="field-value">${data.validity.effectiveTo || 'Not specified'}</span></div>`;
+            }
+            html += '</div>';
+
+            // Person Information
+            if (data.personProfile) {
+                html += '<div class="section">';
+                html += '<h2 class="section-header">Person</h2>';
+                html += `<div class="field"><span class="field-label">Person Ref:</span><span class="field-value"><code>${data.personProfile.personRef || 'Not specified'}</code></span></div>`;
+                if (data.personProfile.name) html += `<div class="field"><span class="field-label">Name:</span><span class="field-value">${data.personProfile.name}</span></div>`;
+                if (data.personProfile.preferredLanguage) html += `<div class="field"><span class="field-label">Preferred Language:</span><span class="field-value">${data.personProfile.preferredLanguage}</span></div>`;
+                html += '</div>';
+            }
+
+            // Address
+            if (data.address) {
+                html += '<div class="section">';
+                html += '<h2 class="section-header">Location</h2>';
+                const addr = data.address;
+                if (addr.buildingName) html += `<div class="field"><span class="field-label">Building:</span><span class="field-value">${addr.buildingName}</span></div>`;
+                if (addr.subBuilding) html += `<div class="field"><span class="field-label">Flat/Unit:</span><span class="field-value">${addr.subBuilding}</span></div>`;
+                if (addr.addressLine1) html += `<div class="field"><span class="field-label">Address:</span><span class="field-value">${addr.addressLine1}</span></div>`;
+                if (addr.townCity) html += `<div class="field"><span class="field-label">Town/City:</span><span class="field-value">${addr.townCity}</span></div>`;
+                if (addr.postcode) html += `<div class="field"><span class="field-label">Postcode:</span><span class="field-value">${addr.postcode}</span></div>`;
+                if (addr.uprn) html += `<div class="field"><span class="field-label">UPRN:</span><span class="field-value"><code>${addr.uprn}</code></span></div>`;
+                html += '</div>';
+            }
+
+            // Evacuation Strategy
+            html += '<div class="section">';
+            html += '<h2 class="section-header">Evacuation Strategy</h2>';
+            html += `<div class="field-value"><strong>${data.evacuationStrategy || 'Not specified'}</strong></div>`;
+            html += '</div>';
+
+            // Plan Summary
+            if (data.planSummary) {
+                html += '<div class="section">';
+                html += '<h2 class="section-header">Plan Summary</h2>';
+                html += `<div class="field-value">${data.planSummary}</div>`;
+                html += '</div>';
+            }
+
+            // Routes
+            if (data.routes && data.routes.length > 0) {
+                html += '<div class="section">';
+                html += '<h2 class="section-header">Evacuation Routes</h2>';
+                data.routes.forEach(route => {
+                    html += '<div class="route-card">';
+                    html += `<h4>🔸 ${route.name.toUpperCase()} ROUTE</h4>`;
+                    html += `<p><strong>Path:</strong> ${route.pathDescription}</p>`;
+                    
+                    if (route.assistance && route.assistance.length > 0) {
+                        html += '<p><strong>Assistance:</strong></p><ul>';
+                        route.assistance.forEach(assist => {
+                            html += `<li>Type: ${humanize(assist.type)}${assist.personsRequired ? `, ${assist.personsRequired} person(s)` : ''}`;
+                            if (assist.role) html += ` (${assist.role})`;
+                            html += '</li>';
+                        });
+                        html += '</ul>';
+                    }
+                    
+                    if (route.equipment && route.equipment.length > 0) {
+                        html += `<p><strong>Equipment:</strong> ${route.equipment.join(', ')}</p>`;
+                    }
+                    
+                    if (route.refuge) {
+                        html += `<p><strong>Refuge:</strong> ${route.refuge.location}</p>`;
+                        if (route.refuge.waitCondition) html += `<p><em>${route.refuge.waitCondition}</em></p>`;
+                    }
+                    
+                    if (route.musterPoint) {
+                        html += `<p><strong>Muster Point:</strong> ${route.musterPoint}</p>`;
+                    }
+                    
+                    html += '</div>';
+                });
+                html += '</div>';
+            }
+
+            // Evacuation Procedure
+            if (data.evacuationProcedure && data.evacuationProcedure.length > 0) {
+                html += '<div class="section">';
+                html += '<h2 class="section-header">Step-by-Step Procedure</h2>';
+                data.evacuationProcedure.forEach(step => {
+                    html += `<div class="procedure-step">`;
+                    html += `<div class="step-number">${step.order}</div>`;
+                    html += `<div class="step-instruction">${step.instruction}</div>`;
+                    html += `</div>`;
+                });
+                html += '</div>';
+            }
+
+            // Communications
+            if (data.communications) {
+                html += '<div class="section">';
+                html += '<h2 class="section-header">Communications</h2>';
+                const comms = data.communications;
+                if (comms.alarmHearingAbility) html += `<div class="field"><span class="field-label">Alarm Hearing:</span><span class="field-value">${humanize(comms.alarmHearingAbility)}</span></div>`;
+                if (comms.alertingMethods) html += `<div class="field"><span class="field-label">Alerting Methods:</span><span class="field-value">${comms.alertingMethods.map(humanize).join(', ')}</span></div>`;
+                if (comms.raiseAlarmMethods) html += `<div class="field"><span class="field-label">Can Raise Alarm:</span><span class="field-value">${comms.raiseAlarmMethods.map(humanize).join(', ')}</span></div>`;
+                html += '</div>';
+            }
+
+            // Consent
+            if (data.consent) {
+                html += '<div class="section">';
+                html += '<h2 class="section-header">Consent</h2>';
+                const consent = data.consent;
+                html += `<div class="field"><span class="field-label">Status:</span><span class="field-value"><strong>${consent.state === 'given' ? '✅ Given' : consent.state === 'refused' ? '❌ Refused' : '🔄 Withdrawn'}</strong></span></div>`;
+                html += `<div class="field"><span class="field-label">Captured:</span><span class="field-value">${formatDate(consent.capturedAt)}</span></div>`;
+                if (consent.scope) html += `<div class="field"><span class="field-label">Scope:</span><span class="field-value">${consent.scope.join(', ').toUpperCase()}</span></div>`;
+                if (consent.method) html += `<div class="field"><span class="field-label">Method:</span><span class="field-value">${humanize(consent.method)}</span></div>`;
+                html += '</div>';
+            }
+
+            // References
+            if (data.references) {
+                html += '<div class="section">';
+                html += '<h2 class="section-header">References</h2>';
+                if (data.references.pcfraId) html += `<div class="field"><span class="field-label">Source PCFRA:</span><span class="field-value"><code>${data.references.pcfraId}</code></span></div>`;
+                if (data.references.buildingStatementEesId) html += `<div class="field"><span class="field-label">Building EES:</span><span class="field-value"><code>${data.references.buildingStatementEesId}</code></span></div>`;
+                if (data.metadata && data.metadata.goldenThreadUrn) html += `<div class="field"><span class="field-label">Golden Thread URN:</span><span class="field-value"><code>${data.metadata.goldenThreadUrn}</code></span></div>`;
+                html += '</div>';
+            }
+
+            // Extensions
+            if (data.extensions) {
+                html += renderExtensions(data.extensions);
+            }
+
+            html += '</div>';
+            return html;
+        }
+
+        function renderConsent(data) {
+            let html = '<div class="formatted-output">';
+            
+            html += '<div class="section">';
+            html += '<h2 class="section-header">Consent Decision</h2>';
+            
+            const stateIcon = data.state === 'given' ? '✅' : data.state === 'refused' ? '❌' : '🔄';
+            html += `<div class="field"><span class="field-label">Status:</span><span class="field-value"><strong>${stateIcon} ${data.state.toUpperCase()}</strong></span></div>`;
+            html += `<div class="field"><span class="field-label">Captured:</span><span class="field-value">${formatDate(data.capturedAt)}</span></div>`;
+            html += `<div class="field"><span class="field-label">Captured By:</span><span class="field-value">${data.capturedBy || 'Not specified'}</span></div>`;
+            if (data.method) html += `<div class="field"><span class="field-label">Method:</span><span class="field-value">${humanize(data.method)}</span></div>`;
+            html += '</div>';
+
+            html += '<div class="section">';
+            html += '<h2 class="section-header">Scope</h2>';
+            if (data.scope && data.scope.length > 0) {
+                html += '<p>Consent ' + (data.state === 'given' ? 'given' : data.state === 'refused' ? 'refused' : 'withdrawn') + ' for:</p><ul>';
+                data.scope.forEach(item => {
+                    html += `<li><strong>${item.toUpperCase()}</strong> (${getScopeDescription(item)})</li>`;
+                });
+                html += '</ul>';
+            }
+            html += '</div>';
+
+            if (data.reason || data.notes || data.offerMadeAt) {
+                html += '<div class="section">';
+                html += '<h2 class="section-header">Additional Information</h2>';
+                if (data.offerMadeAt) html += `<div class="field"><span class="field-label">Offer Made:</span><span class="field-value">${formatDate(data.offerMadeAt)}</span></div>`;
+                if (data.validFrom) html += `<div class="field"><span class="field-label">Valid From:</span><span class="field-value">${formatDate(data.validFrom)}</span></div>`;
+                if (data.validUntil) html += `<div class="field"><span class="field-label">Valid Until:</span><span class="field-value">${formatDate(data.validUntil)}</span></div>`;
+                if (data.reason) html += `<div class="field"><span class="field-label">Reason:</span><span class="field-value">${data.reason}</span></div>`;
+                if (data.notes) html += `<div class="field"><span class="field-label">Notes:</span><span class="field-value">${data.notes}</span></div>`;
+                html += '</div>';
+            }
+
+            html += '</div>';
+            return html;
+        }
+
+        function getScopeDescription(scope) {
+            const descriptions = {
+                'pcfra': 'Person-Centred Fire Risk Assessment',
+                'peep': 'Personal Emergency Evacuation Plan',
+                'rpeep': 'Residential PEEP',
+                'ees_person_statement': 'EES Personal Statement',
+                'share_with_frs': 'Share with Fire and Rescue Service'
+            };
+            return descriptions[scope] || scope;
+        }
+
+        function renderPersonProfile(data) {
+            let html = '<div class="formatted-output">';
+            
+            html += '<div class="section">';
+            html += '<h2 class="section-header">Person Information</h2>';
+            html += `<div class="field"><span class="field-label">Person Ref:</span><span class="field-value"><code>${data.personRef}</code></span></div>`;
+            if (data.name) html += `<div class="field"><span class="field-label">Name:</span><span class="field-value">${data.name}</span></div>`;
+            if (data.alias) html += `<div class="field"><span class="field-label">Alias:</span><span class="field-value">${data.alias}</span></div>`;
+            if (data.dob) html += `<div class="field"><span class="field-label">Date of Birth:</span><span class="field-value">${data.dob}</span></div>`;
+            if (data.ageBand) html += `<div class="field"><span class="field-label">Age Band:</span><span class="field-value">${humanize(data.ageBand)}</span></div>`;
+            if (data.preferredLanguage) html += `<div class="field"><span class="field-label">Preferred Language:</span><span class="field-value">${data.preferredLanguage}</span></div>`;
+            html += '</div>';
+
+            if (data.contact) {
+                html += '<div class="section">';
+                html += '<h2 class="section-header">Contact Details</h2>';
+                if (data.contact.phone) html += `<div class="field"><span class="field-label">Phone:</span><span class="field-value">${data.contact.phone}</span></div>`;
+                if (data.contact.email) html += `<div class="field"><span class="field-label">Email:</span><span class="field-value">${data.contact.email}</span></div>`;
+                html += '</div>';
+            }
+
+            if (data.communicationPreferences) {
+                html += '<div class="section">';
+                html += '<h2 class="section-header">Communication Preferences</h2>';
+                const prefs = data.communicationPreferences;
+                if (prefs.channels) html += `<div class="field"><span class="field-label">Channels:</span><span class="field-value">${prefs.channels.map(humanize).join(', ')}</span></div>`;
+                if (prefs.formatPreferences) html += `<div class="field"><span class="field-label">Format Preferences:</span><span class="field-value">${prefs.formatPreferences.map(humanize).join(', ')}</span></div>`;
+                if (prefs.notes) html += `<div class="field"><span class="field-label">Notes:</span><span class="field-value">${prefs.notes}</span></div>`;
+                html += '</div>';
+            }
+
+            html += '</div>';
+            return html;
+        }
+
+        function renderAddress(data) {
+            let html = '<div class="formatted-output">';
+            
+            html += '<div class="section">';
+            html += '<h2 class="section-header">Address</h2>';
+            if (data.organisationName) html += `<div class="field"><span class="field-label">Organisation:</span><span class="field-value">${data.organisationName}</span></div>`;
+            if (data.buildingName) html += `<div class="field"><span class="field-label">Building Name:</span><span class="field-value">${data.buildingName}</span></div>`;
+            if (data.buildingNumber) html += `<div class="field"><span class="field-label">Building Number:</span><span class="field-value">${data.buildingNumber}</span></div>`;
+            if (data.subBuilding) html += `<div class="field"><span class="field-label">Sub-building:</span><span class="field-value">${data.subBuilding}</span></div>`;
+            if (data.addressLine1) html += `<div class="field"><span class="field-label">Address Line 1:</span><span class="field-value">${data.addressLine1}</span></div>`;
+            if (data.addressLine2) html += `<div class="field"><span class="field-label">Address Line 2:</span><span class="field-value">${data.addressLine2}</span></div>`;
+            if (data.locality) html += `<div class="field"><span class="field-label">Locality:</span><span class="field-value">${data.locality}</span></div>`;
+            if (data.townCity) html += `<div class="field"><span class="field-label">Town/City:</span><span class="field-value">${data.townCity}</span></div>`;
+            if (data.county) html += `<div class="field"><span class="field-label">County:</span><span class="field-value">${data.county}</span></div>`;
+            if (data.postcode) html += `<div class="field"><span class="field-label">Postcode:</span><span class="field-value">${data.postcode}</span></div>`;
+            html += `<div class="field"><span class="field-label">Country:</span><span class="field-value">${data.countryCode || 'Not specified'}</span></div>`;
+            html += '</div>';
+
+            if (data.uprn || data.udprn || data.nationalAddressId || data.buildingRef || data.unitRef) {
+                html += '<div class="section">';
+                html += '<h2 class="section-header">Identifiers</h2>';
+                if (data.uprn) html += `<div class="field"><span class="field-label">UPRN:</span><span class="field-value"><code>${data.uprn}</code></span></div>`;
+                if (data.udprn) html += `<div class="field"><span class="field-label">UDPRN:</span><span class="field-value"><code>${data.udprn}</code></span></div>`;
+                if (data.nationalAddressId) html += `<div class="field"><span class="field-label">National Address ID:</span><span class="field-value"><code>${data.nationalAddressId}</code></span></div>`;
+                if (data.buildingRef) html += `<div class="field"><span class="field-label">Building Ref:</span><span class="field-value"><code>${data.buildingRef}</code></span></div>`;
+                if (data.unitRef) html += `<div class="field"><span class="field-label">Unit Ref:</span><span class="field-value"><code>${data.unitRef}</code></span></div>`;
+                html += '</div>';
+            }
+
+            html += '</div>';
+            return html;
+        }
+
+        function renderReview(data) {
+            let html = '<div class="formatted-output">';
+            
+            html += '<div class="section">';
+            html += '<h2 class="section-header">Review Information</h2>';
+            html += `<div class="field"><span class="field-label">Reviewed:</span><span class="field-value">${formatDate(data.reviewed_at)}</span></div>`;
+            html += `<div class="field"><span class="field-label">Outcome:</span><span class="field-value"><strong>${humanize(data.outcome)}</strong></span></div>`;
+            if (data.next_due) html += `<div class="field"><span class="field-label">Next Review Due:</span><span class="field-value">${data.next_due}</span></div>`;
+            html += '</div>';
+
+            if (data.reviewed_by) {
+                html += '<div class="section">';
+                html += '<h2 class="section-header">Reviewer</h2>';
+                const reviewer = data.reviewed_by;
+                html += `<div class="field"><span class="field-label">Name:</span><span class="field-value">${reviewer.name}</span></div>`;
+                if (reviewer.role) html += `<div class="field"><span class="field-label">Role:</span><span class="field-value">${reviewer.role}</span></div>`;
+                if (reviewer.organisation) html += `<div class="field"><span class="field-label">Organisation:</span><span class="field-value">${reviewer.organisation}</span></div>`;
+                html += '</div>';
+            }
+
+            if (data.summary) {
+                html += '<div class="section">';
+                html += '<h2 class="section-header">Summary</h2>';
+                html += `<div class="field-value">${data.summary}</div>`;
+                html += '</div>';
+            }
+
+            if (data.new_document_ref) {
+                html += '<div class="section">';
+                html += '<h2 class="section-header">New Document</h2>';
+                const newDoc = data.new_document_ref;
+                html += `<div class="field"><span class="field-label">Document Type:</span><span class="field-value">${newDoc.document_type.toUpperCase()}</span></div>`;
+                if (newDoc.document_id) html += `<div class="field"><span class="field-label">Document ID:</span><span class="field-value"><code>${newDoc.document_id}</code></span></div>`;
+                if (newDoc.version) html += `<div class="field"><span class="field-label">Version:</span><span class="field-value">${newDoc.version}</span></div>`;
+                if (newDoc.uri) html += `<div class="field"><span class="field-label">URI:</span><span class="field-value"><a href="${newDoc.uri}" target="_blank">${newDoc.uri}</a></span></div>`;
+                html += '</div>';
+            }
+
+            html += '</div>';
+            return html;
+        }
+
+        function renderPCFRAPerson(data) {
+            let html = '<div class="formatted-output">';
+            
+            html += '<div class="section">';
+            html += '<h2 class="section-header">Assessment Information</h2>';
+            if (data.pcfraId) html += `<div class="field"><span class="field-label">PCFRA ID:</span><span class="field-value"><code>${data.pcfraId}</code></span></div>`;
+            html += `<div class="field"><span class="field-label">Person Ref:</span><span class="field-value"><code>${data.personRef}</code></span></div>`;
+            html += `<div class="field"><span class="field-label">Assessed:</span><span class="field-value">${formatDate(data.assessedAt)}</span></div>`;
+            html += `<div class="field"><span class="field-label">Assessment Method:</span><span class="field-value">${humanize(data.assessmentMethod)}</span></div>`;
+            if (data.confidenceLevel) html += `<div class="field"><span class="field-label">Confidence Level:</span><span class="field-value"><strong>${data.confidenceLevel.toUpperCase()}</strong></span></div>`;
+            html += '</div>';
+
+            if (data.capability) {
+                html += '<div class="section">';
+                html += '<h2 class="section-header">Functional Capability</h2>';
+                const cap = data.capability;
+                
+                // Mobility
+                if (cap.mobilityAid) html += `<div class="field"><span class="field-label">Mobility Aid:</span><span class="field-value">${humanize(cap.mobilityAid)}</span></div>`;
+                if (cap.walkingEndurance) html += `<div class="field"><span class="field-label">Walking Endurance:</span><span class="field-value">${humanize(cap.walkingEndurance)}</span></div>`;
+                if (cap.stairTolerance) html += `<div class="field"><span class="field-label">Stair Tolerance:</span><span class="field-value">${humanize(cap.stairTolerance)}</span></div>`;
+                
+                // Sensory
+                if (cap.sensoryHearing) html += `<div class="field"><span class="field-label">Hearing:</span><span class="field-value">${humanize(cap.sensoryHearing)}</span></div>`;
+                if (cap.sensoryVision) html += `<div class="field"><span class="field-label">Vision:</span><span class="field-value">${humanize(cap.sensoryVision)}</span></div>`;
+                
+                // Assistance
+                if (cap.assistRequired) html += `<div class="field"><span class="field-label">Assistance Required:</span><span class="field-value">${humanize(cap.assistRequired)}</span></div>`;
+                if (cap.equipmentNeeded && cap.equipmentNeeded.length > 0) {
+                    html += `<div class="field"><span class="field-label">Equipment Needed:</span><span class="field-value">${cap.equipmentNeeded.map(humanize).join(', ')}</span></div>`;
+                }
+                
+                html += '</div>';
+            }
+
+            if (data.outcome) {
+                html += '<div class="section">';
+                html += '<h2 class="section-header">Outcome</h2>';
+                html += `<div class="field"><span class="field-label">Relevant Resident:</span><span class="field-value">${formatValue(data.outcome.relevantResident)}</span></div>`;
+                html += `<div class="field"><span class="field-label">PEEP Required:</span><span class="field-value">${formatValue(data.outcome.peepRequired)}</span></div>`;
+                if (data.outcome.rationale) html += `<div class="field"><span class="field-label">Rationale:</span><span class="field-value">${data.outcome.rationale}</span></div>`;
+                html += '</div>';
+            }
+
+            html += '</div>';
+            return html;
+        }
+
+        function renderPCFRAEnvironment(data) {
+            let html = '<div class="formatted-output">';
+            
+            html += '<div class="section">';
+            html += '<h2 class="section-header">Assessment Information</h2>';
+            if (data.buildingRef) html += `<div class="field"><span class="field-label">Building Ref:</span><span class="field-value"><code>${data.buildingRef}</code></span></div>`;
+            if (data.unitRef) html += `<div class="field"><span class="field-label">Unit Ref:</span><span class="field-value"><code>${data.unitRef}</code></span></div>`;
+            html += `<div class="field"><span class="field-label">Assessed:</span><span class="field-value">${formatDate(data.assessedAt)}</span></div>`;
+            html += `<div class="field"><span class="field-label">Method:</span><span class="field-value">${humanize(data.assessmentMethod)}</span></div>`;
+            html += '</div>';
+
+            if (data.environment) {
+                html += '<div class="section">';
+                html += '<h2 class="section-header">Environmental Risks</h2>';
+                const env = data.environment;
+                if (env.cooking_risk) html += `<div class="field"><span class="field-label">Cooking Risk:</span><span class="field-value">${env.cooking_risk}</span></div>`;
+                if (env.electrical_risk) html += `<div class="field"><span class="field-label">Electrical Risk:</span><span class="field-value">${env.electrical_risk}</span></div>`;
+                if (env.smoking_risk) html += `<div class="field"><span class="field-label">Smoking Risk:</span><span class="field-value">${env.smoking_risk}</span></div>`;
+                if (env.hoarding_risk) html += `<div class="field"><span class="field-label">Hoarding Risk:</span><span class="field-value">${env.hoarding_risk}</span></div>`;
+                if (env.accessEgress) html += `<div class="field"><span class="field-label">Access/Egress:</span><span class="field-value">${env.accessEgress}</span></div>`;
+                html += '</div>';
+            }
+
+            if (data.safeguarding) {
+                html += '<div class="section">';
+                html += '<h2 class="section-header">Safeguarding Context</h2>';
+                const safe = data.safeguarding;
+                if (safe.immediateDanger !== undefined) html += `<div class="field"><span class="field-label">Immediate Danger:</span><span class="field-value">${formatValue(safe.immediateDanger)}</span></div>`;
+                if (safe.immediateActionTaken) html += `<div class="field"><span class="field-label">Action Taken:</span><span class="field-value">${safe.immediateActionTaken}</span></div>`;
+                if (safe.agencyInvolved && safe.agencyInvolved.length > 0) html += `<div class="field"><span class="field-label">Agencies Involved:</span><span class="field-value">${safe.agencyInvolved.map(humanize).join(', ')}</span></div>`;
+                html += '</div>';
+            }
+
+            if (data.outcome) {
+                html += '<div class="section">';
+                html += '<h2 class="section-header">Outcome</h2>';
+                html += `<div class="field"><span class="field-label">PEEP Required:</span><span class="field-value">${formatValue(data.outcome.peepRequired)}</span></div>`;
+                if (data.outcome.rationale) html += `<div class="field"><span class="field-label">Rationale:</span><span class="field-value">${data.outcome.rationale}</span></div>`;
+                html += '</div>';
+            }
+
+            html += '</div>';
+            return html;
+        }
+
+        function renderEESBuilding(data) {
+            let html = '<div class="formatted-output">';
+            
+            html += '<div class="section">';
+            html += '<h2 class="section-header">Building Information</h2>';
+            html += `<div class="field"><span class="field-label">Document ID:</span><span class="field-value"><code>${data.document_id}</code></span></div>`;
+            if (data.building && data.building.name) html += `<div class="field"><span class="field-label">Building Name:</span><span class="field-value">${data.building.name}</span></div>`;
+            html += `<div class="field"><span class="field-label">Created:</span><span class="field-value">${formatDate(data.created_at)}</span></div>`;
+            html += '</div>';
+
+            html += '<div class="section">';
+            html += '<h2 class="section-header">Evacuation Strategy</h2>';
+            html += `<div class="field-value"><strong>${humanize(data.evacuation_strategy)}</strong></div>`;
+            html += '</div>';
+
+            if (data.who_should_move_when) {
+                html += '<div class="section">';
+                html += '<h2 class="section-header">Who Should Move When</h2>';
+                html += `<div class="field-value">${data.who_should_move_when}</div>`;
+                html += '</div>';
+            }
+
+            if (data.routes_summary) {
+                html += '<div class="section">';
+                html += '<h2 class="section-header">Routes Summary</h2>';
+                html += `<div class="field-value">${data.routes_summary}</div>`;
+                html += '</div>';
+            }
+
+            if (data.muster_points && data.muster_points.length > 0) {
+                html += '<div class="section">';
+                html += '<h2 class="section-header">Muster Points</h2>';
+                data.muster_points.forEach(mp => {
+                    html += `<div class="array-item">`;
+                    html += `<strong>${mp.label}:</strong> ${mp.description || 'No description'}`;
+                    html += `</div>`;
+                });
+                html += '</div>';
+            }
+
+            if (data.accessibility_formats || data.languages_available) {
+                html += '<div class="section">';
+                html += '<h2 class="section-header">Accessibility</h2>';
+                if (data.languages_available) html += `<div class="field"><span class="field-label">Languages:</span><span class="field-value">${data.languages_available.join(', ')}</span></div>`;
+                if (data.accessibility_formats) html += `<div class="field"><span class="field-label">Formats:</span><span class="field-value">${data.accessibility_formats.map(humanize).join(', ')}</span></div>`;
+                if (data.distribution_methods) html += `<div class="field"><span class="field-label">Distribution:</span><span class="field-value">${data.distribution_methods.map(humanize).join(', ')}</span></div>`;
+                html += '</div>';
+            }
+
+            html += '</div>';
+            return html;
+        }
+
+        function renderEESPersonal(data) {
+            let html = '<div class="formatted-output">';
+            
+            html += '<div class="section">';
+            html += '<h2 class="section-header">Document Information</h2>';
+            html += `<div class="field"><span class="field-label">Document ID:</span><span class="field-value"><code>${data.document_id}</code></span></div>`;
+            html += `<div class="field"><span class="field-label">Person Ref:</span><span class="field-value"><code>${data.person_profile_ref}</code></span></div>`;
+            html += `<div class="field"><span class="field-label">Source PEEP:</span><span class="field-value"><code>${data.peep_document_id}</code></span></div>`;
+            if (data.language) html += `<div class="field"><span class="field-label">Language:</span><span class="field-value">${data.language}</span></div>`;
+            if (data.format) html += `<div class="field"><span class="field-label">Format:</span><span class="field-value">${data.format.map(humanize).join(', ')}</span></div>`;
+            html += '</div>';
+
+            if (data.content) {
+                const content = data.content;
+                
+                if (content.summary) {
+                    html += '<div class="section">';
+                    html += '<h2 class="section-header">Summary</h2>';
+                    html += `<div class="field-value">${content.summary}</div>`;
+                    html += '</div>';
+                }
+
+                if (content.steps_primary && content.steps_primary.length > 0) {
+                    html += '<div class="section">';
+                    html += '<h2 class="section-header">Step-by-Step Instructions</h2>';
+                    content.steps_primary.forEach((step, index) => {
+                        html += `<div class="procedure-step">`;
+                        html += `<div class="step-number">${index + 1}</div>`;
+                        html += `<div class="step-instruction">${step}</div>`;
+                        html += `</div>`;
+                    });
+                    html += '</div>';
+                }
+
+                if (content.scenario_instructions && content.scenario_instructions.length > 0) {
+                    html += '<div class="section">';
+                    html += '<h2 class="section-header">Scenario Instructions</h2>';
+                    content.scenario_instructions.forEach(scenario => {
+                        html += `<div class="array-item">`;
+                        html += `<strong>${humanize(scenario.scenario)}:</strong><br>${scenario.detail}`;
+                        html += `</div>`;
+                    });
+                    html += '</div>';
+                }
+            }
+
+            if (data.assistance) {
+                html += '<div class="section">';
+                html += '<h2 class="section-header">Assistance</h2>';
+                html += `<div class="field"><span class="field-label">Needs Assistance:</span><span class="field-value">${formatValue(data.assistance.needs_assistance)}</span></div>`;
+                if (data.assistance.assisters) html += `<div class="field"><span class="field-label">Assisters:</span><span class="field-value">${data.assistance.assisters.join(', ')}</span></div>`;
+                if (data.assistance.contact_on_alarm) html += `<div class="field"><span class="field-label">Contact on Alarm:</span><span class="field-value">${data.assistance.contact_on_alarm}</span></div>`;
+                html += '</div>';
+            }
+
+            if (data.delivery) {
+                html += '<div class="section">';
+                html += '<h2 class="section-header">Delivery Information</h2>';
+                html += `<div class="field"><span class="field-label">Delivered By:</span><span class="field-value">${data.delivery.delivered_by}</span></div>`;
+                html += `<div class="field"><span class="field-label">Delivered:</span><span class="field-value">${formatDate(data.delivery.delivered_at)}</span></div>`;
+                html += `<div class="field"><span class="field-label">Acknowledged:</span><span class="field-value">${formatValue(data.delivery.acknowledged_by_resident)}</span></div>`;
+                html += '</div>';
+            }
+
+            html += '</div>';
+            return html;
+        }
+
+        function renderExtensions(extensions) {
+            let html = '<div class="extensions-section">';
+            html += '<h2 class="section-header">🌍 Jurisdiction & Vendor Extensions</h2>';
+            html += '<div class="info-box"><strong>Note:</strong> These fields are jurisdiction or vendor-specific and not part of the portable core schema.</div>';
+
+            for (const [namespace, fields] of Object.entries(extensions)) {
+                html += `<div class="extension-namespace">`;
+                
+                let namespaceTitle = namespace.toUpperCase();
+                if (namespace === 'gbr') namespaceTitle = '🇬🇧 UK Extensions (gbr)';
+                else if (namespace === 'eu') namespaceTitle = '🇪🇺 EU Extensions (eu)';
+                else if (namespace === 'usa') namespaceTitle = '🇺🇸 USA Extensions (usa)';
+                else namespaceTitle = `🏢 Vendor Extension (${namespace})`;
+                
+                html += `<h4>${namespaceTitle}</h4>`;
+                
+                if (typeof fields === 'object') {
+                    for (const [key, value] of Object.entries(fields)) {
+                        html += `<div class="field"><span class="field-label">${humanize(key)}:</span><span class="field-value">${formatValue(value)}</span></div>`;
+                    }
+                } else {
+                    html += `<p>${JSON.stringify(fields)}</p>`;
+                }
+                
+                html += `</div>`;
+            }
+
+            html += '</div>';
+            return html;
+        }
+
+        // Load example on page load (for demo)
+        window.addEventListener('DOMContentLoaded', () => {
+            // Add helpful message
+            const infoDiv = document.createElement('div');
+            infoDiv.className = 'info-box';
+            infoDiv.style.marginTop = '20px';
+            infoDiv.innerHTML = '<strong>💡 Tip:</strong> Try loading an example from <code>/examples/bundles/</code> to see how it works!';
+            document.querySelector('.schema-select').after(infoDiv);
+        });
+    </script>
+</body>
+</html>
+

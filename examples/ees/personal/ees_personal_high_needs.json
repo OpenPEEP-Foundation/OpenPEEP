@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.0.0",
+  "document_id": "ees-personal-high-needs-uuid-002",
+  "created_at": "2025-10-10T12:00:00Z",
+  "person_profile_ref": "person-high-needs-uuid-002",
+  "person_alias": "Resident, Flat 15G",
+  "unit_address": {
+    "buildingName": "Victoria Tower",
+    "subBuilding": "Flat 15G",
+    "townCity": "Glasgow",
+    "postcode": "G1 1AA",
+    "countryCode": "GB",
+    "unitRef": "unit-victoria-15g-001"
+  },
+  "peep_document_id": "peep-high-needs-uuid-002",
+  "building_ees_document_id": "ees-building-victoria-tower-uuid-003",
+  "language": "en-GB",
+  "format": [
+    "large_print",
+    "high_contrast"
+  ],
+  "content": {
+    "summary": "You use a powered wheelchair and need assistance to evacuate. When the fire alarm sounds, you should use the evacuation lift (Lift 3) with help from the concierge. If the lift is not available, go to the refuge on Floor 15 and use the red intercom button to call for help.",
+    "steps_primary": [
+      "When the alarm sounds, stay calm. Get into your wheelchair if you are not already in it.",
+      "Call the concierge on 0141 000 0001 to let them know you need evacuation assistance.",
+      "Go to Lift 3 (west wing, 15 metres from your flat door, turn left).",
+      "Wait for the concierge to meet you at the lift. They will help you into the lift.",
+      "The lift will take you to the ground floor. Leave the building through the main entrance.",
+      "Go to Assembly Point A in the car park (east side). Wait there until the Fire Service says it is safe to return."
+    ],
+    "scenario_instructions": [
+      {
+        "scenario": "fire_in_your_home",
+        "detail": "Leave your flat immediately. Go to Lift 3 (evacuation lift) or, if the lift is not working, go to the refuge on Floor 15 (north stairwell). Call the concierge or 999 for help."
+      },
+      {
+        "scenario": "fire_elsewhere",
+        "detail": "Prepare to leave. Call the concierge. They will tell you when to evacuate. If smoke enters your flat, leave immediately using Lift 3 or go to the refuge."
+      },
+      {
+        "scenario": "if_in_lift",
+        "detail": "If you are already in Lift 3 when the alarm sounds, the lift will go to the ground floor automatically. Leave the building when the doors open."
+      },
+      {
+        "scenario": "other",
+        "detail": "If Lift 3 is not working: go to the refuge on Floor 15 (north stairwell, behind the fire door). Press the red intercom button. Tell them you are in the refuge on Floor 15 and need evacuation assistance. Stay there. The concierge or Fire Service will come to help you with an evacuation chair."
+      }
+    ],
+    "waiting_place": "Refuge on Floor 15 (north stairwell landing, behind fire door). Press red intercom button if you need help.",
+    "muster_point_label": "Assembly Point A (car park, east side)",
+    "notes_for_resident": "You need oxygen therapy equipment. You can take your portable oxygen with you when you evacuate. The concierge team knows you need assistance. An evacuation chair is stored at the refuge on Floor 15 if the lift is not available."
+  },
+  "assistance": {
+    "needs_assistance": true,
+    "assisters": [
+      "Concierge team (24/7)",
+      "Fire and Rescue Service (if concierge unavailable)"
+    ],
+    "equipment": [
+      "Evacuation lift (Lift 3)",
+      "Evacuation chair (stored at refuge, Floor 15)"
+    ],
+    "contact_on_alarm": "Concierge: 0141 000 0001 (24/7) or press red intercom button at refuge"
+  },
+  "delivery": {
+    "delivered_by": "Fire Safety Team, Glasgow Housing",
+    "delivered_at": "2025-10-10T14:00:00Z",
+    "acknowledged_by_resident": true
+  }
+}
+

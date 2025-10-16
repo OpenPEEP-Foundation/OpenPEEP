@@ -1,0 +1,82 @@
+---
+layout: default
+---
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.body.classList.add('layout-home');
+});
+</script>
+
+<!-- Hero Section -->
+<div class="hero-section">
+    <div class="hero-container">
+        <div class="hero-content">
+            <h1 class="hero-title">OpenPEEP: The Industry's Missing Link for PEEP Creation and Distribution</h1>
+            <p class="hero-subtitle">Complete framework and how-to for the life-cycle from assessment to compliance</p>
+            <div class="hero-actions">
+                <a href="/get-started/" class="btn btn-primary">Get Started</a>
+                <a href="/examples/" class="btn btn-secondary">View Examples</a>
+            </div>
+            <div class="hero-badges">
+                <span class="badge">Complete Framework</span>
+                <span class="badge">End-to-End Process</span>
+                <span class="badge">Open Standard</span>
+                <span class="badge">No Vendor Lock-in</span>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="peep-mockup">
+                <div class="peep-header">
+                    <div class="peep-dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <span class="peep-title">Personal Emergency Evacuation Plan</span>
+                </div>
+                <div class="peep-content">
+                    <div class="peep-section">
+                        <h4>Resident Information</h4>
+                        <div class="peep-row">
+                            <span class="label">Name:</span>
+                            <span class="value">Sarah Johnson</span>
+                        </div>
+                        <div class="peep-row">
+                            <span class="label">Room:</span>
+                            <span class="value">Room 42, Sunrise Gardens</span>
+                        </div>
+                        <div class="peep-row">
+                            <span class="label">Mobility:</span>
+                            <span class="value">Wheelchair user</span>
+                        </div>
+                    </div>
+                    <div class="peep-section">
+                        <h4>Evacuation Plan</h4>
+                        <div class="peep-row">
+                            <span class="label">Primary Route:</span>
+                            <span class="value">Assisted via lift to ground floor</span>
+                        </div>
+                        <div class="peep-row">
+                            <span class="label">Assembly Point:</span>
+                            <span class="value">Car park area B</span>
+                        </div>
+                        <div class="peep-row">
+                            <span class="label">Support Required:</span>
+                            <span class="value">2 staff members + evacuation chair</span>
+                        </div>
+                    </div>
+                    <div class="peep-status">
+                        <span class="status-indicator valid"></span>
+                        <span class="status-text">✓ Validated & Compliant</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Main Content with proper markdown processing -->
+<div class="main-content markdown-body">
+    {{ content }}
+</div>

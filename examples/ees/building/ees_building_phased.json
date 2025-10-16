@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.0.0",
+  "document_id": "ees-building-victoria-tower-uuid-003",
+  "created_at": "2025-10-10T09:00:00Z",
+  "building": {
+    "name": "Victoria Tower",
+    "address": {
+      "buildingName": "Victoria Tower",
+      "addressLine1": "100 High Street",
+      "townCity": "Glasgow",
+      "postcode": "G1 1AA",
+      "countryCode": "GB",
+      "buildingRef": "building-victoria-tower-001"
+    },
+    "identifiers": {
+      "uprn": "100045678901"
+    }
+  },
+  "evacuation_strategy": "phased",
+  "who_should_move_when": "Phase 1: If the fire alarm sounds AND fire is on your floor, evacuate immediately. Phase 2: If the alarm sounds but fire is NOT on your floor, prepare to evacuate but wait for instructions from the Fire and Rescue Service or building staff. Phase 3: If instructed by FRS or staff, evacuate using your designated route. Do not evacuate unless fire is on your floor or you are instructed to leave.",
+  "alarm_and_alerting_summary": "A continuous alarm means fire has been detected. Listen for announcements on the public address system. The Fire Service will direct which floors should evacuate first.",
+  "refuges_and_lifts_summary": "Evacuation lift (Lift 3, west wing) available for wheelchair users and those who cannot use stairs. Lift is BS EN 81-76 compliant with backup power. Refuges available on all floors (stairwell lobbies behind fire doors). Use refuge intercom (red button) if you need assistance.",
+  "routes_summary": "Three protected stairwells (A – north, B – south, C – west). Evacuation lift (Lift 3) in west wing for assisted evacuation. Do not use passenger lifts (Lifts 1 and 2) unless told to by Fire Service. Follow signage and floor markings.",
+  "muster_points": [
+    {
+      "label": "Assembly Point A",
+      "description": "Car park east side (primary muster point)"
+    },
+    {
+      "label": "Assembly Point B",
+      "description": "Garden square south side (overflow if Assembly Point A full)"
+    }
+  ],
+  "resident_help_and_contacts": {
+    "building_contact": "Concierge desk: 0141 000 0001 (24/7)",
+    "out_of_hours": "Same number (24/7 concierge service)",
+    "frs_information_point": "Fire Service information box in main reception and concierge desk"
+  },
+  "languages_available": [
+    "en-GB",
+    "gd-GB"
+  ],
+  "accessibility_formats": [
+    "plain_english",
+    "large_print",
+    "easy_read",
+    "audio",
+    "sign_video",
+    "high_contrast"
+  ],
+  "distribution_methods": [
+    "noticeboard",
+    "door_drop",
+    "email",
+    "tenant_portal",
+    "qr_in_common_areas"
+  ],
+  "related_document_ids": [
+    "fra-victoria-tower-2025",
+    "fire-strategy-victoria-tower-2024",
+    "golden-thread-victoria-tower"
+  ],
+  "provenance": {
+    "authored_by": "Fire Safety Consultant",
+    "author_org": "Glasgow Fire Safety Solutions Ltd",
+    "method": "manual",
+    "source_refs": [
+      "FRA-VT-2025-03",
+      "BS-EN-81-76-Compliance-Report-2024"
+    ]
+  }
+}
+

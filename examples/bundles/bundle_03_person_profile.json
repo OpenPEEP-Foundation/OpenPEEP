@@ -1,0 +1,26 @@
+{
+  "personRef": "person-sam-patel-uuid-003",
+  "name": "Sam Patel",
+  "dob": "1990-03-22",
+  "preferredLanguage": "en-GB",
+  "contact": {
+    "email": "sam.patel@techcorp.example.com",
+    "phone": "+447700900789"
+  },
+  "communicationPreferences": {
+    "channels": [
+      "email",
+      "sms",
+      "relay_service"
+    ],
+    "formatPreferences": [
+      "written_only",
+      "high_contrast",
+      "large_print",
+      "bsl_interpreter_preferred"
+    ],
+    "notes": "Prefers written communication (email/SMS). For meetings, BSL interpreter preferred. Avoid phone calls without prior arrangement via relay service.",
+    "consentRef": "consent-sam-patel-uuid-003"
+  }
+}
+

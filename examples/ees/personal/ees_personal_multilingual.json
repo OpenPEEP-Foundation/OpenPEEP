@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0.0",
+  "document_id": "ees-personal-multilingual-uuid-003",
+  "created_at": "2025-10-12T10:00:00Z",
+  "person_profile_ref": "person-multilingual-uuid-003",
+  "unit_address": {
+    "buildingName": "Birch Court",
+    "subBuilding": "Flat 5",
+    "townCity": "Leeds",
+    "postcode": "LS2 3CD",
+    "countryCode": "GB",
+    "buildingRef": "building-birch-court-001",
+    "unitRef": "unit-birch-court-5-001"
+  },
+  "peep_document_id": "peep-multilingual-uuid-003",
+  "building_ees_document_id": "ees-building-birch-court-uuid-002",
+  "language": "pl-PL",
+  "format": [
+    "standard_print",
+    "audio"
+  ],
+  "content": {
+    "summary": "Kiedy usłyszysz alarm pożarowy, wszyscy muszą natychmiast opuścić budynek. Nie zatrzymuj się, aby zabrać rzeczy osobiste. Wyjdź najbliższym bezpiecznym wyjściem i udaj się do punktu zbornego na parkingu. (When you hear the fire alarm, everyone must leave the building immediately. Do not stop to collect belongings. Leave by the nearest safe exit and go to the Assembly Point in the car park.)",
+    "steps_primary": [
+      "Usłysz alarm: opuść mieszkanie natychmiast. (Hear alarm: leave flat immediately.)",
+      "Zamknij drzwi za sobą. (Close door behind you.)",
+      "Użyj schodów (Klatka A lub B). Nie używaj windy. (Use stairs – Stairwell A or B. Do not use lift.)",
+      "Idź do punktu zbornego na parkingu (tylna część budynku, strona wschodnia). (Go to Assembly Point in car park – rear of building, east side.)",
+      "Czekaj tam, aż straż pożarna powie, że można wrócić. (Wait there until Fire Service says you can return.)"
+    ],
+    "scenario_instructions": [
+      {
+        "scenario": "fire_in_your_home",
+        "detail": "Opuść mieszkanie natychmiast. Wyjdź przez najbliższe schody. Zadzwoń 999 z zewnątrz budynku. (Leave flat immediately. Exit via nearest stairs. Call 999 from outside building.)"
+      },
+      {
+        "scenario": "fire_elsewhere",
+        "detail": "Opuść budynek natychmiast przez najbliższe schody. Wszystkie alarmy oznaczają ewakuację. (Leave building immediately via nearest stairs. All alarms mean evacuate.)"
+      }
+    ],
+    "muster_point_label": "Punkt zborny (Assembly Point) – parking, tylna część budynku (Car park, rear of building)",
+    "notes_for_resident": "Jeśli potrzebujesz pomocy, poproś sąsiada lub personel. Numer awaryjny: 0113 000 0002. (If you need help, ask a neighbour or staff member. Emergency number: 0113 000 0002.) Dokumentacja dostępna również w języku angielskim. (Documentation also available in English.)"
+  },
+  "assistance": {
+    "needs_assistance": false
+  },
+  "delivery": {
+    "delivered_by": "Leeds Housing Trust",
+    "delivered_at": "2025-10-12T14:00:00Z",
+    "acknowledged_by_resident": true
+  },
+  "extensions": {
+    "leedshousing": {
+      "language_support": "Polish (primary), English (backup available)",
+      "audio_format_url": "https://leedshousing.example.org/ees/audio/pl-PL/flat-5.mp3",
+      "bilingual_delivery": true
+    }
+  }
+}
+

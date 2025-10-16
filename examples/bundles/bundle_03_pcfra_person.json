@@ -1,0 +1,62 @@
+{
+  "pcfraId": "pcfra-person-sam-patel-uuid-003",
+  "version": "1.0.0",
+  "personRef": "person-sam-patel-uuid-003",
+  "assessedAt": "2025-07-10T10:00:00Z",
+  "assessorRole": "fire_safety_advisor",
+  "assessmentMethod": "in_person",
+  "confidenceLevel": "high",
+  "consentRef": "consent-sam-patel-uuid-003",
+  "capability": {
+    "walkingEndurance": "normal_pace",
+    "respiratoryTolerance": "normal",
+    "mobilityTransfer": "independent_transfer",
+    "stairTolerance": "stairs_independent",
+    "mobilityAid": "none",
+    "hearingSupport": "visual_alerts_required",
+    "sensoryHearing": "profound",
+    "visionSupport": "high_contrast_signage",
+    "sensoryVision": "low_vision",
+    "cognitionSupport": "none",
+    "cognitionAbility": "typical",
+    "communicationSupport": "BSL",
+    "communicationAbility": "typical",
+    "nightResponse": "requires_vibrating_pillow",
+    "alertnessSupport": "none",
+    "alertnessEffects": "typical",
+    "equipmentDependency": "none",
+    "behaviouralRisks": [],
+    "assistRequired": "needs_assist_1",
+    "assistLevel": "occasional_support",
+    "equipmentNeeded": []
+  },
+  "outcome": {
+    "relevantResident": false,
+    "peepRequired": true,
+    "rationale": "Employee has profound hearing loss and low vision. Requires visual alarm system and tactile wayfinding. PEEP required under Equality Act 2010 (reasonable adjustments) and FSO 2005. Not a 'relevant resident' (workplace context, not residential)."
+  },
+  "provenance": [
+    {
+      "path": "/capability/sensoryHearing",
+      "source": "self_report",
+      "evidence": "document_seen",
+      "confidenceLevel": "high",
+      "recordedByRole": "fire_safety_advisor",
+      "verifiedByRole": "occupational_health_advisor",
+      "verifiedAt": "2025-07-05T14:00:00Z",
+      "notes": "Employee provided Access to Work assessment report confirming profound hearing loss; BSL user."
+    },
+    {
+      "path": "/capability/sensoryVision",
+      "source": "self_report",
+      "evidence": "document_seen",
+      "confidenceLevel": "high",
+      "recordedByRole": "fire_safety_advisor",
+      "verifiedByRole": "occupational_health_advisor",
+      "verifiedAt": "2025-07-05T14:00:00Z",
+      "notes": "Employee provided Access to Work assessment report confirming low vision; requires high-contrast materials and additional lighting."
+    }
+  ],
+  "notes": "Assessment conducted with BSL interpreter present. Employee cooperative and engaged. Access to Work assessment report reviewed. Employer committed to providing visual alarm beacons at workstation and high-contrast tactile wayfinding signage along evacuation routes."
+}
+

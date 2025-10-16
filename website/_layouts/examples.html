@@ -1,0 +1,115 @@
+---
+layout: default
+---
+
+<!-- Full-width examples layout -->
+<div class="examples-page">
+    {{ content }}
+</div>
+
+<style>
+.examples-page {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+}
+
+.examples-page > * {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* Override the default container styling */
+.examples-page .examples-container {
+    max-width: none;
+    width: 100%;
+    margin-top: 0;
+}
+
+.examples-page .examples-sidebar {
+    position: sticky;
+    top: 2rem;
+    height: fit-content;
+    background: white;
+    border: 1px solid #d1d9e0;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.examples-page .examples-content {
+    background: white;
+    border: 1px solid #d1d9e0;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+/* Full-width code blocks */
+.examples-page .code-preview {
+    width: 100%;
+    max-width: none;
+}
+
+.examples-page .code-preview pre {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 2rem;
+    overflow-x: auto;
+    color: #24292f;
+    background: #f8f9fa;
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    white-space: pre;
+    min-width: max-content;
+    border: none;
+    border-radius: 0;
+}
+
+/* Custom scrollbar for code blocks */
+.examples-page .code-preview pre::-webkit-scrollbar {
+    height: 12px;
+}
+
+.examples-page .code-preview pre::-webkit-scrollbar-track {
+    background: #e1e7ef;
+    border-radius: 6px;
+}
+
+.examples-page .code-preview pre::-webkit-scrollbar-thumb {
+    background: #8b949e;
+    border-radius: 6px;
+}
+
+.examples-page .code-preview pre::-webkit-scrollbar-thumb:hover {
+    background: #656d76;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .examples-page > * {
+        padding: 0 1rem;
+    }
+    
+    .examples-page .examples-container {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .examples-page .examples-sidebar {
+        position: static;
+        margin-bottom: 1rem;
+    }
+    
+    .examples-page .code-preview pre {
+        padding: 1rem;
+        font-size: 0.75rem;
+    }
+}
+</style>

@@ -1,0 +1,270 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://open-peep.org/schemas/pcfra/pcfra.environment.schema.json",
+  "title": "Person-Centred Fire Risk Assessment — Environmental",
+  "description": "PCFRA (environmental vulnerabilities only). Standalone schema capturing environmental/setting risks and safeguarding context.",
+  "$comment": "Regulatory alignment: Fire Safety (Residential Evacuation Plans) (England) Regulations 2025 (from Apr 2026); Regulatory Reform (Fire Safety) Order 2005; Building Safety Act 2022 (golden thread); Equality Act 2010 (reasonable adjustments); Approved Document B (Fire Safety); NFCC Person-Centred Fire Risk Framework.",
+  "type": "object",
+  "properties": {
+    "pcfraId": {
+      "type": "string",
+      "description": "Stable identifier for this PCFRA record (e.g. UUID)."
+    },
+    "version": {
+      "type": "string",
+      "description": "Schema/document version tag for auditability."
+    },
+    "buildingRef": {
+      "type": "string",
+      "description": "Identifier for the relevant building/facility. Use when unit_ref is not applicable."
+    },
+    "unitRef": {
+      "type": "string",
+      "description": "Identifier for a specific unit/flat/room within a building."
+    },
+    "assessedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of the assessment."
+    },
+    "assessorRole": {
+      "type": "string",
+      "description": "Role/capacity of the person recording the assessment (e.g. housing_officer, fire_safety_advisor, self)."
+    },
+    "assessmentMethod": {
+      "type": "string",
+      "enum": [
+        "phone",
+        "digital_self",
+        "in_person"
+      ],
+      "description": "How the assessment was performed."
+    },
+    "confidenceLevel": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "description": "Overall confidence in the information captured, considering method and context."
+    },
+    "consentRef": {
+      "type": "string",
+      "description": "Link to a Consent record (given/refused/withdrawn) in common/consent."
+    },
+    "environment": {
+      "type": "object",
+      "description": "Observed home/environmental risks that affect ignition likelihood or evacuation safety. Record observations only; no diagnoses.",
+      "properties": {
+        "cooking_risk": {
+          "type": "string",
+          "description": "E.g. unattended_cooking, chip_pan_use, clutter_near_hob, oxygen_near_hob."
+        },
+        "electrical_risk": {
+          "type": "string",
+          "description": "E.g. socket_covers_removed, overloaded_extensions, damaged_cables, DIY_wiring, heaters_on_extension."
+        },
+        "smoking_risk": {
+          "type": "string",
+          "description": "E.g. heavy_indoor_smoking, careless_disposal."
+        },
+        "hoarding_risk": {
+          "type": "string",
+          "description": "E.g. pathways_narrowed, combustible_load_high, doors_blocked."
+        },
+        "accessEgress": {
+          "type": "string",
+          "description": "E.g. exit_blocked, exit_partially_blocked, key_management_issue."
+        },
+        "ignition_sources": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Observed ignition sources of concern (e.g. candles_unattended, multiple_space_heaters, open_flame)."
+        },
+        "pets_risk": {
+          "type": "string",
+          "description": "E.g. large_dogs_impeding_exit, pet_cages_blocking_route."
+        }
+      },
+      "additionalProperties": false
+    },
+    "safeguarding": {
+      "type": "object",
+      "description": "Escalation and multi‑agency context (no detailed police/medical data).",
+      "properties": {
+        "asbViolenceRisk": {
+          "type": "string",
+          "description": "E.g. ASB_reported, threats_to_staff, police_attendance_history (no case details)."
+        },
+        "agencyInvolved": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "police",
+              "adult_social_care",
+              "mental_health_team",
+              "landlord_housing",
+              "fire_and_rescue",
+              "other_agency"
+            ]
+          },
+          "description": "Agencies known to be involved (roles only)."
+        },
+        "immediateDanger": {
+          "type": "boolean",
+          "description": "True if conditions posed an immediate life safety hazard at assessment."
+        },
+        "immediateActionTaken": {
+          "type": "string",
+          "description": "Concise note of immediate mitigation (e.g. isolated_circuit, removed_portable_heater, called_999)."
+        },
+        "referralsMade": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Opaque IDs/links to referral records in the host system."
+        }
+      },
+      "additionalProperties": false
+    },
+    "outcome": {
+      "type": "object",
+      "description": "Decision outputs used to trigger planning actions.",
+      "properties": {
+        "relevantResident": {
+          "type": "boolean",
+          "description": "True if the person is in scope for Residential Evacuation Plans under the 2025 Regulations."
+        },
+        "peepRequired": {
+          "type": "boolean",
+          "description": "True if a PEEP/RPEEP is required based on capabilities and risk."
+        },
+        "rationale": {
+          "type": "string",
+          "description": "Short justification for the decision, avoiding medical detail."
+        }
+      },
+      "required": [
+        "relevantResident",
+        "peepRequired",
+        "rationale"
+      ],
+      "additionalProperties": false
+    },
+    "provenance": {
+      "type": "array",
+      "description": "Source/verification details for specific fields (self-report vs observed, etc.).",
+      "items": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "JSON Pointer to the field (e.g. /capability/mobility_aid)."
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "self_report",
+              "assessor_observed",
+              "third_party_record",
+              "system_generated"
+            ],
+            "description": "Who/how the info originated."
+          },
+          "evidence": {
+            "type": "string",
+            "enum": [
+              "visual_inspection",
+              "verbal_account",
+              "document_seen",
+              "device_log",
+              "photo_evidence",
+              "other_evidence"
+            ],
+            "description": "What supports the value recorded."
+          },
+          "confidenceLevel": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high"
+            ],
+            "description": "Confidence in this specific item (if different from overall)."
+          },
+          "recordedByRole": {
+            "type": "string",
+            "description": "Role/capacity of the person recording (e.g. housing_officer, front_desk, self)."
+          },
+          "verifiedByRole": {
+            "type": "string",
+            "description": "If verified, who verified (role only, not name)."
+          },
+          "verifiedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the item was verified (if applicable)."
+          },
+          "notes": {
+            "type": "string",
+            "description": "Short, non-sensitive clarifier if needed."
+          }
+        },
+        "required": [
+          "path",
+          "source"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "reviews": {
+      "type": "array",
+      "description": "Lifecycle reviews of this PCFRA.",
+      "items": {
+        "$ref": "https://open-peep.org/schemas/common/review.schema.json"
+      }
+    },
+    "environment_other_notes": {
+      "type": "string",
+      "description": "Optional plain-language notes for any environmental/safeguarding items that do not fit enumerations (keep minimal)."
+    },
+    "notes": {
+      "type": "string",
+      "description": "Optional free text for clarifications—kept minimal and non-sensitive."
+    },
+    "attachments": {
+      "type": "array",
+      "description": "Optional list of host-system attachment identifiers (no files embedded).",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "assessedAt",
+    "assessmentMethod",
+    "outcome"
+  ],
+  "allOf": [
+    {
+      "oneOf": [
+        {
+          "required": [
+            "buildingRef"
+          ]
+        },
+        {
+          "required": [
+            "unitRef"
+          ]
+        }
+      ]
+    }
+  ],
+  "additionalProperties": false
+}

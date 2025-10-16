@@ -1,0 +1,61 @@
+{
+  "pcfraId": "pcfra-environment-safeguarding-uuid-003",
+  "version": "1.0.0",
+  "buildingRef": "building-oak-tower-001",
+  "unitRef": "unit-oak-tower-7c-001",
+  "assessedAt": "2025-10-12T11:00:00Z",
+  "assessorRole": "housing_officer",
+  "assessmentMethod": "in_person",
+  "confidenceLevel": "high",
+  "consentRef": "consent-safeguarding-uuid-003",
+  "environment": {
+    "cooking_risk": "None observed at time of visit.",
+    "electrical_risk": "None observed.",
+    "smoking_risk": "Evidence of indoor smoking; cigarette burns on carpet. Resident advised.",
+    "hoarding_risk": "Moderate clutter; pathways mostly clear.",
+    "accessEgress": "Clear at time of visit.",
+    "ignition_sources": [],
+    "pets_risk": "None."
+  },
+  "safeguarding": {
+    "asbViolenceRisk": "ASB reported by neighbours (loud music, shouting). Police attendance recorded (3 occasions in past 6 months). Resident cooperative during visit but history of threatening behaviour towards housing staff noted in records.",
+    "agencyInvolved": [
+      "police",
+      "adult_social_care",
+      "mental_health_team",
+      "landlord_housing"
+    ],
+    "immediateDanger": false,
+    "immediateActionTaken": "None required at time of visit. Resident calm and cooperative. Housing officer completed visit with colleague present (lone working protocol).",
+    "referralsMade": [
+      "referral-adult-social-care-2025-10-12",
+      "referral-mental-health-team-2025-10-12"
+    ]
+  },
+  "outcome": {
+    "relevantResident": true,
+    "peepRequired": true,
+    "rationale": "PEEP required due to personal capability factors (recorded in personal PCFRA). Environmental assessment identifies safeguarding context: ASB/violence risk, police involvement, multi-agency coordination required. Lone working protocol applies for future visits. PEEP creation will require coordination with adult social care and mental health team. Staff safety considerations noted."
+  },
+  "provenance": [
+    {
+      "path": "/safeguarding/asbViolenceRisk",
+      "source": "third_party_record",
+      "evidence": "document_seen",
+      "confidenceLevel": "high",
+      "recordedByRole": "housing_officer",
+      "notes": "Police attendance records reviewed; 3 incidents in past 6 months (2025-04, 2025-07, 2025-09). Housing records note previous threats to staff (2025-06)."
+    },
+    {
+      "path": "/safeguarding/agencyInvolved",
+      "source": "third_party_record",
+      "evidence": "document_seen",
+      "confidenceLevel": "high",
+      "recordedByRole": "housing_officer",
+      "notes": "Multi-agency case conference held 2025-09-15; adult social care, mental health team, police, and housing represented. Case plan agreed; housing to conduct PCFRA and PEEP with lone working protocol."
+    }
+  ],
+  "environment_other_notes": "Safeguarding context: multi-agency case. Resident has mental health support worker (visits 2x/week). Housing officer to liaise with mental health team for PEEP creation. Lone working protocol applies: all visits to be conducted in pairs.",
+  "notes": "Complex safeguarding case. Environmental risks are moderate (smoking, clutter). Main concern is ASB/violence risk and staff safety. Multi-agency coordination required for PEEP creation and review. Referrals made to adult social care and mental health team for ongoing support. Next visit scheduled with mental health support worker present (2025-10-20)."
+}
+

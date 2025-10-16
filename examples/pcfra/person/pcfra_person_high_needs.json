@@ -1,0 +1,74 @@
+{
+  "pcfraId": "pcfra-person-high-needs-uuid-002",
+  "version": "1.0.0",
+  "personRef": "person-high-needs-uuid-002",
+  "assessedAt": "2025-10-05T10:30:00Z",
+  "assessorRole": "fire_safety_advisor",
+  "assessmentMethod": "in_person",
+  "confidenceLevel": "high",
+  "consentRef": "consent-high-needs-uuid-002",
+  "capability": {
+    "walkingEndurance": "cannot_walk",
+    "respiratoryTolerance": "oxygen_support_needed",
+    "mobilityTransfer": "hoist_or_full_lift_required",
+    "stairTolerance": "cannot_use_stairs",
+    "mobilityAid": "wheelchair_powered",
+    "hearingSupport": "visual_alerts_required",
+    "sensoryHearing": "reduced",
+    "visionSupport": "additional_lighting",
+    "sensoryVision": "low_vision",
+    "cognitionSupport": "step_by_step_prompts",
+    "cognitionAbility": "mild_support_needed",
+    "communicationSupport": "plain_language",
+    "communicationAbility": "mild_difficulty",
+    "nightResponse": "requires_vibrating_pillow",
+    "alertnessSupport": "prompts_needed_when_distressed",
+    "alertnessEffects": "mildly_affected",
+    "equipmentDependency": "oxygen_therapy",
+    "behaviouralRisks": [],
+    "assistRequired": "needs_assist_2",
+    "assistLevel": "constant_support",
+    "equipmentNeeded": [
+      "evac_chair_required",
+      "transfer_board",
+      "evacuation_sheet"
+    ]
+  },
+  "outcome": {
+    "relevantResident": true,
+    "peepRequired": true,
+    "rationale": "Resident has multiple support needs: powered wheelchair user, oxygen dependent, reduced hearing and vision, requires cognitive support. Cannot self-evacuate; requires 2 persons and specialized equipment (hoist, evac chair, or rescue sheet). PEEP urgently required. Relevant resident under Residential Regs 2025."
+  },
+  "provenance": [
+    {
+      "path": "/capability/mobilityAid",
+      "source": "assessor_observed",
+      "evidence": "visual_inspection",
+      "confidenceLevel": "high",
+      "recordedByRole": "fire_safety_advisor",
+      "verifiedByRole": "occupational_health_advisor",
+      "verifiedAt": "2025-10-05T10:00:00Z",
+      "notes": "Powered wheelchair observed; resident demonstrated transfer from wheelchair to bed (requires hoist)."
+    },
+    {
+      "path": "/capability/equipmentDependency",
+      "source": "assessor_observed",
+      "evidence": "device_log",
+      "confidenceLevel": "high",
+      "recordedByRole": "fire_safety_advisor",
+      "verifiedByRole": "occupational_health_advisor",
+      "verifiedAt": "2025-10-05T10:00:00Z",
+      "notes": "Oxygen concentrator observed in bedroom; resident confirmed continuous oxygen use (16 hours/day). Equipment log reviewed."
+    },
+    {
+      "path": "/capability/sensoryHearing",
+      "source": "self_report",
+      "evidence": "verbal_account",
+      "confidenceLevel": "high",
+      "recordedByRole": "fire_safety_advisor",
+      "notes": "Resident self-reported reduced hearing; wears hearing aids. Requires visual alarm beacons for fire alarm."
+    }
+  ],
+  "notes": "Complex assessment conducted with occupational health advisor present. Resident has care package (4 visits/day). Carer present during assessment confirmed support needs. Oxygen equipment creates additional fire risk (addressed in environmental PCFRA). PEEP coordination required with care provider and concierge team."
+}
+

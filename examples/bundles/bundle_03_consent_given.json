@@ -1,0 +1,17 @@
+{
+  "state": "given",
+  "capturedAt": "2025-07-10T09:30:00Z",
+  "capturedBy": "hr.officer@techcorp.example.com",
+  "scope": [
+    "pcfra",
+    "peep"
+  ],
+  "method": "written",
+  "notes": "Employee consented to workplace PEEP as part of onboarding reasonable adjustments process. Consent form signed electronically via HR portal.",
+  "evidenceRef": "https://techcorp.example.com/hr/consent-sam-patel-2025-07-10.pdf",
+  "offerMadeAt": "2025-07-10T09:00:00Z",
+  "validFrom": "2025-07-10T09:30:00Z",
+  "personRef": "person-sam-patel-uuid-003",
+  "documentRef": "peep-sam-patel-uuid-003"
+}
+

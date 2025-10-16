@@ -1,0 +1,83 @@
+{
+  "bundle_id": "bundle-02-jordan-lee-consent-refused",
+  "bundle_name": "Bundle 2: Residential RPEEP — Consent Refused",
+  "bundle_version": "1.0.0",
+  "created_at": "2025-08-20T14:30:00Z",
+  "scenario": "Residential RPEEP offer; resident refuses consent for detailed PCFRA and PEEP creation. Minimal assessment recorded; refusal documented; duty to re-offer consent periodically.",
+  "documents": [
+    {
+      "document_type": "person_profile",
+      "document_id": "person-jordan-lee-uuid-002",
+      "file": "bundle_02_person_profile.json",
+      "description": "Person Profile for Jordan Lee (fictitious resident)"
+    },
+    {
+      "document_type": "address",
+      "document_id": "unit-oak-tower-5-001",
+      "file": "bundle_02_address.json",
+      "description": "Address for Flat 5, Oak Tower, Leeds"
+    },
+    {
+      "document_type": "consent",
+      "document_id": "consent-jordan-lee-uuid-002",
+      "file": "bundle_02_consent_refused.json",
+      "description": "Consent record (refused for PCFRA, PEEP, EES)"
+    },
+    {
+      "document_type": "pcfra_person",
+      "document_id": "pcfra-person-jordan-lee-uuid-002",
+      "file": "bundle_02_pcfra_person.json",
+      "description": "Minimal Personal PCFRA (limited phone assessment; low confidence)"
+    }
+  ],
+  "cross_references": {
+    "consent_to_person": {
+      "from": "consent-jordan-lee-uuid-002",
+      "to": "person-jordan-lee-uuid-002",
+      "field": "personRef"
+    },
+    "pcfra_person_to_person": {
+      "from": "pcfra-person-jordan-lee-uuid-002",
+      "to": "person-jordan-lee-uuid-002",
+      "field": "personRef"
+    },
+    "pcfra_person_to_consent": {
+      "from": "pcfra-person-jordan-lee-uuid-002",
+      "to": "consent-jordan-lee-uuid-002",
+      "field": "consentRef"
+    }
+  },
+  "workflow_sequence": [
+    {
+      "step": 1,
+      "phase": "Consent Offer",
+      "documents": [
+        "bundle_02_consent_refused.json"
+      ],
+      "description": "Housing officer contacts resident by phone on 2025-08-20; offers consent for PCFRA and PEEP; resident declines."
+    },
+    {
+      "step": 2,
+      "phase": "Limited Assessment",
+      "documents": [
+        "bundle_02_pcfra_person.json"
+      ],
+      "description": "Minimal PCFRA captured via brief phone conversation (self-report only); confidence level: low."
+    },
+    {
+      "step": 3,
+      "phase": "Outcome",
+      "documents": [],
+      "description": "No PEEP or EES created. Refusal recorded. Duty holder will re-offer consent at next annual tenancy review (2026-08)."
+    }
+  ],
+  "compliance_mapping": {
+    "uk_residential_regs_2025": {
+      "reg_4_consent": "Consent offered; refusal recorded with reason; offer date and refusal date documented",
+      "reg_3_duty_to_prepare": "Duty holder attempted to fulfil duty; resident declined. Duty holder must re-offer periodically.",
+      "notes": "Duty holder has complied with Reg 4 (offer consent). Resident exercised right to refuse. Duty holder retains record of offer and refusal as evidence of compliance."
+    }
+  },
+  "notes": "This bundle demonstrates consent refusal handling. No PEEP or EES is created because the resident declined consent. The duty holder has recorded the offer, the refusal, and the reason. A minimal PCFRA was captured via brief phone conversation (self-report only; low confidence). The duty holder will re-offer consent at the next annual tenancy review. This approach respects the resident's autonomy while maintaining compliance evidence."
+}
+

@@ -1,0 +1,32 @@
+{
+  "pcfraId": "pcfra-person-jordan-lee-uuid-002",
+  "version": "1.0.0",
+  "personRef": "person-jordan-lee-uuid-002",
+  "assessedAt": "2025-08-20T13:50:00Z",
+  "assessorRole": "housing_officer",
+  "assessmentMethod": "phone",
+  "confidenceLevel": "low",
+  "consentRef": "consent-jordan-lee-uuid-002",
+  "capability": {
+    "walkingEndurance": "needs_frequent_breaks",
+    "stairTolerance": "stairs_with_assist",
+    "mobilityAid": "stick"
+  },
+  "outcome": {
+    "relevantResident": true,
+    "peepRequired": true,
+    "rationale": "Resident appears to meet criteria for PEEP (reduced mobility, uses walking stick, stairs with assistance). However, consent was refused. Duty holder has offered consent and recorded refusal. Will re-offer at next tenancy review."
+  },
+  "provenance": [
+    {
+      "path": "/capability/mobilityAid",
+      "source": "self_report",
+      "evidence": "verbal_account",
+      "confidenceLevel": "low",
+      "recordedByRole": "housing_officer",
+      "notes": "Self-reported during brief phone conversation. No in-person verification due to consent refusal."
+    }
+  ],
+  "notes": "Assessment limited to brief phone conversation. Resident declined detailed assessment. Information captured is minimal and based on self-report only. Confidence level: low."
+}
+

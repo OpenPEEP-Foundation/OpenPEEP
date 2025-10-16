@@ -1,0 +1,23 @@
+{
+  "personRef": "person-emma-wilson-uuid-001",
+  "name": "Emma Wilson",
+  "dob": "1992-11-08",
+  "preferredLanguage": "en-GB",
+  "contact": {
+    "phone": "+447700900234",
+    "email": "emma.wilson@example.com"
+  },
+  "communicationPreferences": {
+    "channels": [
+      "email",
+      "sms",
+      "phone_call"
+    ],
+    "formatPreferences": [
+      "plain_language"
+    ],
+    "notes": "Prefers email for routine communications; phone call for urgent matters.",
+    "consentRef": "consent-emma-wilson-uuid-001"
+  }
+}
+

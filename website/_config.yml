@@ -1,0 +1,51 @@
+title: OpenPEEP
+description: The open standard for digital fire safety evacuation plans
+baseurl: ""
+url: "https://open-peep.org"
+
+# Jekyll configuration
+markdown: kramdown
+highlighter: rouge
+permalink: pretty
+
+# Theme configuration
+theme: jekyll-theme-primer
+
+# Navigation
+navigation:
+  - title: Home
+    url: /
+  - title: Get Started
+    url: /get-started/
+  - title: Value
+    url: /valuation/
+  - title: Examples
+    url: /examples/
+  - title: Documentation
+    url: /documentation/
+  - title: Support
+    url: /support/
+  - title: License
+    url: /license/
+  - title: GitHub
+    url: https://github.com/OpenPEEP-Foundation/OpenPEEP
+    external: true
+
+# Build settings
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - node_modules
+  - vendor
+  - .sass-cache
+  - .jekyll-cache
+  - .jekyll-metadata
+  - .git
+  - .gitignore
+
+# Site settings
+author: OpenPEEP Standard
+email: standards@openpeep.org
+github_username: openpeep-standard
+twitter_username: openpeep

@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0.0",
+  "document_id": "ees-building-birch-court-uuid-002",
+  "created_at": "2025-10-05T14:00:00Z",
+  "building": {
+    "name": "Birch Court",
+    "address": {
+      "buildingName": "Birch Court",
+      "addressLine1": "22 Oak Avenue",
+      "townCity": "Leeds",
+      "postcode": "LS2 3CD",
+      "countryCode": "GB",
+      "buildingRef": "building-birch-court-001"
+    }
+  },
+  "evacuation_strategy": "simultaneous_evacuate",
+  "who_should_move_when": "When you hear the fire alarm, everyone must leave the building immediately. Do not stop to collect belongings. Leave by the nearest safe exit and go to the Assembly Point in the car park.",
+  "alarm_and_alerting_summary": "A continuous alarm means everyone must evacuate immediately. The alarm will sound throughout the building. Do not ignore it.",
+  "refuges_and_lifts_summary": "No evacuation lift. No refuges. If you cannot use stairs, alert a neighbour or staff member immediately when the alarm sounds. Assistance will be provided.",
+  "routes_summary": "Two stairwells (Stairwell A – west side, Stairwell B – east side). Use the nearest stairwell. Do not use the passenger lift. Keep stairwell doors closed as you pass through.",
+  "muster_points": [
+    {
+      "label": "Assembly Point (Main)",
+      "description": "Car park at rear of building (east side)"
+    }
+  ],
+  "resident_help_and_contacts": {
+    "building_contact": "Housing office: 0113 000 0001 (Mon-Fri, 9am-5pm)",
+    "out_of_hours": "Emergency line: 0113 000 0002",
+    "frs_information_point": "Fire information folder in entrance hallway"
+  },
+  "languages_available": [
+    "en-GB",
+    "pl-PL",
+    "ur-PK"
+  ],
+  "accessibility_formats": [
+    "plain_english",
+    "large_print",
+    "easy_read",
+    "audio"
+  ],
+  "distribution_methods": [
+    "door_drop",
+    "welcome_pack",
+    "email"
+  ],
+  "provenance": {
+    "authored_by": "Leeds Housing Fire Safety Team",
+    "author_org": "Leeds Housing Trust",
+    "method": "manual"
+  }
+}
+

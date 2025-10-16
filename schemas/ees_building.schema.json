@@ -1,0 +1,201 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://open-peep.org/schemas/ees/ees_building.schema.json",
+  "title": "Emergency Evacuation Statement \u2014 Building",
+  "description": "Building-wide evacuation strategy for residents and auditors. Plain-language summary of the strategy (e.g., stay put, simultaneous), routes and muster information at a high level. No personal needs.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "default": "1.0.0"
+    },
+    "document_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "building": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "address": {
+          "$ref": "../common/address.schema.json"
+        },
+        "identifiers": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "uprn": {
+              "type": "string"
+            },
+            "internal_building_id": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "required": [
+        "address"
+      ]
+    },
+    "evacuation_strategy": {
+      "type": "string",
+      "enum": [
+        "stay_put",
+        "simultaneous_evacuate",
+        "phased",
+        "progressive_horizontal",
+        "other"
+      ]
+    },
+    "strategy_other_detail": {
+      "type": "string"
+    },
+    "who_should_move_when": {
+      "type": "string",
+      "description": "Plain-language summary e.g. 'If fire is in your flat: evacuate. Otherwise: stay put unless instructed by the Fire and Rescue Service.'"
+    },
+    "alarm_and_alerting_summary": {
+      "type": "string"
+    },
+    "refuges_and_lifts_summary": {
+      "type": "string",
+      "description": "High-level statement about refuges / evacuation lifts availability. No routing."
+    },
+    "routes_summary": {
+      "type": "string",
+      "description": "High-level description of escape routes (e.g., 'Two protected stairwells A and B; do not use lifts unless told to by the FRS'). Avoids waypoints or spatial modelling."
+    },
+    "muster_points": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "label"
+        ]
+      }
+    },
+    "resident_help_and_contacts": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "building_contact": {
+          "type": "string"
+        },
+        "out_of_hours": {
+          "type": "string"
+        },
+        "frs_information_point": {
+          "type": "string"
+        }
+      }
+    },
+    "languages_available": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "accessibility_formats": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "large_print",
+          "easy_read",
+          "audio",
+          "braille",
+          "sign_video",
+          "high_contrast",
+          "plain_english"
+        ]
+      }
+    },
+    "distribution_methods": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "noticeboard",
+          "door_drop",
+          "email",
+          "tenant_portal",
+          "welcome_pack",
+          "qr_in_common_areas"
+        ]
+      }
+    },
+    "related_document_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "IDs of related records in the golden thread (e.g., FRA, strategy report)."
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "authored_by": {
+          "type": "string"
+        },
+        "author_org": {
+          "type": "string"
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "manual",
+            "generated",
+            "imported"
+          ]
+        },
+        "source_refs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "reviews": {
+      "type": "array",
+      "items": {
+        "$ref": "../common/review.schema.json"
+      }
+    },
+    "extensions": {
+      "type": "object",
+      "description": "Vendor-specific, optional. Namespaced keys recommended (e.g., acme_*).",
+      "additionalProperties": true
+    }
+  },
+  "required": [
+    "schema_version",
+    "document_id",
+    "created_at",
+    "building",
+    "evacuation_strategy",
+    "who_should_move_when"
+  ]
+}

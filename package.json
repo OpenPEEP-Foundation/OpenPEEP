@@ -1,0 +1,22 @@
+{
+    "name": "openpeep-standard",
+    "private": true,
+    "devDependencies": {
+      "ajv": "^8.17.0",
+      "@jirutka/ajv-cli": "^6.0.0",
+      "ajv-formats": "^3.0.1"
+    },
+    "scripts": {
+      "lint:schemas": "ajv compile --spec=draft2020 -r \"schemas/**/*.schema.json\" -c ajv-formats",
+      "test:peep": "ajv validate --spec=draft2020 -c ajv-formats -s schemas/peep/peep.schema.json -d \"examples/peep/*.json\"",
+      "test:pcfra": "ajv validate --spec=draft2020 -c ajv-formats -s schemas/pcfra/pcfra.schema.json -d \"examples/pcfra/*.json\"",
+      "test:consent": "ajv validate --spec=draft2020 -c ajv-formats -s schemas/common/consent.schema.json -d \"examples/consent/*.json\"",
+      "test:person": "ajv validate --spec=draft2020 -c ajv-formats -s schemas/common/person_profile.schema.json -d \"examples/person_profile/*.json\"",
+      "test:address": "ajv validate --spec=draft2020 -c ajv-formats -s schemas/common/address.schema.json -d \"examples/address/*.json\"",
+      "test:review": "ajv validate --spec=draft2020 -c ajv-formats -s schemas/common/review.schema.json -d \"examples/review/*.json\"",
+      "test:ees-person": "ajv validate --spec=draft2020 -c ajv-formats -s schemas/ees/ees_person.schema.json -d \"examples/ees/person/*.json\"",
+      "test:ees-building": "ajv validate --spec=draft2020 -c ajv-formats -s schemas/ees/ees_building.schema.json -d \"examples/ees/building/*.json\"",
+      "test:all": "npm-run-all -s lint:schemas test:*"
+    }
+  }
+  

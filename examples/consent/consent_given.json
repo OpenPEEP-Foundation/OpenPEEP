@@ -1,0 +1,20 @@
+{
+  "state": "given",
+  "capturedAt": "2025-09-15T10:30:00Z",
+  "capturedBy": "housing.officer@manchesterhousing.example.org",
+  "scope": [
+    "pcfra",
+    "peep",
+    "rpeep",
+    "ees_person_statement",
+    "share_with_frs"
+  ],
+  "method": "written",
+  "notes": "Resident signed consent form during home visit. Copy provided to resident.",
+  "evidenceRef": "https://manchesterhousing.example.org/evidence/consent-alex-thompson-2025-09-15.pdf",
+  "offerMadeAt": "2025-09-15T10:00:00Z",
+  "validFrom": "2025-09-15T10:30:00Z",
+  "personRef": "person-alex-thompson-uuid-001",
+  "documentRef": "peep-alex-thompson-uuid-001"
+}
+

@@ -1,0 +1,60 @@
+{
+  "schemaVersion": "1.0.0",
+  "peepId": "peep-nominal-uuid-001",
+  "personProfile": {
+    "personRef": "person-emma-wilson-uuid-001",
+    "name": "Emma Wilson",
+    "preferredLanguage": "en-GB"
+  },
+  "address": {
+    "buildingName": "Riverside Apartments",
+    "subBuilding": "Flat 3B",
+    "townCity": "Bristol",
+    "postcode": "BS1 2AA",
+    "countryCode": "GB",
+    "buildingRef": "building-riverside-001",
+    "unitRef": "unit-riverside-3b-001"
+  },
+  "evacuationStrategy": "Simultaneous Evacuation",
+  "language": "en-GB",
+  "planSummary": "Emma Wilson lives in Flat 3B on the 3rd floor. In the event of a fire alarm, Emma should evacuate via the east stairwell with her buddy (neighbour, Flat 3C). Emma uses a walking stick and may need assistance on stairs.",
+  "metadata": {
+    "createdAt": "2025-10-01T15:00:00Z",
+    "createdBy": "housing.officer@bristol.example.org",
+    "status": "approved"
+  },
+  "routes": [
+    {
+      "name": "Primary",
+      "pathDescription": "Exit flat; turn right; proceed to east stairwell (20m); descend stairs (3 floors); exit building via main entrance; proceed to Assembly Point (front courtyard).",
+      "assistance": [
+        {
+          "type": "buddy_pair",
+          "personsRequired": 1,
+          "role": "Neighbour buddy (Flat 3C)",
+          "availability": "Evenings and weekends"
+        }
+      ],
+      "musterPoint": "Assembly Point (front courtyard)"
+    }
+  ],
+  "evacuationProcedure": [
+    {
+      "order": 1,
+      "instruction": "On hearing fire alarm, remain calm. Collect walking stick, mobile phone, and keys."
+    },
+    {
+      "order": 2,
+      "instruction": "Exit flat and knock on neighbour's door (Flat 3C) for buddy assistance if available."
+    },
+    {
+      "order": 3,
+      "instruction": "Proceed to east stairwell; descend stairs carefully, holding handrail."
+    },
+    {
+      "order": 4,
+      "instruction": "Exit building via main entrance; go to Assembly Point in front courtyard."
+    }
+  ]
+}
+

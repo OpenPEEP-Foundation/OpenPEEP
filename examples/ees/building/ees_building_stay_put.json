@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.0.0",
+  "document_id": "ees-building-meridian-court-uuid-001",
+  "created_at": "2025-10-01T10:00:00Z",
+  "updated_at": "2025-10-01T10:00:00Z",
+  "building": {
+    "name": "Meridian Court",
+    "address": {
+      "buildingName": "Meridian Court",
+      "addressLine1": "1 Example Street",
+      "townCity": "Exampolis",
+      "postcode": "EX1 2AB",
+      "countryCode": "GB",
+      "uprn": "100012345678",
+      "buildingRef": "building-meridian-court-001"
+    },
+    "identifiers": {
+      "uprn": "100012345678",
+      "internal_building_id": "MC-001"
+    }
+  },
+  "evacuation_strategy": "stay_put",
+  "who_should_move_when": "If fire is in your flat: leave immediately and close doors behind you. If the fire alarm sounds but fire is NOT in your flat: stay in your flat and await instructions from the Fire and Rescue Service. Only leave if you are told to by the Fire Service or if you see smoke entering your flat.",
+  "alarm_and_alerting_summary": "A continuous alarm throughout the building means fire has been detected. If the fire is not in your flat, stay put unless instructed otherwise by the Fire and Rescue Service.",
+  "refuges_and_lifts_summary": "No evacuation lift available. Refuge spaces provided at stair lobbies on Levels 5–10 (behind fire doors). If you cannot use stairs, go to the nearest refuge and use the red intercom button to call for help.",
+  "routes_summary": "Two protected stairwells (Stairwell A – north side, Stairwell B – south side). Do not use passenger lifts unless told to by the Fire and Rescue Service. Use stairwells only.",
+  "muster_points": [
+    {
+      "label": "Assembly Point A",
+      "description": "Opposite the main entrance by the library (north side of building)"
+    }
+  ],
+  "resident_help_and_contacts": {
+    "building_contact": "Concierge desk: 020 7000 0001 (24/7)",
+    "out_of_hours": "Emergency line: 020 7000 0002",
+    "frs_information_point": "Fire information box located in main reception"
+  },
+  "languages_available": [
+    "en-GB",
+    "pl-PL"
+  ],
+  "accessibility_formats": [
+    "plain_english",
+    "large_print",
+    "easy_read"
+  ],
+  "distribution_methods": [
+    "noticeboard",
+    "tenant_portal",
+    "welcome_pack"
+  ],
+  "related_document_ids": [
+    "fra-meridian-court-2025",
+    "fire-strategy-meridian-court-2024"
+  ],
+  "provenance": {
+    "authored_by": "Fire Safety Team",
+    "author_org": "Exampolis Housing Ltd",
+    "method": "manual",
+    "source_refs": [
+      "FRA-MC-2025-01",
+      "Building-Fire-Strategy-MC-2024"
+    ]
+  },
+  "reviews": []
+}
+

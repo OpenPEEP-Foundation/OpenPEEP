@@ -1,0 +1,24 @@
+{
+  "reviewed_at": "2026-09-15T11:00:00Z",
+  "reviewed_by": {
+    "name": "Jordan Smith",
+    "role": "Housing Officer",
+    "organisation": "Manchester Housing Ltd",
+    "contact": {
+      "email": "jordan.smith@manchesterhousing.example.org",
+      "phone": "+441612345680"
+    },
+    "reviewer_id": "housing-officer-jordan-smith-001"
+  },
+  "outcome": "confirmed_no_change",
+  "summary": "Annual review conducted via phone call with Alex Thompson. No changes to mobility, evacuation needs, or building context. Evacuation lift (Lift 2) remains operational and tested monthly. Concierge team unchanged. PEEP remains current and valid. Resident confirmed understanding of evacuation procedure. No amendments required.",
+  "next_due": "2027-09-15",
+  "attachments": [
+    {
+      "label": "Annual review checklist (completed)",
+      "uri": "https://manchesterhousing.example.org/reviews/peep-alex-thompson-review-2026-09-15.pdf",
+      "sha256": "b2c0d44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852c456"
+    }
+  ]
+}
+

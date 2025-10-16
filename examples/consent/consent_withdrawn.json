@@ -1,0 +1,15 @@
+{
+  "state": "withdrawn",
+  "capturedAt": "2025-11-01T14:30:00Z",
+  "capturedBy": "housing.officer@manchesterhousing.example.org",
+  "scope": [
+    "share_with_frs"
+  ],
+  "method": "verbal",
+  "reason": "No longer wishes to share PEEP with Fire and Rescue Service due to privacy concerns.",
+  "notes": "Resident called housing office to withdraw consent for FRS sharing. Consent for PCFRA and PEEP remains in place. PEEP will be retained but not shared with FRS. Resident confirmed understanding that FRS may request PEEP during emergency incident (vital interests legal basis). Withdrawal recorded; FRS notified.",
+  "validUntil": "2025-11-01T14:30:00Z",
+  "personRef": "person-alex-thompson-uuid-001",
+  "documentRef": "peep-alex-thompson-uuid-001"
+}
+

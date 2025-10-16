@@ -1,0 +1,26 @@
+{
+  "personRef": "person-rhys-davies-uuid-003",
+  "name": "Rhys Davies",
+  "dob": "1965-04-22",
+  "preferredLanguage": "cy-GB",
+  "contact": {
+    "email": "rhys.davies@example.com",
+    "phone": "+447700900890"
+  },
+  "communicationPreferences": {
+    "channels": [
+      "email",
+      "sms",
+      "relay_service"
+    ],
+    "formatPreferences": [
+      "large_print",
+      "high_contrast",
+      "bsl_interpreter_preferred",
+      "captioned_media"
+    ],
+    "notes": "Preferred language: Welsh (Cymraeg). BSL interpreter required for face-to-face meetings. All written communications should be in large print (minimum 16pt) with high contrast (black text on yellow background). Avoid phone calls without prior arrangement via relay service.",
+    "consentRef": "consent-rhys-davies-uuid-003"
+  }
+}
+

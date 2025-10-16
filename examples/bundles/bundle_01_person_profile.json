@@ -1,0 +1,23 @@
+{
+  "personRef": "person-alex-thompson-uuid-001",
+  "name": "Alex Thompson",
+  "dob": "1985-06-15",
+  "preferredLanguage": "en-GB",
+  "contact": {
+    "phone": "+447700900123",
+    "email": "alex.thompson@example.com"
+  },
+  "communicationPreferences": {
+    "channels": [
+      "email",
+      "sms",
+      "phone_call"
+    ],
+    "formatPreferences": [
+      "plain_language"
+    ],
+    "notes": "Prefers email for non-urgent matters; phone call for emergencies.",
+    "consentRef": "consent-alex-thompson-uuid-001"
+  }
+}
+

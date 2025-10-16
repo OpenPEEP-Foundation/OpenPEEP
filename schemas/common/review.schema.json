@@ -1,0 +1,161 @@
+{
+  "$id": "https://open-peep.org/schemas/common/review.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Review",
+  "description": "Reusable review block for lifecycle tracking across OpenPEEP documents (PCFRA, PEEP, RPEEP, Emergency Evacuation Statements). Records review metadata and outcomes without duplicating consent logic. Aligned with the Regulatory Reform (Fire Safety) Order 2005, Building Safety Act 2022 (golden thread), and Fire Safety (England) Regulations 2025.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "reviewed_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp the review decision was recorded (UTC recommended)."
+    },
+    "reviewed_by": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Minimal reviewer identity and role at time of review.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "role": {
+          "type": "string"
+        },
+        "organisation": {
+          "type": "string"
+        },
+        "contact": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "email": {
+              "type": "string",
+              "format": "email"
+            },
+            "phone": {
+              "type": "string"
+            }
+          }
+        },
+        "reviewer_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "outcome": {
+      "type": "string",
+      "enum": [
+        "confirmed_no_change",
+        "amended",
+        "superseded",
+        "withdrawn"
+      ]
+    },
+    "summary": {
+      "type": "string",
+      "maxLength": 2000
+    },
+    "next_due": {
+      "type": "string",
+      "format": "date"
+    },
+    "new_document_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "document_type": {
+          "type": "string",
+          "enum": [
+            "pcfra",
+            "peep",
+            "rpeep",
+            "ees",
+            "other"
+          ]
+        },
+        "document_id": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "uri": {
+          "type": "string",
+          "format": "uri"
+        }
+      },
+      "required": [
+        "document_type"
+      ]
+    },
+    "attachments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "uri": {
+            "type": "string",
+            "format": "uri"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[A-Fa-f0-9]{64}$"
+          }
+        },
+        "required": [
+          "label"
+        ]
+      }
+    }
+  },
+  "required": [
+    "reviewed_at",
+    "reviewed_by",
+    "outcome"
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "outcome": {
+            "const": "amended"
+          }
+        },
+        "required": [
+          "outcome"
+        ]
+      },
+      "then": {
+        "required": [
+          "new_document_ref"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "outcome": {
+            "const": "superseded"
+          }
+        },
+        "required": [
+          "outcome"
+        ]
+      },
+      "then": {
+        "required": [
+          "new_document_ref"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0.0",
+  "document_id": "ees-personal-standard-uuid-001",
+  "created_at": "2025-10-01T11:00:00Z",
+  "updated_at": "2025-10-01T11:00:00Z",
+  "person_profile_ref": "person-emma-wilson-uuid-001",
+  "unit_address": {
+    "buildingName": "Meridian Court",
+    "subBuilding": "Flat 12",
+    "townCity": "Exampolis",
+    "postcode": "EX1 2AB",
+    "countryCode": "GB",
+    "buildingRef": "building-meridian-court-001",
+    "unitRef": "unit-meridian-court-12-001"
+  },
+  "peep_document_id": "peep-emma-wilson-uuid-001",
+  "building_ees_document_id": "ees-building-meridian-court-uuid-001",
+  "language": "en-GB",
+  "format": [
+    "standard_print"
+  ],
+  "content": {
+    "summary": "Your building uses a stay-put strategy unless fire is in your home or you are told to leave by the Fire and Rescue Service. If you hear the alarm and there is NO fire in your flat, stay in your flat and await instructions.",
+    "steps_primary": [
+      "If you discover fire in your flat: leave immediately, close doors behind you, take your phone and keys if safe.",
+      "Call 999 once you are outside the building.",
+      "Go to Assembly Point A (opposite main entrance by the library).",
+      "If the alarm sounds and there is NO fire in your flat: stay in your flat, close your front door, and wait for instructions from the Fire and Rescue Service."
+    ],
+    "scenario_instructions": [
+      {
+        "scenario": "fire_in_your_home",
+        "detail": "Leave immediately. Close your front door behind you. Use Stairwell A (north side) or Stairwell B (south side). Do not use the lift. Go to Assembly Point A."
+      },
+      {
+        "scenario": "fire_elsewhere",
+        "detail": "Stay put. Keep your front door closed. Prepare to leave if the Fire and Rescue Service instructs you. If smoke enters your flat, call 999 immediately and tell them you are in Flat 12."
+      }
+    ],
+    "waiting_place": "Behind your flat's front door (fire-rated door). Only leave if told to by Fire Service or if smoke enters your flat.",
+    "muster_point_label": "Assembly Point A (opposite main entrance by library)",
+    "notes_for_resident": "Your neighbour in Flat 11 has agreed to check on you if the alarm sounds at night. The concierge desk is available 24/7 on 020 7000 0001."
+  },
+  "assistance": {
+    "needs_assistance": true,
+    "assisters": [
+      "Neighbour (Flat 11)",
+      "On-site concierge (24/7)"
+    ],
+    "contact_on_alarm": "Concierge desk: 020 7000 0001 (24/7)"
+  },
+  "delivery": {
+    "delivered_by": "Housing Officer, Exampolis Housing Ltd",
+    "delivered_at": "2025-10-01T15:00:00Z",
+    "acknowledged_by_resident": true
+  },
+  "reviews": []
+}
+

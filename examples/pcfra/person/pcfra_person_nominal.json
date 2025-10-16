@@ -1,0 +1,58 @@
+{
+  "pcfraId": "pcfra-person-nominal-uuid-001",
+  "version": "1.0.0",
+  "personRef": "person-emma-wilson-uuid-001",
+  "assessedAt": "2025-10-01T14:00:00Z",
+  "assessorRole": "housing_officer",
+  "assessmentMethod": "in_person",
+  "confidenceLevel": "high",
+  "consentRef": "consent-emma-wilson-uuid-001",
+  "capability": {
+    "walkingEndurance": "needs_frequent_breaks",
+    "respiratoryTolerance": "mild_breathlessness_on_exertion",
+    "mobilityTransfer": "independent_transfer",
+    "stairTolerance": "stairs_with_assist",
+    "mobilityAid": "stick",
+    "hearingSupport": "none",
+    "sensoryHearing": "typical",
+    "visionSupport": "none",
+    "sensoryVision": "typical",
+    "cognitionSupport": "none",
+    "cognitionAbility": "typical",
+    "communicationSupport": "none",
+    "communicationAbility": "typical",
+    "nightResponse": "wakes_to_alarm",
+    "alertnessSupport": "none",
+    "alertnessEffects": "typical",
+    "equipmentDependency": "none",
+    "behaviouralRisks": [],
+    "assistRequired": "needs_assist_1",
+    "assistLevel": "occasional_support",
+    "equipmentNeeded": []
+  },
+  "outcome": {
+    "relevantResident": true,
+    "peepRequired": true,
+    "rationale": "Resident uses walking stick and requires assistance on stairs. PEEP required to document evacuation assistance needs. Relevant resident under Residential Regs 2025."
+  },
+  "provenance": [
+    {
+      "path": "/capability/mobilityAid",
+      "source": "assessor_observed",
+      "evidence": "visual_inspection",
+      "confidenceLevel": "high",
+      "recordedByRole": "housing_officer",
+      "notes": "Walking stick observed during home visit."
+    },
+    {
+      "path": "/capability/stairTolerance",
+      "source": "self_report",
+      "evidence": "verbal_account",
+      "confidenceLevel": "high",
+      "recordedByRole": "housing_officer",
+      "notes": "Resident self-reported difficulty with stairs; confirmed by observation of cautious stair descent during visit."
+    }
+  ],
+  "notes": "Resident cooperative and engaged during assessment. No safeguarding concerns. Flat is tidy and well-maintained."
+}
+

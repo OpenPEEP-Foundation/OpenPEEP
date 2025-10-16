@@ -1,0 +1,181 @@
+{
+  "schemaVersion": "1.0.0",
+  "peepId": "peep-sam-patel-uuid-003",
+  "personProfile": {
+    "personRef": "person-sam-patel-uuid-003",
+    "name": "Sam Patel",
+    "preferredLanguage": "en-GB",
+    "contact": {
+      "email": "sam.patel@techcorp.example.com"
+    },
+    "communicationPreferences": {
+      "channels": [
+        "email",
+        "sms"
+      ],
+      "formatPreferences": [
+        "written_only",
+        "high_contrast",
+        "bsl_interpreter_preferred"
+      ]
+    }
+  },
+  "address": {
+    "organisationName": "TechCorp UK Ltd",
+    "buildingName": "Innovation Centre",
+    "buildingNumber": "25",
+    "addressLine1": "Canary Wharf",
+    "townCity": "London",
+    "postcode": "E14 5AB",
+    "countryCode": "GB",
+    "buildingRef": "building-innovation-centre-canary-wharf-001"
+  },
+  "evacuationStrategy": "Simultaneous Evacuation",
+  "language": "en-GB",
+  "planSummary": "Sam Patel is an employee with profound hearing loss and low vision, working on Floor 8, Innovation Centre. In the event of a fire alarm, Sam will be alerted by visual alarm beacons at their workstation. Sam's buddy (Alex Chen, Floor 8) will confirm the alarm and escort Sam via the south stairwell (Stairwell B) to the assembly point. High-contrast tactile signage installed along evacuation route.",
+  "metadata": {
+    "createdAt": "2025-07-15T11:00:00Z",
+    "createdBy": "fire.safety@techcorp.example.com",
+    "method": "in_person",
+    "versionRef": "1.0",
+    "documentRef": "https://techcorp.example.com/peeps/peep-sam-patel-uuid-003",
+    "status": "approved"
+  },
+  "validity": {
+    "effectiveFrom": "2025-07-20",
+    "effectiveTo": "2026-07-20"
+  },
+  "routes": [
+    {
+      "name": "Primary",
+      "pathDescription": "From workstation (Floor 8, Desk 8-24, south wing): proceed to south stairwell (Stairwell B) via corridor with high-contrast tactile wayfinding strips. Follow tactile strips to stairwell door (marked with high-contrast 'EXIT' sign). Open fire door; descend Stairwell B to ground floor. Exit building via south exit; proceed to Assembly Point B (courtyard, south side).",
+      "assistance": [
+        {
+          "type": "buddy_pair",
+          "personsRequired": 1,
+          "role": "Designated buddy: Alex Chen (colleague, Desk 8-25)",
+          "competencyProofRef": "Buddy training completed 2025-07-12; certificate on file with HR.",
+          "availability": "Office hours (Mon-Fri, 09:00-17:30). If buddy absent: backup buddy is Jordan Smith (Desk 8-30).",
+          "notes": "Buddy will confirm alarm visually; tap Sam on shoulder; escort to stairwell; descend together; report to Fire Warden at Assembly Point B."
+        }
+      ],
+      "equipment": [],
+      "musterPoint": "Assembly Point B (courtyard, south side of building)",
+      "notes": "High-contrast tactile wayfinding strips installed along corridor from Desk 8-24 to Stairwell B (completed 2025-07-18 as reasonable adjustment)."
+    },
+    {
+      "name": "Secondary",
+      "pathDescription": "If Stairwell B (south) is blocked: proceed to north stairwell (Stairwell A) via corridor with tactile wayfinding. Buddy will escort. Follow tactile strips to Stairwell A; descend to ground floor; exit via north exit; proceed to Assembly Point A (car park, north side).",
+      "assistance": [
+        {
+          "type": "buddy_pair",
+          "personsRequired": 1,
+          "role": "Designated buddy or backup buddy",
+          "availability": "Office hours",
+          "notes": "Buddy will confirm route change; escort via alternative route."
+        }
+      ],
+      "equipment": [],
+      "musterPoint": "Assembly Point A (car park, north side of building)",
+      "contingency": "If both stairwells blocked: proceed to designated refuge (Floor 8 lift lobby, behind fire door); buddy will call 999 and report Sam's location to Fire Service.",
+      "notes": "Secondary route uses alternative stairwell. Tactile wayfinding installed on both routes."
+    }
+  ],
+  "communications": {
+    "alarmHearingAbility": "needs_visual",
+    "alertingMethods": [
+      "visual_beacons"
+    ],
+    "alertingNeeds": [
+      "visual_beacons",
+      "high_contrast",
+      "bsl_interpreter_required"
+    ],
+    "raiseAlarmMethods": [
+      "manual_call_point",
+      "phone_call"
+    ],
+    "notes": "Visual alarm beacons installed at workstation (Desk 8-24) and in meeting rooms on Floor 8. Sam can raise alarm via manual call points (visual and tactile) or by alerting colleague to call 999."
+  },
+  "trainingDrills": "Sam will participate in bi-annual fire drills (with BSL interpreter if available). Buddy (Alex Chen) has completed fire buddy training (2025-07-12). Backup buddy (Jordan Smith) also trained. Drills will be announced via email 24 hours in advance to allow for BSL interpreter booking.",
+  "criticalDependencies": [],
+  "evacuationProcedure": [
+    {
+      "order": 1,
+      "instruction": "If visual alarm beacon flashes: this is the fire alarm. Remain calm."
+    },
+    {
+      "order": 2,
+      "instruction": "Your buddy (Alex Chen, Desk 8-25) will come to your desk, tap you on the shoulder, and confirm the alarm."
+    },
+    {
+      "order": 3,
+      "instruction": "Collect your mobile phone and belongings if safe to do so. Stand up and follow your buddy."
+    },
+    {
+      "order": 4,
+      "instruction": "Your buddy will escort you to the south stairwell (Stairwell B). Follow the high-contrast tactile strips on the floor."
+    },
+    {
+      "order": 5,
+      "instruction": "Enter the stairwell and descend the stairs with your buddy. Hold the handrail."
+    },
+    {
+      "order": 6,
+      "instruction": "Exit the building via the south exit. Proceed to Assembly Point B (courtyard, south side)."
+    },
+    {
+      "order": 7,
+      "instruction": "At Assembly Point B, stay with your buddy. The Fire Warden will check you are safe. Do not re-enter the building until told it is safe."
+    },
+    {
+      "order": 8,
+      "instruction": "If your buddy is absent: your backup buddy (Jordan Smith, Desk 8-30) will come to your desk and escort you."
+    }
+  ],
+  "responsibilities": [
+    {
+      "role": "Fire Safety Advisor",
+      "organisation": "TechCorp UK Ltd",
+      "contact": {
+        "email": "fire.safety@techcorp.example.com",
+        "phone": "+442071234567"
+      },
+      "notes": "Responsible for PEEP creation, review, and coordination of reasonable adjustments (visual alarms, tactile wayfinding)."
+    },
+    {
+      "role": "Designated Buddy (Primary)",
+      "organisation": "TechCorp UK Ltd (Engineering team)",
+      "notes": "Alex Chen, Desk 8-25. Trained in fire buddy procedures. Responsible for alerting Sam and escorting to assembly point."
+    },
+    {
+      "role": "Backup Buddy",
+      "organisation": "TechCorp UK Ltd (Engineering team)",
+      "notes": "Jordan Smith, Desk 8-30. Trained in fire buddy procedures. Covers when primary buddy is absent."
+    }
+  ],
+  "attachments": [
+    {
+      "label": "Floor 8 evacuation plan (high-contrast version)",
+      "uri": "https://techcorp.example.com/attachments/floor-8-evac-plan-high-contrast.pdf",
+      "contentType": "application/pdf",
+      "sha256": "f4b1c55398fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852d987"
+    }
+  ],
+  "references": {
+    "pcfraId": "pcfra-person-sam-patel-uuid-003"
+  },
+  "consent": {
+    "state": "given",
+    "capturedAt": "2025-07-10T09:30:00Z",
+    "capturedBy": "hr.officer@techcorp.example.com",
+    "scope": [
+      "pcfra",
+      "peep"
+    ],
+    "method": "written"
+  },
+  "reviews": [],
+  "extensions": {}
+}
+

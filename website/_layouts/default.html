@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
+    <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+    
+    <!-- SEO Meta Tags -->
+    <meta name="keywords" content="{% if page.keywords %}{{ page.keywords }}{% else %}PEEP, Personal Emergency Evacuation Plan, fire safety, evacuation planning, digital compliance, fire regulations, building safety, emergency planning{% endif %}">
+    <meta name="author" content="{{ site.author }}">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}">
+    <meta property="og:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+    <meta property="og:url" content="{{ page.url | prepend: site.url }}">
+    <meta property="og:site_name" content="{{ site.title }}">
+    <meta property="og:type" content="{% if page.layout == 'home' %}website{% else %}article{% endif %}">
+    <meta property="og:image" content="{{ '/assets/images/openpeep-og-image.png' | prepend: site.url }}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="OpenPEEP - Digital Fire Safety Evacuation Planning">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@{{ site.twitter_username }}">
+    <meta name="twitter:title" content="{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}">
+    <meta name="twitter:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+    <meta name="twitter:image" content="{{ '/assets/images/openpeep-og-image.png' | prepend: site.url }}">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{{ page.url | prepend: site.url }}">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ '/assets/images/favicon.png' | relative_url }}">
+    <link rel="apple-touch-icon" href="{{ '/assets/images/apple-touch-icon.png' | relative_url }}">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "{% if page.layout == 'home' %}Organization{% else %}WebPage{% endif %}",
+        "name": "{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}",
+        "description": "{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}",
+        "url": "{{ page.url | prepend: site.url }}",
+        {% if page.layout == 'home' %}
+        "logo": "{{ '/assets/images/openPEEPLogo.png' | prepend: site.url }}",
+        "sameAs": [
+            "https://github.com/{{ site.github_username }}",
+            "https://twitter.com/{{ site.twitter_username }}"
+        ],
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "email": "{{ site.email }}",
+            "contactType": "customer service"
+        },
+        {% endif %}
+        "dateModified": "{{ site.time | date_to_xmlschema }}",
+        "inLanguage": "en-GB"
+    }
+    </script>
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XSTJ4KSTW7"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-XSTJ4KSTW7');
+      
+      // Enhanced tracking for key OpenPEEP interactions
+      function trackOpenPEEPAction(action, category, label) {
+        gtag('event', action, {
+          'event_category': category,
+          'event_label': label
+        });
+      }
+      
+      // Track navigation clicks
+      document.addEventListener('DOMContentLoaded', function() {
+        // Track navigation clicks
+        document.querySelectorAll('a[href^="/"]').forEach(function(link) {
+          link.addEventListener('click', function() {
+            var page = this.getAttribute('href').replace('/', '') || 'home';
+            trackOpenPEEPAction('page_view', 'navigation', page);
+          });
+        });
+        
+        // Track external links (GitHub, etc.)
+        document.querySelectorAll('a[href^="http"]').forEach(function(link) {
+          link.addEventListener('click', function() {
+            var domain = this.hostname;
+            trackOpenPEEPAction('click', 'external_link', domain);
+          });
+        });
+        
+        // Track button clicks
+        document.querySelectorAll('.btn').forEach(function(button) {
+          button.addEventListener('click', function() {
+            var buttonText = this.textContent.trim();
+            trackOpenPEEPAction('click', 'button', buttonText);
+          });
+        });
+      });
+    </script>
+    
+    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+    <style>
+        /* Custom OpenPEEP navbar styling */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background-color: rgba(246, 248, 250, 0.95);
+        }
+        
+        .navbar {
+            background-color: transparent;
+            border-bottom: 1px solid #d1d9e0;
+            padding: 1rem 0;
+            width: 100%;
+        }
+
+        .navbar .container-fluid {
+            max-width: none;
+            width: 100%;
+        }
+
+        .navbar-logo {
+            height: 40px;
+            width: auto;
+            max-width: 200px;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: #656d76 !important;
+            transition: color 0.2s ease;
+            white-space: nowrap;
+        }
+        
+        .nav-link:hover {
+            color: #0969da !important;
+            text-decoration: none;
+        }
+
+        .logo-container img {
+            transition: transform 0.2s ease;
+        }
+        
+        .logo-container:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Mobile responsive navbar */
+        @media (max-width: 991px) {
+            .navbar .container-fluid {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 0 1rem;
+            }
+            
+            .navbar-nav {
+                margin-top: 1rem;
+                flex-wrap: wrap;
+                width: 100%;
+                justify-content: flex-start;
+            }
+            
+            .nav-link {
+                margin: 0.25rem 0.5rem 0.25rem 0;
+                padding: 0.5rem !important;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Tablet responsive */
+        @media (max-width: 768px) {
+            .navbar-logo {
+                height: 35px;
+            }
+            
+            .nav-link {
+                margin: 0.2rem 0.3rem 0.2rem 0;
+                padding: 0.4rem !important;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Small mobile */
+        @media (max-width: 576px) {
+            .navbar {
+                padding: 0.75rem 0;
+            }
+            
+            .navbar .container-fluid {
+                padding: 0 0.75rem;
+            }
+            
+            .navbar-logo {
+                height: 30px;
+            }
+        }
+
+        /* Hero Section Styling */
+        .hero-section {
+            background: linear-gradient(135deg, #f6f8fa 0%, #e1e7ef 100%);
+            border-bottom: 1px solid #d1d9e0;
+            padding: 4rem 0;
+            margin-bottom: 3rem;
+            position: relative;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+            width: 100vw;
+        }
+
+        .hero-container {
+            max-width: 1012px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #24292f;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: #656d76;
+            line-height: 1.5;
+            margin-bottom: 2rem;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background-color: #0969da;
+            color: white;
+            border: 1px solid #0969da;
+        }
+
+        .btn-primary:hover {
+            background-color: #0860ca;
+            border-color: #0860ca;
+            color: white;
+            text-decoration: none;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: #0969da;
+            border: 1px solid #d1d9e0;
+        }
+
+        .btn-secondary:hover {
+            background-color: #f6f8fa;
+            border-color: #0969da;
+            color: #0969da;
+            text-decoration: none;
+        }
+
+        .hero-badges {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background-color: #dbeafe;
+            color: #1e40af;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        /* PEEP Mockup Styling */
+        .peep-mockup {
+            background: white;
+            border: 1px solid #d1d9e0;
+            border-radius: 8px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .peep-header {
+            background: #f6f8fa;
+            padding: 1rem;
+            border-bottom: 1px solid #d1d9e0;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .peep-dots {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .peep-dots span {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #d1d9e0;
+        }
+
+        .peep-dots span:nth-child(1) { background: #ff5f56; }
+        .peep-dots span:nth-child(2) { background: #ffbd2e; }
+        .peep-dots span:nth-child(3) { background: #27ca3f; }
+
+        .peep-title {
+            font-weight: 600;
+            color: #24292f;
+            font-size: 0.9rem;
+        }
+
+        .peep-content {
+            padding: 1.5rem;
+        }
+
+        .peep-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .peep-section h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #24292f;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #e1e7ef;
+        }
+
+        .peep-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .peep-row .label {
+            color: #656d76;
+            font-weight: 500;
+        }
+
+        .peep-row .value {
+            color: #24292f;
+            font-weight: 400;
+            text-align: right;
+            max-width: 60%;
+        }
+
+        .peep-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem;
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            border-radius: 6px;
+            margin-top: 1rem;
+        }
+
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .status-indicator.valid {
+            background: #16a34a;
+        }
+
+        .status-text {
+            color: #166534;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        /* Responsive Hero */
+        @media (max-width: 768px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 0 1rem;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .peep-mockup {
+                max-width: 100%;
+            }
+        }
+
+        /* Main Content Container */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Apply markdown-body styles to main content */
+        .main-content h1,
+        .main-content h2,
+        .main-content h3,
+        .main-content h4,
+        .main-content h5,
+        .main-content h6 {
+            margin-top: 24px;
+            margin-bottom: 16px;
+            font-weight: 600;
+            line-height: 1.25;
+        }
+
+        .main-content h1 {
+            font-size: 2em;
+            border-bottom: 1px solid #d1d9e0;
+            padding-bottom: 0.3em;
+        }
+
+        .main-content h2 {
+            font-size: 1.5em;
+            border-bottom: 1px solid #e1e7ef;
+            padding-bottom: 0.3em;
+        }
+
+        .main-content h3 {
+            font-size: 1.25em;
+        }
+
+        .main-content p {
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+
+        .main-content ul,
+        .main-content ol {
+            margin-bottom: 16px;
+            padding-left: 2em;
+        }
+
+        .main-content li {
+            margin-bottom: 0.25em;
+        }
+
+        .main-content blockquote {
+            padding: 0 1em;
+            color: #656d76;
+            border-left: 0.25em solid #d1d9e0;
+            margin-bottom: 16px;
+        }
+
+        .main-content hr {
+            height: 0.25em;
+            padding: 0;
+            margin: 24px 0;
+            background-color: #d1d9e0;
+            border: 0;
+        }
+
+        .main-content strong {
+            font-weight: 600;
+        }
+
+        .main-content a {
+            color: #0969da;
+            text-decoration: none;
+        }
+
+        .main-content a:hover {
+            text-decoration: underline;
+        }
+
+        /* Main content styling */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+       /* Remove top margin from homepage main content to eliminate gap */
+       .layout-home main .container-lg {
+           margin-top: 0 !important;
+       }
+
+        /* Breadcrumb styling */
+        .breadcrumb-container {
+            background-color: #f6f8fa;
+            border-bottom: 1px solid #d1d9e0;
+            padding: 0.75rem 0;
+        }
+        
+        .breadcrumb {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            font-size: 0.875rem;
+        }
+        
+        .breadcrumb-item {
+            display: flex;
+            align-items: center;
+        }
+        
+        .breadcrumb-item + .breadcrumb-item::before {
+            content: ">";
+            color: #656d76;
+            margin: 0 0.5rem;
+        }
+        
+        .breadcrumb-item a {
+            color: #0969da;
+            text-decoration: none;
+        }
+        
+        .breadcrumb-item a:hover {
+            text-decoration: underline;
+        }
+        
+        .breadcrumb-item.active {
+            color: #656d76;
+        }
+
+        /* Next steps styling */
+        .next-steps {
+           display: flex;
+           gap: 1rem;
+           margin: 2rem 0;
+           flex-wrap: wrap;
+       }
+
+       .next-steps .btn {
+           flex: 1;
+           min-width: 200px;
+           text-align: center;
+           padding: 1rem 2rem;
+           font-weight: 600;
+           text-decoration: none;
+           border-radius: 8px;
+           transition: all 0.2s ease;
+       }
+
+       .btn-primary {
+           background: #0969da;
+           color: white !important;
+           border: 2px solid #0969da;
+       }
+
+       .btn-primary:hover {
+           background: #0860ca;
+           border-color: #0860ca;
+           color: white !important;
+           transform: translateY(-2px);
+           box-shadow: 0 4px 12px rgba(9, 105, 218, 0.3);
+       }
+
+       .btn-secondary {
+           background: transparent;
+           color: #0969da;
+           border: 2px solid #0969da;
+       }
+
+       .btn-secondary:hover {
+           background: #0969da;
+           color: white;
+           transform: translateY(-2px);
+           box-shadow: 0 4px 12px rgba(9, 105, 218, 0.3);
+       }
+
+       /* Valuation page specific styling */
+       .value-drivers {
+           display: grid;
+           grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+           gap: 1.5rem;
+           margin: 2rem 0;
+       }
+
+       .value-card {
+           background: white;
+           border: 1px solid #d1d9e0;
+           border-radius: 8px;
+           padding: 2rem;
+           text-align: center;
+           box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+           transition: transform 0.2s ease;
+       }
+
+       .value-card:hover {
+           transform: translateY(-4px);
+           box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+       }
+
+       .value-icon {
+           font-size: 3rem;
+           margin-bottom: 1rem;
+       }
+
+       .value-card h3 {
+           color: #0969da;
+           margin: 0 0 1rem 0;
+       }
+
+       .value-metric {
+           background: #f6f8fa;
+           border: 1px solid #d1d9e0;
+           border-radius: 6px;
+           padding: 0.5rem 1rem;
+           font-weight: 600;
+           color: #0969da;
+           margin-top: 1rem;
+       }
+
+       .compliance-risks {
+           display: grid;
+           grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+           gap: 1.5rem;
+           margin: 2rem 0;
+       }
+
+       .risk-item {
+           background: #fff3cd;
+           border: 1px solid #ffc107;
+           border-radius: 8px;
+           padding: 1.5rem;
+       }
+
+       .risk-item h4 {
+           color: #b45309;
+           margin: 0 0 1rem 0;
+       }
+
+       .roi-breakdown {
+           display: grid;
+           grid-template-columns: 1fr 1fr;
+           gap: 2rem;
+           margin: 2rem 0;
+           background: #f6f8fa;
+           border: 1px solid #d1d9e0;
+           border-radius: 8px;
+           padding: 2rem;
+       }
+
+       .investment-section, .benefits-section {
+           background: white;
+           border: 1px solid #d1d9e0;
+           border-radius: 8px;
+           padding: 1.5rem;
+       }
+
+       .investment-items, .benefit-items {
+           display: flex;
+           flex-direction: column;
+           gap: 0.75rem;
+       }
+
+       .investment-item, .benefit-item {
+           display: flex;
+           justify-content: space-between;
+           align-items: center;
+           padding: 0.5rem 0;
+           border-bottom: 1px solid #e1e7ef;
+       }
+
+       .investment-item.total, .benefit-item.total {
+           border-top: 2px solid #0969da;
+           border-bottom: none;
+           font-weight: 700;
+           margin-top: 1rem;
+           padding-top: 1rem;
+       }
+
+       .competitive-advantages {
+           display: grid;
+           grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+           gap: 1.5rem;
+           margin: 2rem 0;
+       }
+
+       .advantage-card {
+           background: white;
+           border: 1px solid #d1d9e0;
+           border-radius: 8px;
+           padding: 1.5rem;
+           box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+       }
+
+       .advantage-card h4 {
+           color: #0969da;
+           margin: 0 0 1rem 0;
+       }
+
+       .timeline {
+           margin: 2rem 0;
+       }
+
+       .timeline-item {
+           display: flex;
+           gap: 1.5rem;
+           margin-bottom: 2rem;
+           align-items: flex-start;
+       }
+
+       .timeline-marker {
+           background: #0969da;
+           color: white;
+           width: 2.5rem;
+           height: 2.5rem;
+           border-radius: 50%;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           font-weight: 700;
+           flex-shrink: 0;
+       }
+
+       .timeline-content {
+           flex: 1;
+       }
+
+       .timeline-content h4 {
+           margin: 0 0 0.5rem 0;
+           color: #24292f;
+       }
+
+       .timeline-resource {
+           background: #f6f8fa;
+           border: 1px solid #d1d9e0;
+           border-radius: 4px;
+           padding: 0.25rem 0.75rem;
+           font-size: 0.875rem;
+           color: #656d76;
+           display: inline-block;
+           margin-top: 0.5rem;
+       }
+
+       .success-metrics {
+           display: grid;
+           grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+           gap: 1.5rem;
+           margin: 2rem 0;
+       }
+
+       .metric-category {
+           background: white;
+           border: 1px solid #d1d9e0;
+           border-radius: 8px;
+           padding: 1.5rem;
+           box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+       }
+
+       .metric-category h4 {
+           color: #0969da;
+           margin: 0 0 1rem 0;
+       }
+
+       .metric-category ul {
+           margin: 0;
+           padding-left: 1.5rem;
+       }
+
+       .metric-category li {
+           margin-bottom: 0.5rem;
+       }
+
+       @media (max-width: 768px) {
+           .roi-breakdown {
+               grid-template-columns: 1fr;
+           }
+           
+           .next-steps {
+               flex-direction: column;
+           }
+           
+           .timeline-item {
+               flex-direction: column;
+               gap: 1rem;
+           }
+       }
+
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="border-bottom">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid d-flex flex-justify-between flex-items-center px-4">
+                    <!-- Logo -->
+                    <div class="navbar-brand">
+                        <a href="{{ '/' | relative_url }}" class="text-decoration-none">
+                            <div class="logo-container">
+                                <img src="{{ '/assets/images/openPEEPLogo.png' | relative_url }}" alt="OpenPEEP Logo" class="navbar-logo">
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Navigation Menu -->
+                    <div class="navbar-nav d-flex flex-items-center">
+                        {% for item in site.navigation %}
+                            {% if item.external %}
+                                <a href="{{ item.url }}" target="_blank" class="nav-link px-3 py-2 text-gray-dark text-decoration-none">{{ item.title }}</a>
+                            {% else %}
+                                <a href="{{ item.url | relative_url }}" class="nav-link px-3 py-2 text-gray-dark text-decoration-none">{{ item.title }}</a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Breadcrumb Navigation -->
+    {% unless page.layout == 'home' %}
+    <nav aria-label="Breadcrumb" class="breadcrumb-container">
+        <div class="container-lg px-3">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ '/' | relative_url }}">Home</a></li>
+                {% if page.layout == 'examples' %}
+                    <li class="breadcrumb-item active" aria-current="page">Examples</li>
+                {% elsif page.url contains '/get-started/' %}
+                    <li class="breadcrumb-item active" aria-current="page">Get Started</li>
+                {% elsif page.url contains '/valuation/' %}
+                    <li class="breadcrumb-item active" aria-current="page">Value</li>
+                {% elsif page.url contains '/documentation/' %}
+                    <li class="breadcrumb-item active" aria-current="page">Documentation</li>
+                {% elsif page.url contains '/support/' %}
+                    <li class="breadcrumb-item active" aria-current="page">Support</li>
+                {% elsif page.url contains '/license/' %}
+                    <li class="breadcrumb-item active" aria-current="page">License</li>
+                {% else %}
+                    <li class="breadcrumb-item active" aria-current="page">{{ page.title }}</li>
+                {% endif %}
+            </ol>
+        </div>
+    </nav>
+    {% endunless %}
+
+    <main>
+        <div class="container-lg px-3 my-5 markdown-body">
+            {{ content }}
+        </div>
+    </main>
+
+    <div class="container-lg px-3 my-5">
+
+        <footer class="border-top mt-5 pt-4">
+            <div class="d-flex flex-justify-between flex-items-center">
+                <div>
+                    <p class="text-gray mb-0">
+                        <strong>{{ site.title }}</strong> — {{ site.description }}
+                    </p>
+                           <p class="text-gray-small mb-0">
+                               Open source under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0 License</a>
+                           </p>
+                </div>
+                   <div class="text-right">
+                       <p class="text-gray-small mb-0">
+                           <a href="https://github.com/OpenPEEP-Foundation/OpenPEEP" target="_blank">GitHub</a> |
+                           <a href="/documentation/">Documentation</a> |
+                           <a href="/support/">Support</a> |
+                           <a href="/license/">License</a>
+                       </p>
+                    <p class="text-gray-small mb-0">
+                        Built with ❤️ for safer evacuation planning
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

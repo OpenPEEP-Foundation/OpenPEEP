@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0.0",
+  "document_id": "ees-personal-alex-thompson-uuid-001",
+  "created_at": "2025-09-15T15:00:00Z",
+  "updated_at": "2025-09-15T15:00:00Z",
+  "person_profile_ref": "person-alex-thompson-uuid-001",
+  "unit_address": {
+    "buildingName": "Churchill House",
+    "subBuilding": "Flat 12A",
+    "addressLine1": "45 High Street",
+    "townCity": "Manchester",
+    "county": "Greater Manchester",
+    "postcode": "M1 1AA",
+    "countryCode": "GB",
+    "buildingRef": "building-churchill-house-001",
+    "unitRef": "unit-churchill-12a-001"
+  },
+  "peep_document_id": "peep-alex-thompson-uuid-001",
+  "building_ees_document_id": "ees-building-churchill-house-uuid-001",
+  "language": "en-GB",
+  "format": [
+    "standard_print"
+  ],
+  "content": {
+    "summary": "This is your Personal Emergency Evacuation Plan. If you hear the fire alarm, you should leave the building using the evacuation lift (Lift 2) or, if the lift is not available, go to the refuge on Floor 12 and call for help. The concierge team will assist you.",
+    "steps_primary": [
+      "Stay calm when you hear the fire alarm.",
+      "Get into your wheelchair if you are not already in it.",
+      "Take your mobile phone and keys with you. Do not take anything else.",
+      "Check your front door for heat. If it is hot, do not open it. Call 999 and tell them you are in Flat 12A and cannot leave.",
+      "If the door is not hot, open it carefully and look for smoke or fire in the corridor.",
+      "If the corridor is clear, leave your flat and close the door behind you.",
+      "Turn right and go to Lift 2 (the evacuation lift) in the west wing of the building.",
+      "Press the call button. The lift will come within 2 minutes. The concierge may meet you there to help.",
+      "Get in the lift and press the Ground Floor button.",
+      "When the lift doors open at the ground floor, leave the building through the main foyer.",
+      "Go to Assembly Point A in the car park (north side of the building).",
+      "Wait there for the Fire Warden to check you are safe. Do not go back inside until the Fire Service or building management say it is safe."
+    ],
+    "scenario_instructions": [
+      {
+        "scenario": "fire_in_your_home",
+        "detail": "If the fire is in your flat: leave immediately. Close the door behind you. Go to the evacuation lift (Lift 2) or the refuge on Floor 12. Call 999 if you cannot leave your flat."
+      },
+      {
+        "scenario": "fire_elsewhere",
+        "detail": "If the fire is not in your flat but the alarm is sounding: leave your flat and evacuate using the evacuation lift (Lift 2). If you cannot use the lift, go to the refuge on Floor 12 and call the concierge or 999."
+      },
+      {
+        "scenario": "if_in_lift",
+        "detail": "If you are in the evacuation lift when the alarm sounds: the lift will automatically go to the ground floor. Leave the building when the doors open."
+      },
+      {
+        "scenario": "other",
+        "detail": "If the evacuation lift is not working: go to the refuge on Floor 12 (north stairwell, behind the fire door). Use the red intercom button to call the concierge, or call 999 on your mobile phone. Tell them you are at the refuge on Floor 12 and need help to evacuate. Stay at the refuge. The concierge or the Fire Service will come to help you."
+      }
+    ],
+    "waiting_place": "If you cannot use the evacuation lift, go to the refuge on Floor 12 (north stairwell landing, behind the fire door). Press the red intercom button or call 999. Wait there for help. Do not try to go down the stairs without trained help.",
+    "muster_point_label": "Assembly Point A (car park, north side of building)",
+    "notes_for_resident": "You have the right to ask questions about this plan at any time. If anything changes (for example, if you move to a different flat or if your mobility changes), please tell the housing office so we can update your plan. The concierge team are here to help you 24 hours a day, 7 days a week. Their emergency number is on the back of this sheet."
+  },
+  "assistance": {
+    "needs_assistance": true,
+    "assisters": [
+      "Concierge team (available 24/7)",
+      "Fire and Rescue Service (if concierge unavailable)"
+    ],
+    "equipment": [
+      "Evacuation chair (stored at refuge on Floor 12, if lift is unavailable)"
+    ],
+    "contact_on_alarm": "Concierge emergency line: +441612345678 (24/7). If no answer, call 999."
+  },
+  "delivery": {
+    "delivered_by": "housing.officer@manchesterhousing.example.org",
+    "delivered_at": "2025-09-20T10:00:00Z",
+    "acknowledged_by_resident": true
+  },
+  "reviews": [],
+  "extensions": {
+    "manchesterhousing": {
+      "delivery_method": "door_drop",
+      "copy_format": "A4_printed_colour",
+      "resident_copy_provided": true,
+      "concierge_copy_filed": true
+    }
+  }
+}
+

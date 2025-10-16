@@ -1,0 +1,180 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://open-peep.org/schemas/ees/ees_personal.schema.json",
+  "title": "Emergency Evacuation Statement \u2014 Personal",
+  "description": "Plain-language, resident-facing instructions derived from the PEEP and the building\u2019s strategy. Focuses on what THIS person should do, and any agreed assistance. Avoids diagnoses.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "default": "1.0.0"
+    },
+    "document_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "person_profile_ref": {
+      "type": "string",
+      "description": "Link to person_profile record."
+    },
+    "person_alias": {
+      "type": "string",
+      "description": "Optional display name if profile cannot be shared."
+    },
+    "unit_address": {
+      "$ref": "../common/address.schema.json"
+    },
+    "peep_document_id": {
+      "type": "string",
+      "description": "Source PEEP ID used to derive this EES."
+    },
+    "building_ees_document_id": {
+      "type": "string",
+      "description": "Which building EES this personal statement aligns to."
+    },
+    "language": {
+      "type": "string",
+      "description": "IETF language tag, e.g. en-GB"
+    },
+    "format": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "standard_print",
+          "large_print",
+          "easy_read",
+          "audio",
+          "braille",
+          "sign_video",
+          "high_contrast"
+        ]
+      }
+    },
+    "content": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "summary": {
+          "type": "string",
+          "description": "One-paragraph overview."
+        },
+        "steps_primary": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Numbered/ordered steps the person must take."
+        },
+        "scenario_instructions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "scenario": {
+                "type": "string",
+                "enum": [
+                  "fire_in_your_home",
+                  "fire_elsewhere",
+                  "alarm_without_smoke",
+                  "if_in_lift",
+                  "other"
+                ]
+              },
+              "detail": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "scenario",
+              "detail"
+            ]
+          }
+        },
+        "waiting_place": {
+          "type": "string",
+          "description": "If advised not to self-evacuate, where to wait (e.g., behind a fire door, refuge on Level 3) \u2014 no routing."
+        },
+        "muster_point_label": {
+          "type": "string"
+        },
+        "notes_for_resident": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "steps_primary"
+      ]
+    },
+    "assistance": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "needs_assistance": {
+          "type": "boolean"
+        },
+        "assisters": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "equipment": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "contact_on_alarm": {
+          "type": "string"
+        }
+      }
+    },
+    "delivery": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "delivered_by": {
+          "type": "string"
+        },
+        "delivered_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "acknowledged_by_resident": {
+          "type": "boolean"
+        }
+      }
+    },
+    "reviews": {
+      "type": "array",
+      "items": {
+        "$ref": "../common/review.schema.json"
+      }
+    },
+    "extensions": {
+      "type": "object",
+      "description": "Vendor-specific, optional. Namespaced keys recommended (e.g., acme_*).",
+      "additionalProperties": true
+    }
+  },
+  "required": [
+    "schema_version",
+    "document_id",
+    "created_at",
+    "person_profile_ref",
+    "unit_address",
+    "peep_document_id",
+    "content"
+  ]
+}

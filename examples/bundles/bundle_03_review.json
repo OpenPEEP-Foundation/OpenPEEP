@@ -1,0 +1,35 @@
+{
+  "reviewed_at": "2026-01-15T10:00:00Z",
+  "reviewed_by": {
+    "name": "Emily Watson",
+    "role": "Fire Safety Advisor",
+    "organisation": "TechCorp UK Ltd",
+    "contact": {
+      "email": "emily.watson@techcorp.example.com",
+      "phone": "+442071234567"
+    },
+    "reviewer_id": "fire-safety-emily-watson-001"
+  },
+  "outcome": "amended",
+  "summary": "6-month review conducted. Sam Patel has moved to Floor 5 (new role: Senior Engineer). Workstation changed from Desk 8-24 to Desk 5-12. Primary buddy changed from Alex Chen to Priya Sharma (Desk 5-13). New PEEP created reflecting Floor 5 evacuation routes and new buddy. Previous PEEP superseded.",
+  "next_due": "2026-07-15",
+  "new_document_ref": {
+    "document_type": "peep",
+    "document_id": "peep-sam-patel-v2-uuid-004",
+    "version": "2.0",
+    "uri": "https://techcorp.example.com/peeps/peep-sam-patel-v2-uuid-004"
+  },
+  "attachments": [
+    {
+      "label": "6-month review checklist (completed)",
+      "uri": "https://techcorp.example.com/reviews/peep-sam-patel-review-2026-01-15.pdf",
+      "sha256": "c5d2e66498fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852e654"
+    },
+    {
+      "label": "New PEEP (v2.0) for Floor 5",
+      "uri": "https://techcorp.example.com/peeps/peep-sam-patel-v2-uuid-004.pdf",
+      "sha256": "d6e3f77598fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852f765"
+    }
+  ]
+}
+

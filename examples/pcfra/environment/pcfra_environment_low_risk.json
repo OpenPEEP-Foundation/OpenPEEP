@@ -1,0 +1,45 @@
+{
+  "pcfraId": "pcfra-environment-low-risk-uuid-001",
+  "version": "1.0.0",
+  "buildingRef": "building-churchill-house-001",
+  "unitRef": "unit-churchill-12a-001",
+  "assessedAt": "2025-09-15T11:15:00Z",
+  "assessorRole": "housing_officer",
+  "assessmentMethod": "in_person",
+  "confidenceLevel": "high",
+  "consentRef": "consent-alex-thompson-uuid-001",
+  "environment": {
+    "cooking_risk": "None observed. Kitchen tidy; smoke alarm functional and tested.",
+    "electrical_risk": "None observed. No overloaded sockets; PAT testing up to date.",
+    "smoking_risk": "None observed. Resident is non-smoker.",
+    "hoarding_risk": "None observed. Flat is tidy with clear pathways to exit.",
+    "accessEgress": "Clear. Front door accessible; no obstructions in hallway or common areas.",
+    "ignition_sources": [],
+    "pets_risk": "None. No pets present."
+  },
+  "safeguarding": {
+    "asbViolenceRisk": "None reported.",
+    "agencyInvolved": [],
+    "immediateDanger": false,
+    "immediateActionTaken": "None required. Flat assessed as low environmental risk.",
+    "referralsMade": []
+  },
+  "outcome": {
+    "relevantResident": true,
+    "peepRequired": true,
+    "rationale": "Environmental assessment confirms no significant ignition or egress risks. Flat is well-maintained and tidy. PEEP required due to personal capability factors (wheelchair user), not environmental risks."
+  },
+  "provenance": [
+    {
+      "path": "/environment/cooking_risk",
+      "source": "assessor_observed",
+      "evidence": "visual_inspection",
+      "confidenceLevel": "high",
+      "recordedByRole": "housing_officer",
+      "notes": "Kitchen inspected during home visit; smoke alarm tested and functional."
+    }
+  ],
+  "environment_other_notes": "Flat is well-maintained. Resident has lived here for 3 years; good relationship with concierge team. No environmental concerns identified.",
+  "notes": "Environmental PCFRA conducted same day as personal PCFRA. No concerns identified. Low environmental risk."
+}
+

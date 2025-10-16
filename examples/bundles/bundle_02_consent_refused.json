@@ -1,0 +1,17 @@
+{
+  "state": "refused",
+  "capturedAt": "2025-08-20T14:00:00Z",
+  "capturedBy": "housing.officer@leedshousing.example.org",
+  "scope": [
+    "pcfra",
+    "peep",
+    "rpeep",
+    "ees_person_statement"
+  ],
+  "method": "verbal",
+  "reason": "Prefers to manage own evacuation arrangements; does not wish to participate in detailed assessment.",
+  "notes": "Resident was polite but declined consent. Officer explained the purpose and benefits of RPEEP; resident confirmed they understood but preferred not to proceed. Officer advised that offer remains open and can be reconsidered at any time. Will re-offer consent at next annual tenancy review.",
+  "offerMadeAt": "2025-08-20T13:45:00Z",
+  "personRef": "person-jordan-lee-uuid-002"
+}
+

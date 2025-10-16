@@ -1,0 +1,617 @@
+{
+  "$id": "https://open-peep.org/schemas/peep/2025-08/peep.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Personal Emergency Evacuation Plan (PEEP)",
+  "description": "Resident- or person-specific evacuation plan derived from PCFRA capability outputs and building context. Stores the step-by-step procedure, assistance, communications adjustments, and cross-references to source assessments/statements. Designed for portability and lifecycle management.",
+  "type": "object",
+  "additionalProperties": false,
+  "$defs": {
+    "translation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "language": {
+          "type": "string",
+          "description": "ISO 639-1 language code, optionally with region (e.g., en or en-GB).",
+          "pattern": "^[a-z]{2}(-[A-Z]{2})?$"
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        }
+      },
+      "required": [
+        "language",
+        "summary"
+      ]
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "UTC recommended."
+        },
+        "createdBy": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "self_assessment",
+            "phone_interview",
+            "in_person",
+            "other"
+          ],
+          "description": "How the information was obtained."
+        },
+        "versionRef": {
+          "type": "string",
+          "maxLength": 256
+        },
+        "documentRef": {
+          "type": "string",
+          "format": "uri",
+          "description": "Canonical record location, if any."
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "draft",
+            "approved",
+            "superseded",
+            "withdrawn"
+          ],
+          "description": "Document control status."
+        },
+        "goldenThreadUrn": {
+          "type": "string",
+          "description": "Optional reference to the building\u2019s Golden Thread record (Building Safety Act 2022)."
+        },
+        "eesRef": {
+          "type": "string",
+          "description": "Optional reference/identifier for the related Building Evacuation Statement (EES)."
+        }
+      },
+      "required": [
+        "createdAt",
+        "createdBy",
+        "status"
+      ]
+    },
+    "validity": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "effectiveFrom": {
+          "type": "string",
+          "format": "date"
+        },
+        "effectiveTo": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    },
+    "assistance": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "evac_chair",
+            "buddy_pair",
+            "carry_down",
+            "guided_evacuate",
+            "lift_with_attendant"
+          ]
+        },
+        "personsRequired": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "role": {
+          "type": "string",
+          "maxLength": 256,
+          "description": "Role responsible (e.g., concierge team)."
+        },
+        "competencyProofRef": {
+          "type": "string",
+          "maxLength": 512
+        },
+        "availability": {
+          "type": "string",
+          "maxLength": 512
+        },
+        "notes": {
+          "type": "string",
+          "maxLength": 2000
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "evacuationLift": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "used": {
+          "type": "boolean",
+          "description": "Whether an evacuation lift is planned for this route."
+        },
+        "standard": {
+          "type": "string",
+          "description": "Standards reference if applicable (e.g., BS EN 81-76).",
+          "maxLength": 128
+        },
+        "attendantRequired": {
+          "type": "boolean"
+        },
+        "notes": {
+          "type": "string",
+          "maxLength": 1000
+        }
+      },
+      "required": [
+        "used"
+      ]
+    },
+    "route": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "e.g., Primary, Secondary",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "pathDescription": {
+          "type": "string",
+          "description": "Plain-language description of the route.",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+        "assistance": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/assistance"
+          }
+        },
+        "equipment": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "uniqueItems": true
+        },
+        "refuge": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "location": {
+              "type": "string",
+              "maxLength": 256
+            },
+            "waitCondition": {
+              "type": "string",
+              "maxLength": 1000
+            }
+          }
+        },
+        "musterPoint": {
+          "type": "string",
+          "maxLength": 256,
+          "description": "Destination for roll call (if applicable)."
+        },
+        "preconditions": {
+          "type": "string",
+          "maxLength": 2000
+        },
+        "contingency": {
+          "type": "string",
+          "maxLength": 2000
+        },
+        "evacuationLift": {
+          "$ref": "#/$defs/evacuationLift"
+        },
+        "notes": {
+          "type": "string",
+          "maxLength": 2000
+        }
+      },
+      "required": [
+        "name",
+        "pathDescription"
+      ]
+    },
+    "communications": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "alarmHearingAbility": {
+          "type": "string",
+          "enum": [
+            "hears_audible",
+            "needs_visual",
+            "needs_vibration",
+            "unknown"
+          ]
+        },
+        "alertingMethods": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "visual_beacons",
+              "vibrating_pager",
+              "text_message",
+              "phone_call",
+              "door_knock",
+              "public_address"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "alertingNeeds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "visual_beacons",
+              "vibrating_pager",
+              "text_only",
+              "captioned_media",
+              "bsl_interpreter_required",
+              "high_contrast",
+              "large_print",
+              "plain_language"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "raiseAlarmMethods": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "manual_call_point",
+              "pull_cord",
+              "intercom",
+              "phone_call",
+              "call_999",
+              "pendant",
+              "other"
+            ]
+          },
+          "uniqueItems": true,
+          "description": "How the individual can raise the alarm."
+        },
+        "notes": {
+          "type": "string",
+          "maxLength": 2000
+        }
+      }
+    },
+    "criticalDependency": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "oxygen_support",
+            "power_for_mobility_device",
+            "carer_support",
+            "medication_reminder",
+            "other"
+          ]
+        },
+        "notes": {
+          "type": "string",
+          "maxLength": 2000
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "procedureStep": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "order": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "instruction": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        }
+      },
+      "required": [
+        "order",
+        "instruction"
+      ]
+    },
+    "contact": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "phone": {
+          "type": "string",
+          "description": "E.164 preferred, e.g. +447700900123.",
+          "pattern": "^\\+?[0-9 \\-()]{6,20}$"
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        }
+      }
+    },
+    "responsibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "role": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "organisation": {
+          "type": "string",
+          "maxLength": 256
+        },
+        "contact": {
+          "$ref": "#/$defs/contact"
+        },
+        "notes": {
+          "type": "string",
+          "maxLength": 2000
+        }
+      },
+      "required": [
+        "role"
+      ]
+    },
+    "attachment": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "uri": {
+          "type": "string",
+          "format": "uri"
+        },
+        "contentType": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[A-Fa-f0-9]{64}$"
+        }
+      },
+      "required": [
+        "label",
+        "uri"
+      ]
+    },
+    "references": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "pcfraId": {
+          "type": "string",
+          "description": "Identifier of the source PCFRA informing this plan.",
+          "maxLength": 128
+        },
+        "buildingStatementEesId": {
+          "type": "string",
+          "description": "Identifier of the relevant EES building statement.",
+          "maxLength": 128
+        }
+      }
+    },
+    "extensions": {
+      "type": "object",
+      "description": "Optional jurisdiction or vendor-specific extensions (e.g., gbr, eu, usa, vendor::<orgCode>).",
+      "properties": {
+        "gbr": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "relevantResident": {
+              "type": "boolean",
+              "description": "Residential Regs 2025 concept: whether this individual is a relevant resident for plan duties."
+            },
+            "residentFacingStatementRef": {
+              "type": "string",
+              "description": "Reference to the resident-facing statement (plain-language EES/PEEP summary)."
+            },
+            "informationDutyEvidenceRef": {
+              "type": "string",
+              "description": "Evidence of information provided to residents/FRS (Regs 10/12)."
+            },
+            "stayingPutBoundary": {
+              "type": "string",
+              "description": "Plain description of the limits/conditions of staying put where applicable."
+            }
+          }
+        },
+        "eu": {
+          "type": "object"
+        },
+        "usa": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Semantic version of the PEEP schema (SEMVER)."
+    },
+    "peepId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "personProfile": {
+      "$ref": "https://open-peep.org/schemas/common/person_profile.schema.json"
+    },
+    "address": {
+      "$ref": "https://open-peep.org/schemas/common/address.schema.json"
+    },
+    "evacuationStrategy": {
+      "description": "Primary strategy context. Use the enum where possible; allow custom where necessary.",
+      "oneOf": [
+        {
+          "type": "string",
+          "enum": [
+            "Stay Put",
+            "Simultaneous Evacuation",
+            "Phased Evacuation",
+            "Partial Evacuation",
+            "Progressive Horizontal Evacuation"
+          ]
+        },
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        }
+      ]
+    },
+    "language": {
+      "type": "string",
+      "description": "Primary language code for plan content.",
+      "pattern": "^[a-z]{2}(-[A-Z]{2})?$"
+    },
+    "planSummary": {
+      "type": "string",
+      "description": "Plain-language, audience-neutral summary of the evacuation plan. Do not include PCFRA details; link via references.",
+      "minLength": 1,
+      "maxLength": 4000
+    },
+    "translations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/translation"
+      },
+      "uniqueItems": true
+    },
+    "metadata": {
+      "$ref": "#/$defs/metadata"
+    },
+    "validity": {
+      "$ref": "#/$defs/validity"
+    },
+    "routes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/route"
+      },
+      "minItems": 1
+    },
+    "communications": {
+      "$ref": "#/$defs/communications"
+    },
+    "nighttimeConsiderations": {
+      "type": "string",
+      "maxLength": 4000
+    },
+    "trainingDrills": {
+      "type": "string",
+      "maxLength": 4000
+    },
+    "criticalDependencies": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/criticalDependency"
+      }
+    },
+    "evacuationProcedure": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/procedureStep"
+      },
+      "minItems": 1
+    },
+    "responsibilities": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/responsibility"
+      }
+    },
+    "attachments": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/attachment"
+      }
+    },
+    "references": {
+      "$ref": "#/$defs/references"
+    },
+    "consent": {
+      "$ref": "https://open-peep.org/schemas/common/consent.schema.json"
+    },
+    "reviews": {
+      "type": "array",
+      "description": "Lifecycle reviews for this PEEP.",
+      "items": {
+        "$ref": "https://open-peep.org/schemas/common/review.schema.json"
+      }
+    },
+    "extensions": {
+      "$ref": "#/$defs/extensions"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "peepId",
+    "personProfile",
+    "address",
+    "evacuationStrategy",
+    "routes",
+    "evacuationProcedure",
+    "planSummary",
+    "metadata"
+  ],
+  "allOf": [
+    {
+      "description": "At least one route must be named 'Primary'.",
+      "properties": {
+        "routes": {
+          "type": "array",
+          "contains": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "const": "Primary"
+              }
+            },
+            "required": [
+              "name"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

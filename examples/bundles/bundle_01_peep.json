@@ -1,0 +1,203 @@
+{
+  "schemaVersion": "1.0.0",
+  "peepId": "peep-alex-thompson-uuid-001",
+  "personProfile": {
+    "personRef": "person-alex-thompson-uuid-001",
+    "name": "Alex Thompson",
+    "preferredLanguage": "en-GB",
+    "contact": {
+      "phone": "+447700900123",
+      "email": "alex.thompson@example.com"
+    }
+  },
+  "address": {
+    "buildingName": "Churchill House",
+    "subBuilding": "Flat 12A",
+    "addressLine1": "45 High Street",
+    "townCity": "Manchester",
+    "county": "Greater Manchester",
+    "postcode": "M1 1AA",
+    "countryCode": "GB",
+    "uprn": "100012345678",
+    "buildingRef": "building-churchill-house-001",
+    "unitRef": "unit-churchill-12a-001"
+  },
+  "evacuationStrategy": "Simultaneous Evacuation",
+  "language": "en-GB",
+  "planSummary": "Alex Thompson is a manual wheelchair user living in Flat 12A, Churchill House (12th floor). In the event of a fire alarm, Alex should evacuate via the evacuation lift (Lift 2, west wing) with assistance from the concierge team. If the lift is unavailable, Alex should proceed to the designated refuge on Floor 12 (north stairwell) and call the concierge emergency line or 999. Two trained staff will assist with evacuation chair if required.",
+  "metadata": {
+    "createdAt": "2025-09-15T14:00:00Z",
+    "createdBy": "housing.officer@manchesterhousing.example.org",
+    "method": "in_person",
+    "versionRef": "1.0",
+    "documentRef": "https://manchesterhousing.example.org/peeps/peep-alex-thompson-uuid-001",
+    "status": "approved",
+    "goldenThreadUrn": "urn:gb:bsa:golden-thread:building-churchill-house-001",
+    "eesRef": "ees-building-churchill-house-uuid-001"
+  },
+  "validity": {
+    "effectiveFrom": "2025-09-20",
+    "effectiveTo": "2026-09-20"
+  },
+  "routes": [
+    {
+      "name": "Primary",
+      "pathDescription": "Exit Flat 12A; turn right to west wing corridor; proceed 20 metres to Lift 2 (evacuation lift). Press call button; evacuation lift will arrive within 2 minutes. Enter lift; press Ground Floor button. Exit lift; proceed through main foyer to Assembly Point A (car park, north side).",
+      "assistance": [
+        {
+          "type": "lift_with_attendant",
+          "personsRequired": 1,
+          "role": "Concierge team (24/7 on-site)",
+          "competencyProofRef": "Concierge team trained in evacuation lift operation; training records on file.",
+          "availability": "24/7",
+          "notes": "Concierge will meet Alex at Flat 12A if requested via intercom or emergency call."
+        }
+      ],
+      "equipment": [],
+      "musterPoint": "Assembly Point A (car park, north side of building)",
+      "evacuationLift": {
+        "used": true,
+        "standard": "BS EN 81-76:2011",
+        "attendantRequired": true,
+        "notes": "Evacuation lift (Lift 2) is BS EN 81-76 compliant; tested monthly; backup power supply; capacity 8 persons or 2 wheelchairs + 2 attendants."
+      },
+      "notes": "Primary route is via evacuation lift. Lift is dedicated for evacuation during alarm activation."
+    },
+    {
+      "name": "Secondary",
+      "pathDescription": "If evacuation lift (Lift 2) is unavailable: exit Flat 12A; turn left to north stairwell; proceed to designated refuge (Floor 12 landing, north stairwell, behind fire door). Wait at refuge; use refuge intercom to call concierge emergency line or call 999. Two trained staff will arrive with evacuation chair.",
+      "assistance": [
+        {
+          "type": "evac_chair",
+          "personsRequired": 2,
+          "role": "Concierge team or Fire and Rescue Service",
+          "competencyProofRef": "Concierge team trained in evacuation chair use; training records on file.",
+          "availability": "On-demand (concierge 24/7; FRS response time ~8 minutes)",
+          "notes": "Evacuation chair stored in refuge cupboard on Floor 12."
+        }
+      ],
+      "equipment": [
+        "Evacuation chair (stored in refuge cupboard, Floor 12 north stairwell)"
+      ],
+      "refuge": {
+        "location": "Floor 12 landing, north stairwell (behind fire door)",
+        "waitCondition": "Wait at refuge; use intercom to call concierge emergency line (press red button) or call 999. Stay calm; assistance will arrive. Do not attempt stairs without trained assistance."
+      },
+      "musterPoint": "Assembly Point A (car park, north side of building)",
+      "preconditions": "Use only if Lift 2 (evacuation lift) is unavailable (e.g., power failure, mechanical fault, lift already in use).",
+      "contingency": "If refuge is inaccessible (e.g., route blocked), return to Flat 12A; close door; call 999; inform FRS of location and need for rescue.",
+      "notes": "Secondary route requires evacuation chair and two trained staff. Concierge team available 24/7; if unavailable, FRS will provide evacuation assistance."
+    }
+  ],
+  "communications": {
+    "alarmHearingAbility": "hears_audible",
+    "alertingMethods": [
+      "public_address",
+      "phone_call"
+    ],
+    "raiseAlarmMethods": [
+      "manual_call_point",
+      "intercom",
+      "phone_call",
+      "call_999"
+    ],
+    "notes": "Alex can hear the building fire alarm (audible sounder in flat). Manual call points located in common areas. Intercom in flat connects to concierge desk."
+  },
+  "nighttimeConsiderations": "Alex sleeps in bedroom (rear of flat); alarm sounder is audible in bedroom. If alarm sounds at night, Alex will wake, transfer to wheelchair, and proceed to evacuation lift or refuge as per primary/secondary routes. Concierge team will check on Floor 12 residents during night-time alarms.",
+  "trainingDrills": "Alex will participate in annual fire drill (daytime); concierge team will arrange accessible drill participation (evacuation lift test). Alex has been briefed on secondary route and refuge location.",
+  "criticalDependencies": [],
+  "evacuationProcedure": [
+    {
+      "order": 1,
+      "instruction": "On hearing the fire alarm, remain calm. Transfer to wheelchair if not already in it."
+    },
+    {
+      "order": 2,
+      "instruction": "Collect mobile phone and keys. Do not collect other belongings."
+    },
+    {
+      "order": 3,
+      "instruction": "Check door for heat. If door is hot, do not open. Call 999 and inform FRS you are in Flat 12A and cannot evacuate. Otherwise, open door and check corridor for smoke/fire."
+    },
+    {
+      "order": 4,
+      "instruction": "If corridor is clear, exit flat and close door behind you. Turn right and proceed to Lift 2 (evacuation lift) in west wing."
+    },
+    {
+      "order": 5,
+      "instruction": "Press evacuation lift call button. Lift will arrive within 2 minutes. If concierge is available, they will meet you at lift."
+    },
+    {
+      "order": 6,
+      "instruction": "Enter lift; press Ground Floor button. Exit lift at ground floor; proceed through main foyer to Assembly Point A (car park, north side)."
+    },
+    {
+      "order": 7,
+      "instruction": "If evacuation lift is unavailable: turn left from flat to north stairwell; proceed to refuge (Floor 12 landing, behind fire door). Use refuge intercom (press red button) to call concierge or call 999. Wait for assistance."
+    },
+    {
+      "order": 8,
+      "instruction": "At Assembly Point A, report to Fire Warden for roll call. Do not re-enter building until told it is safe by Fire and Rescue Service or building management."
+    }
+  ],
+  "responsibilities": [
+    {
+      "role": "Concierge Team (24/7 on-site)",
+      "organisation": "Manchester Housing Ltd",
+      "contact": {
+        "phone": "+441612345678",
+        "email": "concierge@manchesterhousing.example.org"
+      },
+      "notes": "Responsible for evacuation lift operation, refuge monitoring, and evacuation chair assistance. Trained in BS EN 81-76 evacuation lift procedures and evacuation chair use."
+    },
+    {
+      "role": "Building Fire Warden",
+      "organisation": "Manchester Housing Ltd",
+      "contact": {
+        "phone": "+441612345679"
+      },
+      "notes": "Responsible for roll call at Assembly Point A; liaison with Fire and Rescue Service."
+    }
+  ],
+  "attachments": [
+    {
+      "label": "Floor plan showing evacuation routes",
+      "uri": "https://manchesterhousing.example.org/attachments/churchill-house-floor-12-evac-plan.pdf",
+      "contentType": "application/pdf",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "Evacuation lift operating instructions",
+      "uri": "https://manchesterhousing.example.org/attachments/lift-2-evac-instructions.pdf",
+      "contentType": "application/pdf",
+      "sha256": "a3c0d44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852c123"
+    }
+  ],
+  "references": {
+    "pcfraId": "pcfra-person-alex-thompson-uuid-001",
+    "buildingStatementEesId": "ees-building-churchill-house-uuid-001"
+  },
+  "consent": {
+    "state": "given",
+    "capturedAt": "2025-09-15T10:30:00Z",
+    "capturedBy": "housing.officer@manchesterhousing.example.org",
+    "scope": [
+      "pcfra",
+      "peep",
+      "rpeep",
+      "ees_person_statement",
+      "share_with_frs"
+    ],
+    "method": "written"
+  },
+  "reviews": [],
+  "extensions": {
+    "gbr": {
+      "relevantResident": true,
+      "residentFacingStatementRef": "ees-personal-alex-thompson-uuid-001",
+      "informationDutyEvidenceRef": "https://manchesterhousing.example.org/evidence/info-duty-alex-thompson-2025-09-20.pdf",
+      "stayingPutBoundary": "Do not stay put if fire is in your flat or corridor. Evacuate immediately via evacuation lift or proceed to refuge and call for assistance."
+    }
+  }
+}
+

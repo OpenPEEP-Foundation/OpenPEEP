@@ -1,0 +1,135 @@
+{
+  "schemaVersion": "1.0.0",
+  "peepId": "peep-complex-uuid-003",
+  "personProfile": {
+    "personRef": "person-complex-uuid-003",
+    "name": "Taylor Chen",
+    "preferredLanguage": "en-GB",
+    "communicationPreferences": {
+      "formatPreferences": ["large_print", "high_contrast"]
+    }
+  },
+  "address": {
+    "buildingName": "Victoria Tower",
+    "subBuilding": "Flat 15G",
+    "townCity": "Glasgow",
+    "postcode": "G1 1AA",
+    "countryCode": "GB",
+    "buildingRef": "building-victoria-tower-001",
+    "unitRef": "unit-victoria-15g-001"
+  },
+  "evacuationStrategy": "Simultaneous Evacuation",
+  "language": "en-GB",
+  "planSummary": "Taylor Chen uses a powered wheelchair and has reduced hearing. Primary evacuation route via evacuation lift (Lift 3). If lift unavailable, proceed to refuge on Floor 15 and await evacuation chair assistance. Visual alarm beacons installed at workstation.",
+  "metadata": {
+    "createdAt": "2025-10-10T11:00:00Z",
+    "createdBy": "fire.safety@glasgow.example.org",
+    "method": "in_person",
+    "status": "approved",
+    "goldenThreadUrn": "urn:gb:bsa:golden-thread:building-victoria-tower-001"
+  },
+  "validity": {
+    "effectiveFrom": "2025-10-15",
+    "effectiveTo": "2026-10-15"
+  },
+  "routes": [
+    {
+      "name": "Primary",
+      "pathDescription": "Exit flat; proceed 15m west to Lift 3 (evacuation lift); call lift; enter when doors open; press G button; exit at ground floor; proceed to Assembly Point A.",
+      "assistance": [
+        {
+          "type": "lift_with_attendant",
+          "personsRequired": 1,
+          "role": "Concierge (24/7)",
+          "availability": "24/7"
+        }
+      ],
+      "evacuationLift": {
+        "used": true,
+        "standard": "BS EN 81-76:2011",
+        "attendantRequired": true
+      },
+      "musterPoint": "Assembly Point A (car park east)"
+    },
+    {
+      "name": "Secondary",
+      "pathDescription": "If Lift 3 unavailable: proceed to refuge (Floor 15 north stairwell); use refuge intercom; await evacuation chair assistance.",
+      "assistance": [
+        {
+          "type": "evac_chair",
+          "personsRequired": 2,
+          "role": "Concierge or Fire Service"
+        }
+      ],
+      "equipment": ["Evacuation chair (stored at refuge)"],
+      "refuge": {
+        "location": "Floor 15 north stairwell landing",
+        "waitCondition": "Press red intercom button; call concierge or 999; wait for assistance."
+      },
+      "musterPoint": "Assembly Point A (car park east)",
+      "contingency": "If refuge inaccessible: return to flat; close door; call 999; inform FRS of location."
+    }
+  ],
+  "communications": {
+    "alarmHearingAbility": "needs_visual",
+    "alertingMethods": ["visual_beacons"],
+    "raiseAlarmMethods": ["manual_call_point", "intercom", "call_999"]
+  },
+  "criticalDependencies": [
+    {
+      "type": "power_for_mobility_device",
+      "notes": "Powered wheelchair requires daily charging. Battery life: 8 hours. Spare battery kept in flat."
+    }
+  ],
+  "evacuationProcedure": [
+    {
+      "order": 1,
+      "instruction": "Visual alarm beacon will flash. Remain calm."
+    },
+    {
+      "order": 2,
+      "instruction": "Transfer to powered wheelchair if not already in it. Collect mobile phone and keys."
+    },
+    {
+      "order": 3,
+      "instruction": "Exit flat; proceed west to Lift 3 (evacuation lift)."
+    },
+    {
+      "order": 4,
+      "instruction": "Press lift call button. Concierge may meet you. Enter lift when doors open."
+    },
+    {
+      "order": 5,
+      "instruction": "Press G (Ground) button. Exit at ground floor; proceed to Assembly Point A."
+    },
+    {
+      "order": 6,
+      "instruction": "If lift unavailable: proceed to refuge (north stairwell). Press red intercom button or call 999. Wait for assistance."
+    }
+  ],
+  "responsibilities": [
+    {
+      "role": "Concierge Team (24/7)",
+      "organisation": "Glasgow Housing Ltd",
+      "contact": {"phone": "+441412345678"}
+    }
+  ],
+  "references": {
+    "pcfraId": "pcfra-person-complex-uuid-003",
+    "buildingStatementEesId": "ees-building-victoria-tower-001"
+  },
+  "consent": {
+    "state": "given",
+    "capturedAt": "2025-10-10T09:00:00Z",
+    "capturedBy": "housing@glasgow.example.org",
+    "scope": ["pcfra", "peep", "share_with_frs"],
+    "method": "written"
+  },
+  "reviews": [],
+  "extensions": {
+    "gbr": {
+      "relevantResident": true
+    }
+  }
+}
+

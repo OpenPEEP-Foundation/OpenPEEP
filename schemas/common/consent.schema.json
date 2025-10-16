@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://open-peep.org/schemas/common/consent.schema.json",
+  "title": "Consent",
+  "description": "Minimal, legally-auditable consent record for evacuation planning under UK fire safety regulation. Records whether consent was given, refused, or withdrawn; includes timestamp, recording actor, scoped purpose(s), and minimal provenance. Reusable across PCFRA, PEEP, RPEEP (including Emergency Evacuation Statement person statement), and controlled sharing. Not an access-control or permissions model.",
+  "$comment": "Aligned with Fire Safety (Residential Evacuation Plans) (England) Regulations 2025; Regulatory Reform (Fire Safety) Order 2005; Building Safety Act 2022 (golden thread); Equality Act 2010; Approved Document B; NFCC Person-Centred Fire Risk Framework. Optional references: BS 9991 / BS 9999 / BS 7974 / EN 81-76.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "state": {
+      "type": "string",
+      "enum": ["given", "refused", "withdrawn"],
+      "description": "Outcome of the consent decision."
+    },
+    "capturedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the consent decision was recorded."
+    },
+    "capturedBy": {
+      "type": "string",
+      "description": "Identifier of the person or system that recorded the consent decision (e.g., assessor user ID, organisation email)."
+    },
+    "scope": {
+      "type": "array",
+      "description": "The action(s) or document class(es) that this consent applies to.",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": ["pcfra", "peep", "rpeep", "ees_person_statement", "share_with_frs"]
+      }
+    },
+    "method": {
+      "type": "string",
+      "enum": ["written", "verbal", "assisted"],
+      "description": "How consent was captured. 'Assisted' may be used where reasonable adjustments were required."
+    },
+    "reason": {
+      "type": "string",
+      "description": "Optional short reason for refusal or withdrawal, if provided by the resident."
+    },
+    "notes": {
+      "type": "string",
+      "description": "Optional contextual notes (data minimisation applies; do not include medical/impairment details here)."
+    },
+    "evidenceRef": {
+      "type": "string",
+      "description": "Reference or link to external evidence (e.g., signature file, scanned form). Do not embed the artefact."
+    },
+    "offerMadeAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the offer to provide consent was made (useful where the state is 'refused')."
+    },
+    "validFrom": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When this consent becomes effective (optional)."
+    },
+    "validUntil": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When this consent ceases to be effective (optional)."
+    },
+    "personRef": {
+      "type": "string",
+      "description": "Reference/identifier of the person profile this consent relates to (do not embed the person object)."
+    },
+    "documentRef": {
+      "type": "string",
+      "description": "Reference/identifier/URI of a specific existing document (e.g., a created PCFRA/PEEP/RPEEP/EES record). Omit if no artefact exists yet."
+    }
+  },
+  "required": ["state", "capturedAt", "capturedBy", "scope"]
+}
