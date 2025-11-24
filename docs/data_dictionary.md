@@ -167,6 +167,18 @@ This dictionary is intended for:
 | `assistLevel` | enum | ❌ | `none`, `occasional_support`, `constant_support` | Assistance level |
 | `equipmentNeeded` | array (enum) | ❌ | `evac_chair_required`, `transfer_board`, `evacuation_sheet`, `stair_climber`, `rescue_sledge` | Equipment planning |
 
+#### Domain Notes
+
+| Field | Type | Required | Description | Purpose |
+|-------|------|----------|-------------|---------|
+| `domainNotes` | object | ❌ | Optional clarifying notes per capability domain. Must remain non‑sensitive and avoid diagnoses. | Brief context that aids planning |
+| `domainNotes.mobility_physical` | string | ❌ | Note relating to mobility/physical capability | Planning context |
+| `domainNotes.sensory` | string | ❌ | Note relating to sensory capability | Planning context |
+| `domainNotes.cognition_communication` | string | ❌ | Note relating to cognition/communication | Planning context |
+| `domainNotes.alertness_response` | string | ❌ | Note relating to alertness/response | Planning context |
+| `domainNotes.behavioural` | string | ❌ | Note relating to behavioural indicators | Planning context |
+| `domainNotes.planning_considerations` | string | ❌ | Note relating to assist levels/equipment | Planning context |
+
 ### Outcome Sub-object
 
 | Field | Type | Required | Description | Purpose |
@@ -208,8 +220,20 @@ This dictionary is intended for:
 | `assessmentMethod` | string (enum) | ✅ | `phone`, `digital_self`, `in_person` | Quality | NFCC |
 | `confidenceLevel` | string (enum) | ❌ | `low`, `medium`, `high` | Quality flag | NFCC |
 | `consentRef` | string | ❌ | Link to Consent record | Lawful basis | UK GDPR |
-| `environment` | object | ❌ | Observed environmental risks | Core assessment | FSO 2005; NFCC |
-| `safeguarding` | object | ❌ | Escalation and multi-agency context | Safeguarding duty | Care Act 2014 |
+| `fireLoad` | array (enum) | ❌ | Combustible load and clutter indicators | Core assessment | FSO 2005; NFCC |
+| `ignitionSources` | array (enum) | ❌ | Ignition-related risks (e.g., cooking, electrical, smoking, open flames) | Core assessment | NFCC |
+| `detectionAlarm` | array (enum) | ❌ | Detection and alarm issues (e.g., missing/non-functional alarms) | Core assessment | NFCC |
+| `escapeRoute` | array (enum) | ❌ | Escape-route safety indicators (e.g., blocked exits, poor lighting) | Core assessment | NFCC |
+| `heatingRisk` | array (enum) | ❌ | Heating-related risks (e.g., portable heaters, unsafe chimneys) | Core assessment | NFCC |
+| `oxygenRisk` | array (enum) | ❌ | Oxygen-related hazards (e.g., cylinders present, tubing trailing) | Core assessment | NFCC |
+| `petsRisk` | array (enum) | ❌ | Pet-related risks (e.g., cages blocking route, large dogs impede exit) | Core assessment | NFCC |
+| `asbViolenceRisk` | string | ❌ | ASB/violence risk note (no case details) | Safeguarding | Care Act 2014 |
+| `environmentalSafeguarding` | array (enum) | ❌ | Safeguarding indicators (environmental) | Safeguarding | Care Act 2014 |
+| `agencyInvolved` | array (enum) | ❌ | Agencies involved (roles only) | Multi-agency context | Care Act 2014 |
+| `immediateDanger` | boolean | ❌ | Immediate life safety hazard present | Escalation | FSO 2005 |
+| `immediateActionTaken` | string | ❌ | Immediate mitigation recorded | Escalation | FSO 2005 |
+| `referralsMade` | array (string) | ❌ | Opaque referral record IDs | Safeguarding | Care Act 2014 |
+| `domainNotes` | object | ❌ | Optional per-domain notes for environmental fields | Clarification | N/A |
 | `outcome` | object | ✅ | Decision outputs | Triggering PEEP | Residential Regs 2025 |
 | `provenance` | array of objects | ❌ | Source/verification details | Auditability | Building Safety Act 2022 |
 | `reviews` | array of objects (ref) | ❌ | Lifecycle reviews | Continuous improvement | FSO 2005 |
@@ -217,27 +241,32 @@ This dictionary is intended for:
 | `notes` | string | ❌ | General notes (minimal, non-sensitive) | Flexibility | N/A |
 | `attachments` | array of strings | ❌ | Attachment identifiers | Evidence | N/A |
 
-### Environment Sub-object
+### Environment Fields
 
 | Field | Type | Required | Description | Purpose |
 |-------|------|----------|-------------|---------|
-| `cooking_risk` | string | ❌ | E.g., `unattended_cooking`, `chip_pan_use`, `clutter_near_hob`, `oxygen_near_hob` | Ignition risk |
-| `electrical_risk` | string | ❌ | E.g., `socket_covers_removed`, `overloaded_extensions`, `damaged_cables`, `DIY_wiring`, `heaters_on_extension` | Electrical hazard |
-| `smoking_risk` | string | ❌ | E.g., `heavy_indoor_smoking`, `careless_disposal` | Ignition risk |
-| `hoarding_risk` | string | ❌ | E.g., `pathways_narrowed`, `combustible_load_high`, `doors_blocked` | Egress obstruction |
-| `accessEgress` | string | ❌ | E.g., `exit_blocked`, `exit_partially_blocked`, `key_management_issue` | Evacuation barrier |
-| `ignition_sources` | array of strings | ❌ | E.g., `candles_unattended`, `multiple_space_heaters`, `open_flame` | Ignition risk |
-| `pets_risk` | string | ❌ | E.g., `large_dogs_impeding_exit`, `pet_cages_blocking_route` | Egress obstruction |
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `fireLoad` | array (enum) | ❌ | Combustible load/clutter indicators |
+| `ignitionSources` | array (enum) | ❌ | Ignition-related risks |
+| `detectionAlarm` | array (enum) | ❌ | Detection and alarm issues |
+| `escapeRoute` | array (enum) | ❌ | Escape-route safety indicators |
+| `heatingRisk` | array (enum) | ❌ | Heating-related risks |
+| `oxygenRisk` | array (enum) | ❌ | Oxygen-related hazards |
+| `petsRisk` | array (enum) | ❌ | Pet-related risks |
 
-### Safeguarding Sub-object
+### Safeguarding Fields
 
 | Field | Type | Required | Description | Purpose |
 |-------|------|----------|-------------|---------|
-| `asbViolenceRisk` | string | ❌ | E.g., `ASB_reported`, `threats_to_staff`, `police_attendance_history` | Staff safety |
-| `agencyInvolved` | array (enum) | ❌ | `police`, `adult_social_care`, `mental_health_team`, `landlord_housing`, `fire_and_rescue`, `other_agency` | Multi-agency context |
-| `immediateDanger` | boolean | ❌ | True if immediate life safety hazard at assessment | Escalation trigger |
-| `immediateActionTaken` | string | ❌ | E.g., `isolated_circuit`, `removed_portable_heater`, `called_999` | Mitigation record |
-| `referralsMade` | array of strings | ❌ | Referral record IDs | Safeguarding trail |
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `asbViolenceRisk` | string | ❌ | ASB/violence risk note (no case details) |
+| `environmentalSafeguarding` | array (enum) | ❌ | Safeguarding indicators (environmental) |
+| `agencyInvolved` | array (enum) | ❌ | Agencies involved (roles only) |
+| `immediateDanger` | boolean | ❌ | Immediate life safety hazard present |
+| `immediateActionTaken` | string | ❌ | Immediate mitigation recorded |
+| `referralsMade` | array (string) | ❌ | Referral record IDs |
 
 ---
 
@@ -402,6 +431,12 @@ This dictionary is intended for:
 - **URI**: valid URI format
 - **max N**: maximum character length
 - **ref**: reference to another schema (via `$ref`)
+
+### Annotations (Schema Metadata)
+
+- Fields in schemas may include two non-validating annotations for classification:
+  - `x-openpeep-kind` (role of field) and `x-openpeep-domain` (capability/risk domain)
+- These annotations assist software with grouping, analytics, and profile transformations; they are not part of the instance data and do not affect validation.
 
 ---
 

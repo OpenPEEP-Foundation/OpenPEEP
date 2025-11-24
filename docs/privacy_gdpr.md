@@ -68,6 +68,10 @@ OpenPEEP schemas enforce data minimisation by:
 4. **Optional fields** — most fields are optional; required fields are minimal
 5. **Pseudonymisation in examples** — all example data uses fictitious identities
 
+### Annotations and Personal Data
+
+OpenPEEP schemas include two machine-readable annotations — `x-openpeep-kind` and `x-openpeep-domain` — to classify fields by role and domain. These are **schema metadata only** and do not add new categories of personal data. They help consumers group fields, drive accessibility-friendly UIs, and support analytics aligned to the NFCC framework without weakening data minimisation principles.
+
 ### What NOT to Collect
 
 The following should **NOT** be stored in OpenPEEP documents:

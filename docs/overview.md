@@ -55,6 +55,14 @@ OpenPEEP splits PCFRA into **two schema variants**:
 - A housing officer conducts a phone interview to record functional needs
 - A fire safety advisor observes and records mobility and sensory capabilities
 
+#### Cross-cutting annotations
+
+The personal PCFRA employs two schema annotations to support consistent implementation:
+- `x-openpeep-kind` — classifies a field’s role (e.g., functional capability vs planning consideration)
+- `x-openpeep-domain` — groups a field by domain (mobility_physical, sensory, cognition_communication, alertness_response, behavioural, planning_considerations)
+
+Annotations are schema metadata; they do not alter validation or add personal data. They enable UI grouping, analytics, and transformation of PCFRA outputs into PEEPs and EES content.
+
 #### PCFRA (Environmental)
 
 **Schema:** `pcfra.environment.schema.json`

@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Top-level `examples` to `pcfra.person.schema.json` (nominal, minimal/edge, and consent/withdrawal context) to support validator UX and documentation.
 - Initial schema suite (beta):
   - `peep.schema.json` — Personal Emergency Evacuation Plan
   - `pcfra.person.schema.json` — Person-Centred Fire Risk Assessment (Personal)
@@ -46,7 +47,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `package.json` with test scripts for all schemas
 
 ### Changed
-- N/A (initial release)
+- `pcfra.person.schema.json`: Moved `capability.domainNotes` inside `capability.properties` (correct schema placement). Non‑breaking (optional field).
+- `pcfra.environment.schema.json`: Corrected example JSON Pointer in `provenance.path` description to camelCase (`/capability/mobilityAid`) for consistency.
+- `pcfra.person.schema.json`: Consistency and metadata uplift retained (`x-openpeep-kind`, `x-openpeep-domain`) — non‑breaking.
 
 ### Deprecated
 - N/A (initial release)

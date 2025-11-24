@@ -244,6 +244,35 @@ Write for **11-year-old reading age** (UK government standard).
 
 ---
 
+### OpenPEEP Annotations (Schema Metadata)
+
+OpenPEEP uses two non-validating, machine-readable annotations in schemas to aid consistent implementation, UI grouping, and analytics. These annotations are part of the schema metadata; they are not data captured about people.
+
+- **`x-openpeep-kind`**: classifies the role of a field
+  - `functional_capability` — functional abilities relevant to evacuation
+  - `support_in_place` — adjustments, aids, or devices already used
+  - `behavioural_risk` — observable behaviours increasing fire risk
+  - `planning_consideration` — items that drive planning (assist levels, equipment)
+  - `outcome_field` — decision outputs (e.g., relevant resident, PEEP required)
+  - `domain_note` — free‑text clarifier for a capability domain (non‑sensitive)
+
+- **`x-openpeep-domain`**: locates a field within a domain
+  - `mobility_physical`
+  - `sensory`
+  - `cognition_communication`
+  - `alertness_response`
+  - `behavioural`
+  - `planning_considerations`
+
+Implementation notes:
+- These annotations help consumers transform PCFRA outputs into PEEPs/EES and build consistent UIs.
+- They do not add personal data and do not change validation; they are labels for software.
+- The personal PCFRA includes an optional `capability.domainNotes` object to record short, non‑sensitive clarifications per domain (avoid diagnoses).
+
+See detailed usage in the PCFRA (Person) guide.
+
+---
+
 ## Documentation Hierarchy
 
 ```

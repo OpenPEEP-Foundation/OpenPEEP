@@ -53,84 +53,258 @@
       "type": "string",
       "description": "Link to a Consent record (given/refused/withdrawn) in common/consent."
     },
-    "environment": {
-      "type": "object",
-      "description": "Observed home/environmental risks that affect ignition likelihood or evacuation safety. Record observations only; no diagnoses.",
-      "properties": {
-        "cooking_risk": {
-          "type": "string",
-          "description": "E.g. unattended_cooking, chip_pan_use, clutter_near_hob, oxygen_near_hob."
-        },
-        "electrical_risk": {
-          "type": "string",
-          "description": "E.g. socket_covers_removed, overloaded_extensions, damaged_cables, DIY_wiring, heaters_on_extension."
-        },
-        "smoking_risk": {
-          "type": "string",
-          "description": "E.g. heavy_indoor_smoking, careless_disposal."
-        },
-        "hoarding_risk": {
-          "type": "string",
-          "description": "E.g. pathways_narrowed, combustible_load_high, doors_blocked."
-        },
-        "accessEgress": {
-          "type": "string",
-          "description": "E.g. exit_blocked, exit_partially_blocked, key_management_issue."
-        },
-        "ignition_sources": {
+    "fireLoad": {
           "type": "array",
+          "description": "NFCC-aligned indicators of excessive combustible load or blocked routes.",
           "items": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "hoarding_level_1",
+              "hoarding_level_2",
+              "hoarding_level_3",
+              "combustible_load_high",
+              "pathways_narrowed",
+              "doors_blocked",
+              "clutter_near_heaters",
+              "clutter_near_cooking",
+              "flammable_liquids_present"
+            ]
           },
-          "description": "Observed ignition sources of concern (e.g. candles_unattended, multiple_space_heaters, open_flame)."
-        },
-        "pets_risk": {
+          "uniqueItems": true,
+          "x-openpeep-kind": "environment_risk",
+          "x-openpeep-domain": "environment"
+    },
+    "ignitionSources": {
+          "type": "array",
+          "description": "NFCC ignition-related risks observed.",
+          "items": {
+            "type": "string",
+            "enum": [
+              "unattended_cooking",
+              "chip_pan_use",
+              "oxygen_near_hob",
+              "candles_unattended",
+              "multiple_space_heaters",
+              "heater_near_combustibles",
+              "smoking_in_bed",
+              "heavy_indoor_smoking",
+              "oxygen_and_smoking",
+              "damaged_cables",
+              "overloaded_sockets",
+              "DIY_wiring",
+              "faulty_white_goods",
+              "open_flame_use"
+            ]
+          },
+          "uniqueItems": true,
+          "x-openpeep-kind": "environment_risk",
+          "x-openpeep-domain": "environment"
+    },
+    "detectionAlarm": {
+          "type": "array",
+          "description": "NFCC indicators relating to detection and warning.",
+          "items": {
+            "type": "string",
+            "enum": [
+              "no_smoke_alarm",
+              "alarm_missing_battery",
+              "alarm_non_functional",
+              "alarm_tampered_with",
+              "alarm_audibility_issue",
+              "alarm_poor_placement",
+              "heat_detector_missing_in_kitchen"
+            ]
+          },
+          "uniqueItems": true,
+          "x-openpeep-kind": "environment_risk",
+          "x-openpeep-domain": "environment"
+    },
+    "escapeRoute": {
+          "type": "array",
+          "description": "NFCC escape-route safety indicators.",
+          "items": {
+            "type": "string",
+            "enum": [
+              "exit_blocked",
+              "exit_partially_blocked",
+              "key_management_issue",
+              "security_grille_fitted",
+              "pets_impeding_exit",
+              "pet_cages_blocking_route",
+              "mobility_scooter_in_route",
+              "trip_hazards_present",
+              "poor_lighting"
+            ]
+          },
+          "uniqueItems": true,
+          "x-openpeep-kind": "environment_risk",
+          "x-openpeep-domain": "environment"
+    },
+    "heatingRisk": {
+          "type": "array",
+          "description": "NFCC heating-system related fire risks.",
+          "items": {
+            "type": "string",
+            "enum": [
+              "portable_heater_in_use",
+              "heater_near_clothes",
+              "solid_fuel_burner_issue",
+              "unsafe_chimney",
+              "paraffin_or_oil_heater",
+              "no_fireguard_on_open_fire"
+            ]
+          },
+          "uniqueItems": true,
+          "x-openpeep-kind": "environment_risk",
+          "x-openpeep-domain": "environment"
+    },
+    "oxygenRisk": {
+          "type": "array",
+          "description": "NFCC oxygen-related environmental hazards.",
+          "items": {
+            "type": "string",
+            "enum": [
+              "oxygen_cylinders_present",
+              "oxygen_concentrator_present",
+              "tubing_trailing",
+              "oxygen_near_ignition_sources",
+              "excess_oxygen_storage"
+            ]
+          },
+          "uniqueItems": true,
+          "x-openpeep-kind": "environment_risk",
+          "x-openpeep-domain": "environment"
+    },
+    "petsRisk": {
+          "type": "array",
+          "description": "Observed risks arising from pets and pet-related obstructions.",
+          "items": {
+            "type": "string",
+            "enum": [
+              "large_dogs_impeding_exit",
+              "pet_cages_blocking_route",
+              "aggressive_dog_to_staff"
+            ]
+          },
+          "uniqueItems": true,
+          "x-openpeep-kind": "environment_risk",
+          "x-openpeep-domain": "environment"
+    },
+    "domainNotes": {
+      "type": "object",
+      "description": "Optional clarifying notes for each environmental domain. Must remain non-sensitive and avoid diagnoses or case details.",
+      "properties": {
+        "fireLoad": {
           "type": "string",
-          "description": "E.g. large_dogs_impeding_exit, pet_cages_blocking_route."
+          "description": "Optional note relating to combustible load, hoarding, or blocked routes.",
+          "x-openpeep-kind": "domain_note",
+          "x-openpeep-domain": "environment_fire_load"
+        },
+        "ignitionSources": {
+          "type": "string",
+          "description": "Optional note relating to ignition sources such as cooking, electrical, candles, or smoking.",
+          "x-openpeep-kind": "domain_note",
+          "x-openpeep-domain": "environment_ignition_sources"
+        },
+        "detectionAlarm": {
+          "type": "string",
+          "description": "Optional note relating to detection and alarm issues (placement, operation, audibility).",
+          "x-openpeep-kind": "domain_note",
+          "x-openpeep-domain": "environment_detection_alarm"
+        },
+        "escapeRoute": {
+          "type": "string",
+          "description": "Optional note relating to escape route conditions (lighting, obstructions, key management).",
+          "x-openpeep-kind": "domain_note",
+          "x-openpeep-domain": "environment_escape_route"
+        },
+        "heating": {
+          "type": "string",
+          "description": "Optional note relating to heating-related risks (portable heaters, open fires, chimneys).",
+          "x-openpeep-kind": "domain_note",
+          "x-openpeep-domain": "environment_heating"
+        },
+        "oxygen": {
+          "type": "string",
+          "description": "Optional note relating to oxygen-related hazards (storage, tubing, proximity to ignition).",
+          "x-openpeep-kind": "domain_note",
+          "x-openpeep-domain": "environment_oxygen"
+        },
+        "pets": {
+          "type": "string",
+          "description": "Optional note relating to pets that may impede evacuation.",
+          "x-openpeep-kind": "domain_note",
+          "x-openpeep-domain": "environment_pets"
         }
       },
       "additionalProperties": false
     },
-    "safeguarding": {
-      "type": "object",
-      "description": "Escalation and multi‑agency context (no detailed police/medical data).",
-      "properties": {
-        "asbViolenceRisk": {
-          "type": "string",
-          "description": "E.g. ASB_reported, threats_to_staff, police_attendance_history (no case details)."
-        },
-        "agencyInvolved": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "enum": [
-              "police",
-              "adult_social_care",
-              "mental_health_team",
-              "landlord_housing",
-              "fire_and_rescue",
-              "other_agency"
-            ]
-          },
-          "description": "Agencies known to be involved (roles only)."
-        },
-        "immediateDanger": {
-          "type": "boolean",
-          "description": "True if conditions posed an immediate life safety hazard at assessment."
-        },
-        "immediateActionTaken": {
-          "type": "string",
-          "description": "Concise note of immediate mitigation (e.g. isolated_circuit, removed_portable_heater, called_999)."
-        },
-        "referralsMade": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "description": "Opaque IDs/links to referral records in the host system."
-        }
+    "asbViolenceRisk": {
+      "type": "string",
+      "description": "E.g. ASB_reported, threats_to_staff, police_attendance_history (no case details).",
+      "x-openpeep-kind": "safeguarding_risk",
+      "x-openpeep-domain": "safeguarding"
+    },
+    "environmentalSafeguarding": {
+      "type": "array",
+      "description": "NFCC-aligned safeguarding indicators relating to environmental conditions.",
+      "items": {
+        "type": "string",
+        "enum": [
+          "asb_reported",
+          "threats_to_staff",
+          "cuckooing_suspected",
+          "unsafe_visitors",
+          "drug_paraphernalia_present",
+          "weapons_observed",
+          "self_neglect_environment",
+          "infestation_or_filth",
+          "overcrowding"
+        ]
       },
-      "additionalProperties": false
+      "uniqueItems": true,
+      "x-openpeep-kind": "safeguarding_risk",
+      "x-openpeep-domain": "safeguarding"
+    },
+    "agencyInvolved": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "police",
+          "adult_social_care",
+          "mental_health_team",
+          "landlord_housing",
+          "fire_and_rescue",
+          "other_agency"
+        ]
+      },
+      "description": "Agencies known to be involved (roles only).",
+      "uniqueItems": true,
+      "x-openpeep-kind": "safeguarding_agency",
+      "x-openpeep-domain": "safeguarding"
+    },
+    "immediateDanger": {
+      "type": "boolean",
+      "description": "True if conditions posed an immediate life safety hazard at assessment.",
+      "x-openpeep-kind": "safeguarding_indicator",
+      "x-openpeep-domain": "safeguarding"
+    },
+    "immediateActionTaken": {
+      "type": "string",
+      "description": "Concise note of immediate mitigation (e.g. isolated_circuit, removed_portable_heater, called_999).",
+      "x-openpeep-kind": "safeguarding_action",
+      "x-openpeep-domain": "safeguarding"
+    },
+    "referralsMade": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Opaque IDs/links to referral records in the host system.",
+      "uniqueItems": true,
+      "x-openpeep-kind": "safeguarding_referral",
+      "x-openpeep-domain": "safeguarding"
     },
     "outcome": {
       "type": "object",
@@ -138,15 +312,21 @@
       "properties": {
         "relevantResident": {
           "type": "boolean",
-          "description": "True if the person is in scope for Residential Evacuation Plans under the 2025 Regulations."
+          "description": "True if the person is in scope for Residential Evacuation Plans under the 2025 Regulations.",
+          "x-openpeep-kind": "outcome_field",
+          "x-openpeep-domain": "assessment_outcome"
         },
         "peepRequired": {
           "type": "boolean",
-          "description": "True if a PEEP/RPEEP is required based on capabilities and risk."
+          "description": "True if a PEEP/RPEEP is required based on capabilities and risk.",
+          "x-openpeep-kind": "outcome_field",
+          "x-openpeep-domain": "assessment_outcome"
         },
         "rationale": {
           "type": "string",
-          "description": "Short justification for the decision, avoiding medical detail."
+          "description": "Short justification for the decision, avoiding medical detail.",
+          "x-openpeep-kind": "outcome_field",
+          "x-openpeep-domain": "assessment_outcome"
         }
       },
       "required": [
@@ -164,7 +344,7 @@
         "properties": {
           "path": {
             "type": "string",
-            "description": "JSON Pointer to the field (e.g. /capability/mobility_aid)."
+            "description": "JSON Pointer to the field (e.g. /ignitionSources)."
           },
           "source": {
             "type": "string",
@@ -229,9 +409,11 @@
         "$ref": "https://open-peep.org/schemas/common/review.schema.json"
       }
     },
-    "environment_other_notes": {
+    "environmentOtherNotes": {
       "type": "string",
-      "description": "Optional plain-language notes for any environmental/safeguarding items that do not fit enumerations (keep minimal)."
+      "description": "Optional plain-language notes for any environmental/safeguarding items that do not fit enumerations (keep minimal).",
+      "x-openpeep-kind": "domain_note",
+      "x-openpeep-domain": "environment"
     },
     "notes": {
       "type": "string",

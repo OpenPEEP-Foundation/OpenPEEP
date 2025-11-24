@@ -114,6 +114,21 @@ This document explains **THE KEY PATTERN** that makes OpenPEEP:
 
 ---
 
+### Using Annotations with Profiles
+
+OpenPEEP schemas include two schema-level annotations that help you transform core data into jurisdiction profiles without changing core:
+
+- `x-openpeep-kind` — classifies field role (e.g., functional capability, planning consideration)
+- `x-openpeep-domain` — groups field by domain (mobility_physical, sensory, cognition_communication, alertness_response, behavioural, planning_considerations)
+
+How this helps:
+- Map PCFRA capability items to PEEP sections (routes, assistance, communications) deterministically
+- Generate UK `gbr` profile values (e.g., relevantResident evidence) from domain-level signals
+- Build accessible UIs that group fields consistently across jurisdictions
+
+Annotations are metadata only; they do not alter validation or instance data.
+
+---
 ## Core vs Extensions: The Pattern
 
 ### Anatomy of an OpenPEEP Document

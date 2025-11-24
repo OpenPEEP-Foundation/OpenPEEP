@@ -61,7 +61,33 @@
             "limited_distance",
             "cannot_walk"
           ],
-          "description": "Functional ability to sustain walking to an exit."
+          "description": "Functional ability to sustain walking to an exit.",
+          "x-openpeep-kind": "functional_capability",
+          "x-openpeep-domain": "mobility_physical"
+        },
+        "exertionTolerance": {
+          "type": "string",
+          "enum": [
+            "no_limitation",
+            "fatigues_quickly",
+            "requires_rest_breaks",
+            "severe_limitation"
+          ],
+          "description": "Tolerance for exertion over the course of evacuation (distance and time).",
+          "x-openpeep-kind": "functional_capability",
+          "x-openpeep-domain": "mobility_physical"
+        },
+        "balanceStability": {
+          "type": "string",
+          "enum": [
+            "stable",
+            "occasional_loss_of_balance",
+            "high_falls_risk",
+            "not_assessed"
+          ],
+          "description": "Observed balance and stability when mobilising.",
+          "x-openpeep-kind": "functional_capability",
+          "x-openpeep-domain": "mobility_physical"
         },
         "respiratoryTolerance": {
           "type": "string",
@@ -71,7 +97,9 @@
             "frequent_breaks_required",
             "oxygen_support_needed"
           ],
-          "description": "Breathing-related tolerance during evacuation."
+          "description": "Breathing-related tolerance during evacuation.",
+          "x-openpeep-kind": "functional_capability",
+          "x-openpeep-domain": "mobility_physical"
         },
         "mobilityTransfer": {
           "type": "string",
@@ -81,7 +109,32 @@
             "hoist_or_full_lift_required",
             "unable_to_transfer"
           ],
-          "description": "Ability to stand, pivot, or transfer."
+          "description": "Ability to stand, pivot, or transfer.",
+          "x-openpeep-kind": "functional_capability",
+          "x-openpeep-domain": "mobility_physical"
+        },
+        "transferType": {
+          "type": "string",
+          "enum": [
+            "independent",
+            "pivot_transfer",
+            "assisted_transfer",
+            "hoist_transfer"
+          ],
+          "description": "Typical mechanism used when transferring during care or evacuation.",
+          "x-openpeep-kind": "functional_capability",
+          "x-openpeep-domain": "mobility_physical"
+        },
+        "hoistDependency": {
+          "type": "string",
+          "enum": [
+            "no_hoist",
+            "hoist_required_for_care",
+            "hoist_required_for_transfer"
+          ],
+          "description": "Whether a hoist is required for routine care or evacuation-related transfers.",
+          "x-openpeep-kind": "functional_capability",
+          "x-openpeep-domain": "mobility_physical"
         },
         "stairTolerance": {
           "type": "string",
@@ -90,7 +143,9 @@
             "stairs_with_assist",
             "cannot_use_stairs"
           ],
-          "description": "Functional tolerance for stairs."
+          "description": "Functional tolerance for stairs.",
+          "x-openpeep-kind": "functional_capability",
+          "x-openpeep-domain": "mobility_physical"
         },
         "mobilityAid": {
           "type": "string",
@@ -102,7 +157,21 @@
             "wheelchair_manual",
             "wheelchair_powered"
           ],
-          "description": "Primary mobility aid used."
+          "description": "Primary mobility aid used.",
+          "x-openpeep-kind": "support_in_place",
+          "x-openpeep-domain": "mobility_physical"
+        },
+        "fireDoorHandlingAbility": {
+          "type": "string",
+          "enum": [
+            "independent",
+            "difficulty",
+            "unable",
+            "not_assessed"
+          ],
+          "description": "Ability to open and manage self-closing fire doors independently.",
+          "x-openpeep-kind": "functional_capability",
+          "x-openpeep-domain": "mobility_physical"
         },
         "hearingSupport": {
           "type": "string",
@@ -112,7 +181,9 @@
             "visual_alerts_required",
             "vibrating_pager"
           ],
-          "description": "Support required for alerts/communication."
+          "description": "Support required for alerts/communication.",
+          "x-openpeep-kind": "support_in_place",
+          "x-openpeep-domain": "sensory"
         },
         "sensoryHearing": {
           "type": "string",
@@ -121,7 +192,9 @@
             "reduced",
             "profound"
           ],
-          "description": "Baseline hearing ability relevant to evacuation (not a diagnosis)."
+          "description": "Baseline hearing ability relevant to evacuation (not a diagnosis).",
+          "x-openpeep-kind": "functional_capability",
+          "x-openpeep-domain": "sensory"
         },
         "visionSupport": {
           "type": "string",
@@ -131,7 +204,9 @@
             "tactile_guidance",
             "additional_lighting"
           ],
-          "description": "Support required for wayfinding/alerts."
+          "description": "Support required for wayfinding/alerts.",
+          "x-openpeep-kind": "support_in_place",
+          "x-openpeep-domain": "sensory"
         },
         "sensoryVision": {
           "type": "string",
@@ -140,7 +215,21 @@
             "low_vision",
             "blind"
           ],
-          "description": "Baseline vision ability relevant to evacuation (not a diagnosis)."
+          "description": "Baseline vision ability relevant to evacuation (not a diagnosis).",
+          "x-openpeep-kind": "functional_capability",
+          "x-openpeep-domain": "sensory"
+        },
+        "lowVisibilityTolerance": {
+          "type": "string",
+          "enum": [
+            "good",
+            "impaired",
+            "severely_impaired",
+            "not_assessed"
+          ],
+          "description": "Ability to move safely in low-visibility conditions (e.g. smoke or low lighting).",
+          "x-openpeep-kind": "functional_capability",
+          "x-openpeep-domain": "sensory"
         },
         "cognitionSupport": {
           "type": "string",
@@ -149,7 +238,9 @@
             "step_by_step_prompts",
             "carer_guidance_required"
           ],
-          "description": "Support with understanding/decision-making."
+          "description": "Support with understanding/decision-making.",
+          "x-openpeep-kind": "support_in_place",
+          "x-openpeep-domain": "cognition_communication"
         },
         "cognitionAbility": {
           "type": "string",
@@ -158,7 +249,32 @@
             "mild_support_needed",
             "significant_support_needed"
           ],
-          "description": "Ability to understand and follow emergency instructions."
+          "description": "Ability to understand and follow emergency instructions.",
+          "x-openpeep-kind": "functional_capability",
+          "x-openpeep-domain": "cognition_communication"
+        },
+        "orientationAbility": {
+          "type": "string",
+          "enum": [
+            "oriented",
+            "occasionally_disoriented",
+            "disoriented_under_stress",
+            "disoriented_even_at_rest"
+          ],
+          "description": "Ability to stay oriented to place and route, especially under emergency conditions.",
+          "x-openpeep-kind": "functional_capability",
+          "x-openpeep-domain": "cognition_communication"
+        },
+        "instructionRetention": {
+          "type": "string",
+          "enum": [
+            "retains_instructions",
+            "needs_repetition",
+            "unable_to_retain"
+          ],
+          "description": "Ability to remember and act on evacuation instructions after they are given.",
+          "x-openpeep-kind": "functional_capability",
+          "x-openpeep-domain": "cognition_communication"
         },
         "communicationSupport": {
           "type": "string",
@@ -169,7 +285,9 @@
             "AAC_device",
             "text_only"
           ],
-          "description": "Preferred/required communication methods."
+          "description": "Preferred/required communication methods.",
+          "x-openpeep-kind": "support_in_place",
+          "x-openpeep-domain": "cognition_communication"
         },
         "communicationAbility": {
           "type": "string",
@@ -179,7 +297,9 @@
             "severe_difficulty",
             "non_verbal"
           ],
-          "description": "Ability to communicate or understand emergency instructions when needed."
+          "description": "Ability to communicate or understand emergency instructions when needed.",
+          "x-openpeep-kind": "functional_capability",
+          "x-openpeep-domain": "cognition_communication"
         },
         "nightResponse": {
           "type": "string",
@@ -188,7 +308,21 @@
             "requires_vibrating_pillow",
             "deep_sleeper_support"
           ],
-          "description": "Likely responsiveness when asleep."
+          "description": "Likely responsiveness when asleep.",
+          "x-openpeep-kind": "functional_capability",
+          "x-openpeep-domain": "alertness_response"
+        },
+        "alarmRecognition": {
+          "type": "string",
+          "enum": [
+            "recognises_alarm",
+            "delayed_recognition",
+            "does_not_recognise",
+            "not_exposed_to_alarm"
+          ],
+          "description": "Whether the person recognises the alarm as a signal to take evacuation action.",
+          "x-openpeep-kind": "functional_capability",
+          "x-openpeep-domain": "alertness_response"
         },
         "alertnessSupport": {
           "type": "string",
@@ -197,7 +331,9 @@
             "prompts_needed_when_distressed",
             "simplified_instructions_required"
           ],
-          "description": "If reactions when awake require prompts/adjustments."
+          "description": "If reactions when awake require prompts/adjustments.",
+          "x-openpeep-kind": "support_in_place",
+          "x-openpeep-domain": "alertness_response"
         },
         "alertnessEffects": {
           "type": "string",
@@ -206,7 +342,9 @@
             "mildly_affected",
             "significantly_affected"
           ],
-          "description": "Whether medication/substances are likely to affect responsiveness to alarms or instructions."
+          "description": "Whether medication/substances are likely to affect responsiveness to alarms or instructions.",
+          "x-openpeep-kind": "functional_capability",
+          "x-openpeep-domain": "alertness_response"
         },
         "equipmentDependency": {
           "type": "string",
@@ -217,7 +355,9 @@
             "powered_bed",
             "other_equipment"
           ],
-          "description": "Critical equipment affecting evacuation."
+          "description": "Critical equipment affecting evacuation.",
+          "x-openpeep-kind": "support_in_place",
+          "x-openpeep-domain": "planning_considerations"
         },
         "behaviouralRisks": {
           "type": "array",
@@ -232,9 +372,13 @@
               "confusion_in_emergency",
               "substances_present",
               "fire_setting_behaviour",
+              "unsafe_charging_observed",
+              "escape_route_clutter_personal",
               "other_observed"
             ]
-          }
+          },
+          "x-openpeep-kind": "behavioural_risk",
+          "x-openpeep-domain": "behavioural"
         },
         "assistRequired": {
           "type": "string",
@@ -243,7 +387,9 @@
             "needs_assist_1",
             "needs_assist_2"
           ],
-          "description": "Summary of human assistance required."
+          "description": "Summary of human assistance required.",
+          "x-openpeep-kind": "planning_consideration",
+          "x-openpeep-domain": "planning_considerations"
         },
         "assistLevel": {
           "type": "string",
@@ -252,7 +398,9 @@
             "occasional_support",
             "constant_support"
           ],
-          "description": "Level of human assistance needed to evacuate (derived from assessment question)."
+          "description": "Level of human assistance needed to evacuate (derived from assessment question).",
+          "x-openpeep-kind": "planning_consideration",
+          "x-openpeep-domain": "planning_considerations"
         },
         "equipmentNeeded": {
           "type": "array",
@@ -266,7 +414,52 @@
               "stair_climber",
               "rescue_sledge"
             ]
-          }
+          },
+          "x-openpeep-kind": "planning_consideration",
+          "x-openpeep-domain": "planning_considerations"
+        },
+        "domainNotes": {
+          "type": "object",
+          "description": "Optional clarifying notes for each capability domain. Must remain non-sensitive and avoid diagnoses.",
+          "properties": {
+            "mobility_physical": {
+              "type": "string",
+              "description": "Optional note relating to mobility and physical capability.",
+              "x-openpeep-kind": "domain_note",
+              "x-openpeep-domain": "mobility_physical"
+            },
+            "sensory": {
+              "type": "string",
+              "description": "Optional note relating to sensory capability.",
+              "x-openpeep-kind": "domain_note",
+              "x-openpeep-domain": "sensory"
+            },
+            "cognition_communication": {
+              "type": "string",
+              "description": "Optional note relating to cognition or communication.",
+              "x-openpeep-kind": "domain_note",
+              "x-openpeep-domain": "cognition_communication"
+            },
+            "alertness_response": {
+              "type": "string",
+              "description": "Optional note relating to alertness and response.",
+              "x-openpeep-kind": "domain_note",
+              "x-openpeep-domain": "alertness_response"
+            },
+            "behavioural": {
+              "type": "string",
+              "description": "Optional note relating to behavioural risk indicators.",
+              "x-openpeep-kind": "domain_note",
+              "x-openpeep-domain": "behavioural"
+            },
+            "planning_considerations": {
+              "type": "string",
+              "description": "Optional note relating to planning considerations such as equipment or assist levels.",
+              "x-openpeep-kind": "domain_note",
+              "x-openpeep-domain": "planning_considerations"
+            }
+          },
+          "additionalProperties": false
         }
       },
       "additionalProperties": false
@@ -277,15 +470,21 @@
       "properties": {
         "relevantResident": {
           "type": "boolean",
-          "description": "True if the person is in scope for Residential Evacuation Plans under the 2025 Regulations."
+          "description": "True if the person is in scope for Residential Evacuation Plans under the 2025 Regulations.",
+          "x-openpeep-kind": "outcome_field",
+          "x-openpeep-domain": "assessment_outcome"
         },
         "peepRequired": {
           "type": "boolean",
-          "description": "True if a PEEP/RPEEP is required based on capabilities and risk."
+          "description": "True if a PEEP/RPEEP is required based on capabilities and risk.",
+          "x-openpeep-kind": "outcome_field",
+          "x-openpeep-domain": "assessment_outcome"
         },
         "rationale": {
           "type": "string",
-          "description": "Short justification for the decision, avoiding medical detail."
+          "description": "Short justification for the decision, avoiding medical detail.",
+          "x-openpeep-kind": "outcome_field",
+          "x-openpeep-domain": "assessment_outcome"
         }
       },
       "required": [
@@ -303,7 +502,7 @@
         "properties": {
           "path": {
             "type": "string",
-            "description": "JSON Pointer to the field (e.g. /capability/mobility_aid)."
+            "description": "JSON Pointer to the field (e.g. /capability/mobilityAid)."
           },
           "source": {
             "type": "string",
@@ -386,5 +585,60 @@
     "assessmentMethod",
     "outcome"
   ],
-  "additionalProperties": false
+  "additionalProperties": false,
+  "examples": [
+    {
+      "pcfraId": "a4e5b9d2-1a73-4c6b-9e4b-1f0a9d2c7f11",
+      "version": "0.2.0",
+      "personRef": "person-001",
+      "assessedAt": "2025-11-16T10:15:00Z",
+      "assessorRole": "housing_officer",
+      "assessmentMethod": "in_person",
+      "confidenceLevel": "high",
+      "consentRef": "consent-abc-123",
+      "capability": {
+        "walkingEndurance": "needs_frequent_breaks",
+        "stairTolerance": "stairs_with_assist",
+        "mobilityAid": "frame",
+        "hearingSupport": "hearing_aid",
+        "communicationSupport": "plain_language",
+        "assistRequired": "needs_assist_1",
+        "equipmentNeeded": ["evac_chair_required"],
+        "domainNotes": {
+          "mobility_physical": "Prefers frame; short rest beneficial on long corridors."
+        }
+      },
+      "outcome": {
+        "relevantResident": true,
+        "peepRequired": true,
+        "rationale": "Mobility limitations and stair assistance indicate PEEP is required."
+      }
+    },
+    {
+      "personRef": "person-002",
+      "assessedAt": "2025-11-16T09:00:00Z",
+      "assessmentMethod": "phone",
+      "outcome": {
+        "relevantResident": false,
+        "peepRequired": false,
+        "rationale": "No functional limitations reported; simultaneous evacuation strategy."
+      }
+    },
+    {
+      "personRef": "person-003",
+      "assessedAt": "2025-11-16T08:30:00Z",
+      "assessmentMethod": "digital_self",
+      "confidenceLevel": "low",
+      "consentRef": "consent-withdrawn-789",
+      "capability": {
+        "communicationSupport": "plain_language"
+      },
+      "outcome": {
+        "relevantResident": true,
+        "peepRequired": false,
+        "rationale": "Insufficient verified information and no observed limitations; review at next visit."
+      },
+      "notes": "Self-assessment only; consent recently withdrawn for data sharing beyond landlord."
+    }
+  ]
 }

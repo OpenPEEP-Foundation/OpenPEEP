@@ -154,9 +154,23 @@ OpenPEEP is designed to support compliance with:
 | Concept | Schema Field(s) | Notes |
 |---------|----------------|-------|
 | Functional assessment | `pcfra.person.capability.*` | Comprehensive functional capability capture |
-| Environmental risks | `pcfra.environment.environment.*`, `pcfra.environment.safeguarding.*` | Observable risks; no diagnoses |
-| Multi-agency | `pcfra.environment.safeguarding.agencyInvolved`, `pcfra.environment.safeguarding.referralsMade` | Safeguarding context |
+| Environmental risks | `pcfra.environment.[fireLoad, ignitionSources, detectionAlarm, escapeRoute, heatingRisk, oxygenRisk, petsRisk]` | Observable risks; no diagnoses |
+| Multi-agency | `pcfra.environment.[agencyInvolved, referralsMade]` | Safeguarding context |
 | Review cycles | `pcfra.person.reviews[]`, `peep.reviews[]`, `review.next_due` | Annual review tracking |
+
+#### Classification Annotations
+
+To support consistent implementation and analytics, OpenPEEP uses schema annotations:
+
+- `x-openpeep-kind`: classifies fields (e.g., `functional_capability`, `support_in_place`, `behavioural_risk`, `planning_consideration`, `outcome_field`)
+- `x-openpeep-domain`: groups fields into domains (`mobility_physical`, `sensory`, `cognition_communication`, `alertness_response`, `behavioural`, `planning_considerations`)
+
+These labels enable:
+- Clear mapping from PCFRA capability items to PEEP sections (routes, assistance, communications) and EES content
+- Domain-level reporting aligned with the NFCC framework
+- UI grouping and accessibility-friendly presentation
+
+Note: These annotations are schema metadata; they do not change validation or add personal data.
 
 ---
 
@@ -329,8 +343,8 @@ For duty holders preparing RPEEPs under the **Fire Safety (Residential Evacuatio
 
 ### PCFRA (Environmental) (if applicable)
 
-- [ ] **Assess dwelling/setting risks** (`pcfra.environment.environment.*`)
-- [ ] **Record safeguarding context** (`pcfra.environment.safeguarding.*` if applicable)
+- [ ] **Assess dwelling/setting risks** (`pcfra.environment.[fireLoad, ignitionSources, detectionAlarm, escapeRoute, heatingRisk, oxygenRisk, petsRisk]`)
+- [ ] **Record safeguarding context** (`pcfra.environment.[asbViolenceRisk, environmentalSafeguarding, agencyInvolved, immediateDanger, immediateActionTaken, referralsMade]` if applicable)
 - [ ] **Determine PEEP requirement** (`pcfra.environment.outcome.peepRequired`)
 
 ### PEEP

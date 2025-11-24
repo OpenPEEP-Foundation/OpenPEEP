@@ -119,6 +119,11 @@ OpenPEEP aligns with established international standards:
 
 Each serves a distinct purpose. Link them via references (UUIDs).
 
+#### PCFRA structure at a glance
+- Personal PCFRA: uses a `capability` object (functional fields + optional `capability.domainNotes`).
+- Environmental PCFRA: uses flattened top‑level fields (e.g., `fireLoad`, `ignitionSources`, `detectionAlarm`, `escapeRoute`, `heatingRisk`, `oxygenRisk`, `petsRisk`) plus safeguarding at top level (`asbViolenceRisk`, `environmentalSafeguarding`, `agencyInvolved`, `immediateDanger`, `immediateActionTaken`, `referralsMade`) and optional `domainNotes`.
+- Both schemas use `x-openpeep-kind` and `x-openpeep-domain` annotations to support consistent grouping, UI, and analytics.
+
 ### 4. **Core + Extensions Pattern**
 
 **This is what makes OpenPEEP universally adoptable.**

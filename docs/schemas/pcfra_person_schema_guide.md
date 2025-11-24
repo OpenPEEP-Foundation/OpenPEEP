@@ -492,6 +492,37 @@ This is where you record **what the person can and cannot do** for evacuation pu
 
 ## Capability Fields Explained
 
+### Annotations (Schema Metadata)
+
+Most capability fields include two schema annotations to aid implementation. These labels are metadata only (not part of instance data):
+
+- `x-openpeep-kind`: role of the field (`functional_capability`, `support_in_place`, `behavioural_risk`, `planning_consideration`)
+- `x-openpeep-domain`: capability domain (`mobility_physical`, `sensory`, `cognition_communication`, `alertness_response`, `behavioural`, `planning_considerations`)
+
+These annotations enable:
+- Consistent UI grouping and accessibility-friendly presentation
+- Domain-level analytics and reporting aligned to NFCC
+- Transformation of PCFRA outputs into PEEP/EES sections
+
+### Domain Notes
+
+The `capability.domainNotes` object allows brief, non‑sensitive clarifications per domain. This is optional and must avoid diagnoses.
+
+```json
+"capability": {
+  "assistRequired": "needs_assist_1",
+  "equipmentNeeded": ["evac_chair_required"],
+  "domainNotes": {
+    "mobility_physical": "Prefers frame; short rest beneficial on long corridors.",
+    "sensory": "Visual beacons helpful in low light."
+  }
+}
+```
+
+Good practice:
+- Keep notes short and actionable
+- Avoid medical detail; describe functional impact
+
 ### Mobility Fields
 
 #### `walkingEndurance`

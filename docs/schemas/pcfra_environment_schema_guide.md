@@ -107,18 +107,18 @@ It's an assessment of **dwelling/setting risks** that affect fire safety.
   "assessmentMethod": "in_person",
   "confidenceLevel": "high",
   "consentRef": "consent-alex-thompson-uuid-001",
-  "environment": {
-    "cooking_risk": "None observed. Kitchen tidy; smoke alarm functional.",
-    "electrical_risk": "None observed. No overloaded sockets.",
-    "smoking_risk": "None observed. Non-smoker.",
-    "hoarding_risk": "None observed. Clear pathways.",
-    "accessEgress": "Clear. No obstructions.",
-    "ignition_sources": [],
-    "pets_risk": "None."
-  },
-  "safeguarding": {
-    "immediateDanger": false
-  },
+  "fireLoad": ["pathways_narrowed"],
+  "ignitionSources": [],
+  "detectionAlarm": [],
+  "escapeRoute": ["exit_partially_blocked"],
+  "heatingRisk": [],
+  "oxygenRisk": [],
+  "petsRisk": [],
+  "asbViolenceRisk": "None reported.",
+  "environmentalSafeguarding": [],
+  "agencyInvolved": [],
+  "immediateDanger": false,
+  "immediateActionTaken": "None required.",
   "outcome": {
     "relevantResident": true,
     "peepRequired": true,
@@ -257,35 +257,34 @@ Always conduct in-person for environmental PCFRA.
 **What it is:**  
 Observed environmental/home risks.
 
-**Fields within environment:**
-- `cooking_risk`
-- `electrical_risk`
-- `smoking_risk`
-- `hoarding_risk`
-- `accessEgress`
-- `ignition_sources` (array)
-- `pets_risk`
+**Environment fields (top-level, arrays of enums):**
+- `fireLoad`
+- `ignitionSources`
+- `detectionAlarm`
+- `escapeRoute`
+- `heatingRisk`
+- `oxygenRisk`
+- `petsRisk`
 
-All fields are **optional strings** (free text or your own categorization).
+All fields are **optional** and accept enumerated values; multiple selections are allowed (arrays with unique items).
 
 **See:** [Environment Fields Explained](#environment-fields-explained) below.
 
 ---
 
-#### `safeguarding`
+#### Safeguarding fields (top-level)
 
-**Type:** Object  
+**Type:** Mixed (string, boolean, arrays)  
 **Required:** ❌ No
 
-**What it is:**  
-Safeguarding and multi-agency context.
-
-**Fields within safeguarding:**
-- `asbViolenceRisk`
-- `agencyInvolved` (array)
+**What they are:**  
+Top-level fields for safeguarding and multi-agency context:
+- `asbViolenceRisk` (string)
+- `environmentalSafeguarding` (array of enums)
+- `agencyInvolved` (array of enums)
 - `immediateDanger` (boolean)
-- `immediateActionTaken`
-- `referralsMade` (array)
+- `immediateActionTaken` (string)
+- `referralsMade` (array of strings)
 
 **See:** [Safeguarding Fields Explained](#safeguarding-fields-explained) below.
 
@@ -784,6 +783,15 @@ ajv validate --spec=draft2020 -c ajv-formats \
   -s schemas/pcfra.environment.schema.json \
   -d your-pcfra-environment.json
 ```
+
+### Provenance Pointer Format
+
+When recording provenance for specific fields, use JSON Pointer paths with the correct casing:
+
+- Personal capability example: `/capability/mobilityAid`
+- Environmental example: `/escapeRoute`
+
+These paths correspond to field locations in their respective schemas.
 
 ### Common Errors
 

@@ -61,6 +61,15 @@ OpenPEEP defines the **entire lifecycle** of evacuation planning — from initia
 
 **Why it matters:** The PCFRA forms the foundation for everything that follows. It is the "assessment" that feeds into the "plan."
 
+#### PCFRA structure (how to read the data)
+- Personal PCFRA: one `capability` object with functional fields (mobility, sensory, cognition, communication, awareness) and optional `capability.domainNotes`.
+- Environmental PCFRA: flattened top‑level fields for environmental indicators:
+  - `fireLoad`, `ignitionSources`, `detectionAlarm`, `escapeRoute`, `heatingRisk`, `oxygenRisk`, `petsRisk`
+  - Safeguarding at top level: `asbViolenceRisk`, `environmentalSafeguarding`, `agencyInvolved`, `immediateDanger`, `immediateActionTaken`, `referralsMade`
+  - Optional `domainNotes` for brief clarifiers (non‑sensitive)
+- Both use annotations for grouping and analytics:
+  - `x-openpeep-kind` (role) and `x-openpeep-domain` (domain) — these are metadata that do not change validation.
+
 ### 2. PEEP Creation and Management
 
 **What it is:** The actual evacuation plan created from PCFRA data, structured in a standardised digital format.

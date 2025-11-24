@@ -306,6 +306,22 @@ For detailed technical specifications, API documentation, and implementation gui
 
 ---
 
+## Field Annotations (for Implementers)
+
+OpenPEEP schemas include two schema-level annotations to support consistent implementations:
+
+- `x-openpeep-kind` — classifies a field’s role (e.g., functional capability, support in place, behavioural risk, planning consideration, outcome field)
+- `x-openpeep-domain` — groups a field into a domain (mobility_physical, sensory, cognition_communication, alertness_response, behavioural, planning_considerations)
+
+These annotations help software:
+- Build accessible, logically grouped user interfaces
+- Transform PCFRA outputs into PEEP procedures and EES content
+- Produce domain-level analytics aligned with NFCC guidance
+
+Note: Annotations are schema metadata. They do not change validation and do not add personal data.
+
+---
+
 ## Get Involved
 
 - [**Get Started**](https://github.com/OpenPEEP-Foundation/OpenPEEP/blob/main/README.md) — Learn how to implement OpenPEEP
