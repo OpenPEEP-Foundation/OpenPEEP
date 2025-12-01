@@ -736,7 +736,6 @@ See [Extensions Guide](docs/extensions_guide.md) for step-by-step instructions.
 - ✅ UK compliance mapping (Regs 2025, FSO 2005, BSA 2022)
 - ✅ International portability (ISO-aligned)
 - ✅ Privacy-by-design (GDPR compliant)
-- ✅ Economic valuation (£350k development value)
 
 ### **Timeline**
 
